@@ -18,9 +18,15 @@ public class MemberJoinView extends DSTask {
 	}
 
 	public void index() throws IOException {
+		MemberJoinController memberJoinController = MemberJoinController.getInstance();
+		
 		// TODO: 입력값 유효성 확인
 		println("----- 회원가입 -----");
-		print("ID: "); String id = next(); // TODO: 중복 id 확인
+		print("ID: "); String id = next();
+		while (memberJoinController.checkID(id)) {
+			println("중복 ID 입니다.");
+			print("ID: "); id = next();
+		}
 		print("Password: "); String password = next();
 		print("이름: "); String name = next();
 		print("전화번호: "); String telno = next();

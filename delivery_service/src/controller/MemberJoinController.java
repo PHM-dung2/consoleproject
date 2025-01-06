@@ -12,6 +12,10 @@ public class MemberJoinController {
 		return memberJoinController;
 	}
 	
+	public boolean checkID(String id) {
+		return Dao.getInstance().selectCheckId(id);
+	}
+	
 	public boolean join(MemberDto member) {
 		// insert 쿼리 생성
 		String sql = String.format("insert into 회원 (아이디, 비밀번호, 이름, 전화번호, 주소, 타입) values ('%s', '%s', '%s', '%s', '%s', %d)"

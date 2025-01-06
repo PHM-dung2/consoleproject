@@ -7,6 +7,8 @@ public class MemberDto {
 	private String telno;
 	private String address;
 	private int type;	
+	
+	public MemberDto() {}
 		
 	public MemberDto(String id, String password, String name, String telno, String address, int type) {
 		this.id = id;
