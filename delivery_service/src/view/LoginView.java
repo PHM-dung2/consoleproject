@@ -1,4 +1,4 @@
-package delivery_service.view;
+package view;
 
 public class LoginView {
 
