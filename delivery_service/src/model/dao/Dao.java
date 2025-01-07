@@ -55,7 +55,7 @@ public class Dao {
 	/*
 	 * 아래부터는 select 메소드 목록
 	 */
-
+	
 	// 아이디 중복 체크
 	public boolean selectCheckId(String id) {
 		boolean result = false;
@@ -97,4 +97,6 @@ public class Dao {
 
 		return member;
 	}
+	
+	
 }

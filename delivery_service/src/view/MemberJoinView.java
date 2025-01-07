@@ -38,10 +38,9 @@ public class MemberJoinView extends DSTask {
 		
 		// 컨트롤러 싱글턴 객체를 통해 DB 에 insert 한다. insert 성공하면 true 다.
 		if (MemberJoinController.getInstance().join(member)) {
-			println("----- 회원가입 성공 -----\n");	
+			println("----- 회원가입 성공 -----\n");
 		}
 		else {
-			// TODO: 실패이유 출력하기 - 중복 id 등..
 			println("!!!!! 회원가입 실패 !!!!!\n");
 		}		
 		

@@ -49,7 +49,7 @@ public class LoginView extends DSTask {
 		try {
 			Thread.sleep(2000); // 2초간 메시지 보여주고 연결을 끊는다.
 		} catch (InterruptedException e) {
-			System.err.println("키보드 인터럽트 감지되어 즉시 연결 종료합니다.");
+			System.err.println("인터럽트 감지되어 즉시 연결 종료합니다.");
 		} finally {
 			logout();	
 		}
