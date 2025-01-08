@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import model.dao.Dao;
 
 public class DSServer {
-    private static final int PORT = 5060; // 서버 포트 번호
+    private static final int PORT = 5062; // 서버 포트 번호
     private static final int THREAD_POOL_SIZE = 10; // 스레드풀 크기
     
     // 데이터베이스 연동 확인
@@ -38,9 +38,9 @@ public class DSServer {
                 threadPool.execute(new DSTask(clientSocket));
             }
         } catch (IOException e) {
-            System.err.println("Server error: " + e.getMessage());
+            System.err.println("Server IOException: " + e.getMessage());
         } catch (Exception e) { // 실수로 잡지 못한 예외는 이곳에서 최종 처리
-			System.err.println("unexpected exception: " + e.getMessage());
+			System.err.println("Unexpected Server Exception: " + e.getMessage());
         } finally {
             threadPool.shutdown(); // 스레드풀 종료
         }

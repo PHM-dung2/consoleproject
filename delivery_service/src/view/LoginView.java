@@ -28,6 +28,7 @@ public class LoginView extends DSTask {
 			print("ID: "); String id = next();
 			print("Password: "); String password = next();
 			member = loginViewController.login(id, password);
+//			clientSocket.
 			if (member != null) {
 				println("로그인 성공");
 				switch (member.getType()) {

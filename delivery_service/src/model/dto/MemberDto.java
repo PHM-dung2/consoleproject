@@ -5,16 +5,18 @@ public class MemberDto {
 	private String password;
 	private String name;
 	private String telno;
+	private RoadAddressDto roadAddressDto;
 	private int type;
 
 	public MemberDto() {
 	}
 
-	public MemberDto(String id, String password, String name, String telno, int type) {
+	public MemberDto(String id, String password, String name, String telno, RoadAddressDto roadAddressDto, int type) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.telno = telno;
+		this.roadAddressDto = roadAddressDto;
 		this.type = type;
 	}
 
@@ -58,9 +60,17 @@ public class MemberDto {
 		this.type = type;
 	}
 
+	public RoadAddressDto getRoadAddressDto() {
+		return roadAddressDto;
+	}
+
+	public void setRoadAddressDto(RoadAddressDto roadAddressDto) {
+		this.roadAddressDto = roadAddressDto;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberDto [id=" + id + ", password=" + password + ", name=" + name + ", telno=" + telno + ", type="
-				+ type + "]";
-	}
+		return "MemberDto [id=" + id + ", password=" + password + ", name=" + name + ", telno=" + telno
+				+ ", roadAddressDto=" + roadAddressDto + ", type=" + type + "]";
+	}	
 }
