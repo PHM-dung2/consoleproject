@@ -23,7 +23,7 @@ public class EntryView extends DSTask{
 			// scan.nextInt(); <-- 이 함수와 같습니다.
 		// next() 함수도 똑같습니다.
 		System.out.println("========== 입점신청 ==========");
-		
+		System.out.println("");
 		
 	}
 	

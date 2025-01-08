@@ -20,6 +20,10 @@ public class FranchiseView extends DSTask {
 		println("1.입점신청 2.메뉴등록 3.주문콜대기 4.콜리스트 5.로그아웃");
 		int choose = nextInt(1, 5);
 		
-		if ( choose == 1 ) {}
+		if ( choose == 1 ) {  }
+		else if ( choose == 2 ) {  }
+		else if ( choose == 3 ) {  }
+		else if ( choose == 4 ) {  }
+		else if ( choose == 5 ) {  }
 	}
 }
