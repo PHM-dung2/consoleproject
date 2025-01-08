@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import model.dao.Dao;
 
 public class DSServer {
-    private static final int PORT = 5062; // 서버 포트 번호
+    private static final int PORT = 5060; // 서버 포트 번호
     private static final int THREAD_POOL_SIZE = 10; // 스레드풀 크기
     
     // 데이터베이스 연동 확인
