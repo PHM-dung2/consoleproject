@@ -32,13 +32,13 @@ public class LoginView extends DSTask {
 				println("로그인 성공");
 				switch (member.getType()) {
 				case 1:
-					new AdminView(clientSocket, reader, writer).index();
+					new AdminView(clientSocket, reader, writer, member).index();
 					return;
 				case 2:
-					new FranchiseView(clientSocket, reader, writer).index();
+					new FranchiseView(clientSocket, reader, writer, member).index();
 					return;
 				case 3:
-					new CustomerView(clientSocket, reader, writer).index();
+					new CustomerView(clientSocket, reader, writer, member).index();
 					return;
 				}
 			}
