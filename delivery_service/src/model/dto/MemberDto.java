@@ -4,18 +4,16 @@ public class MemberDto {
 	private String id;
 	private String password;
 	private String name;
-	private String telno;
-	private String address;
+	private String telno;	
 	private int type;	
 	
 	public MemberDto() {}
 		
-	public MemberDto(String id, String password, String name, String telno, String address, int type) {
+	public MemberDto(String id, String password, String name, String telno, int type) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.telno = telno;
-		this.address = address;
 		this.type = type;
 	}
 	
@@ -42,13 +40,7 @@ public class MemberDto {
 	}
 	public void setTelno(String telno) {
 		this.telno = telno;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
+	}	
 	public int getType() {
 		return type;
 	}

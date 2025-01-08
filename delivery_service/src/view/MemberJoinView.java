@@ -29,12 +29,11 @@ public class MemberJoinView extends DSTask {
 		}
 		print("Password: "); String password = next();
 		print("이름: "); String name = next();
-		print("전화번호: "); String telno = next();
-		print("주소: "); String address = next();
+		print("전화번호: "); String telno = next();		
 		print("가입유형(1: 관리자, 2: 가맹회원, 3: 일반회원): "); int type = nextInt(1, 3);
 		
 		// 입력받은 값들을 MemberDto 에 넣는다.
-		MemberDto member = new MemberDto(id, password, name, telno, address, type);		
+		MemberDto member = new MemberDto(id, password, name, telno, type);		
 		
 		// 컨트롤러 싱글턴 객체를 통해 DB 에 insert 한다. insert 성공하면 true 다.
 		if (MemberJoinController.getInstance().join(member)) {

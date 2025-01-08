@@ -18,8 +18,8 @@ public class MemberJoinController {
 	
 	public boolean join(MemberDto member) {
 		// insert 쿼리 생성
-		String sql = String.format("insert into member (mid, mpwd, mname, mphone, 주소, 타입) values ('%s', '%s', '%s', '%s', '%s', %d)"
-				, member.getId(), member.getPassword(), member.getName(), member.getTelno(), member.getAddress(), member.getType());
+		String sql = String.format("insert into member (mid, mpwd, mname, mphone, mtype) values ('%s', '%s', '%s', '%s', %d)"
+				, member.getId(), member.getPassword(), member.getName(), member.getTelno(), member.getType());
 		// Dao 싱글턴 DB 객체 호출하여 쿼리 실행
 		return Dao.getInstance().execute(sql);
 	}

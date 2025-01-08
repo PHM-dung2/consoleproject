@@ -61,7 +61,7 @@ public class Dao {
 		boolean result = false;
 		
 		try {
-			String sql = String.format("select 아이디 from 회원 where 아이디 = '%s'", id);
+			String sql = String.format("select mid from member where mid = '%s'", id);
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			result = rs.next();
@@ -77,7 +77,7 @@ public class Dao {
 		MemberDto member = null;
 		
 		try {
-			String sql = String.format("select 아이디, 비밀번호, 이름, 전화번호, 주소, 타입 from 회원 where 아이디 = '%s'", id);
+			String sql = String.format("select mid, mpwd, mname, mphone, mtype from member where mid = '%s'", id);
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 
@@ -85,12 +85,11 @@ public class Dao {
 				return null; // 아무것도 조회되지 않았음
 
 			member = new MemberDto();
-			member.setId(rs.getString("아이디"));
-			member.setPassword(rs.getString("비밀번호"));
-			member.setName(rs.getString("이름"));
-			member.setTelno(rs.getString("전화번호"));
-			member.setAddress(rs.getString("주소"));
-			member.setType(rs.getInt("타입"));
+			member.setId(rs.getString("mid"));
+			member.setPassword(rs.getString("mpwd"));
+			member.setName(rs.getString("mname"));
+			member.setTelno(rs.getString("mphone"));			
+			member.setType(rs.getInt("mtype"));
 		} catch (SQLException e) {
 			System.out.println(">> " + e);
 		}
