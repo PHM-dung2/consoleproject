@@ -1,17 +1,31 @@
 package view;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
 import network.DSTask;
 
+import model.dto.MemberDto;
+
 public class AdminView extends DSTask {
-	public AdminView(Socket clientSocket, BufferedReader reader, PrintWriter writer) {
+	private MemberDto loginMember;
+	
+	public AdminView(Socket clientSocket, BufferedReader reader, PrintWriter writer, MemberDto loginMember) {
 		this.clientSocket = clientSocket;
 		this.reader = reader;
 		this.writer = writer;
+		this.loginMember = loginMember;
+	}
+	
+	public MemberDto getLoginMember() {
+		return loginMember;
+	}
+	
+	public String getLoginId() {
+		return loginMember.getId();
 	}
 
 	public void index() throws IOException {

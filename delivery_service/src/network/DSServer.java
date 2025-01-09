@@ -38,9 +38,9 @@ public class DSServer {
                 threadPool.execute(new DSTask(clientSocket));
             }
         } catch (IOException e) {
-            System.err.println("Server error: " + e.getMessage());
+            System.err.println("Server IOException: " + e.getMessage());
         } catch (Exception e) { // 실수로 잡지 못한 예외는 이곳에서 최종 처리
-			System.err.println("unexpected exception: " + e.getMessage());
+			System.err.println("Unexpected Server Exception: " + e.getMessage());
         } finally {
             threadPool.shutdown(); // 스레드풀 종료
         }

@@ -35,55 +35,72 @@ public class DSTask implements Runnable {
 	public final int nextIntInter() throws IOException {
 		int choose = -1;
 
-		try {
-			choose = Integer.parseInt(reader.readLine());
+		try {			
+			String line = reader.readLine();
+			if (line == null) {
+				throw new IOException("nextIntInter(): IO(read) Error");
+			}
+			
+			choose = Integer.parseInt(line);
 		} catch (NumberFormatException e) {
-			println("올바른 값을 다시 입력해주세요.");			
+			println("올바른 값을 다시 입력해주세요.");
 		}
-		
+
 		return choose;
 	}
-	
+
 	public final int nextIntInter(int min, int max) throws IOException {
 		int choose = -1;
 
 		try {
-			choose = Integer.parseInt(reader.readLine());
+			String line = reader.readLine();
+			if (line == null) {
+				throw new IOException("nextIntInter(): IO(read) Error");
+			}
+			
+			choose = Integer.parseInt(line);
 			if (choose < min || choose > max) {
 				choose = -1;
 				throw new NumberFormatException();
 			}
 		} catch (NumberFormatException e) {
-			println("올바른 값을 다시 입력해주세요.");			
+			println("올바른 값을 다시 입력해주세요.");
 		}
-		
+
 		return choose;
 	}
-	
+
 	public final int nextInt() throws IOException {
 		int choose;
-		
-		while ((choose = nextIntInter()) == -1) {}
-		
-		return choose;
-	}	
-	
-	public final int nextInt(int min, int max) throws IOException {
-		int choose;
-		
-		while ((choose = nextIntInter(min, max)) == -1) {}
-		
+
+		while ((choose = nextIntInter()) == -1) {
+		}
+
 		return choose;
 	}
-	
+
+	public final int nextInt(int min, int max) throws IOException {
+		int choose;
+
+		while ((choose = nextIntInter(min, max)) == -1) {
+		}
+
+		return choose;
+	}
+
 	public final String next() throws IOException {
-		return reader.readLine();
+		String line = reader.readLine();
+		if (line == null) {
+			throw new IOException("next(): IO(read) Error");
+		}
+		
+		return line;
 	}
 
 	public final void println(String content) throws IOException {
-		writer.println(content);		
+		writer.println(content);
 	}
-	
+
 	public final void print(String content) throws IOException {
 		writer.print(content);
 		writer.flush();
@@ -91,7 +108,7 @@ public class DSTask implements Runnable {
 
 	@Override // 이 메소드는 상속받은 클래스가 사용하면 안된다. 특정 메소드만 상속 자체를 막을수는 없어서 그냥 두었다.
 	public final void run() {
-		try {			
+		try {
 			new IndexView(clientSocket, reader, writer).index();
 		} catch (IOException e) {
 			System.err.println("Error handling client: " + e.getMessage());
