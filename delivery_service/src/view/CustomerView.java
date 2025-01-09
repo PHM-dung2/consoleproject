@@ -36,10 +36,14 @@ public class CustomerView extends DSTask {
 		int choose = nextInt(1, 2);
 
 		if (choose == 1) {
-
+			search();
 		}
 		else if (choose == 2) {
-
+			logout();
 		}
+	}
+	
+	private void search() {
+		
 	}
 }
