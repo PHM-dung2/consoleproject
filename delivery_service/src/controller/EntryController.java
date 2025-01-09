@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.dao.EntryDao;
 import model.dto.EntryDto;
 import model.dto.RoadAddressDto;
@@ -19,10 +21,10 @@ public class EntryController {
 		return result;
 	} // f end
 
-//	2. 메뉴등록
-	public boolean menu() {
-		
-		return true;
+//	2. 입점 목록 페이지
+	public ArrayList<EntryDto> enrtyList() {
+		ArrayList<EntryDto> result = EntryDao.getInstance().entryList();
+		return result;
 	} // f end
 	
 

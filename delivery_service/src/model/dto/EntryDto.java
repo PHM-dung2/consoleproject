@@ -2,9 +2,10 @@ package model.dto;
 
 public class EntryDto {
 //	entry 테이블 멤버변수
+	private int mno;
 	private String ename;
 	private String espot;
-	private String etype;
+	private int etype;
 //	entryaddress 테이블 멤버변수
 	private String eazipcode;
 	private String earoad;
@@ -20,10 +21,11 @@ public class EntryDto {
 	
 //	생성자
 	public EntryDto(){}
-
-	public EntryDto(String ename, String espot, String etype, String eazipcode, String earoad, String eastreet,
+	
+	public EntryDto(int mno, String ename, String espot, int etype, String eazipcode, String earoad, String eastreet,
 			String eadetail, int eno, String mename, String meprice, int cno, String logInMno) {
 		super();
+		this.mno = mno;
 		this.ename = ename;
 		this.espot = espot;
 		this.etype = etype;
@@ -44,16 +46,23 @@ public class EntryDto {
 		this.meprice = meprice;
 		this.cno = cno;
 	}
-	
+
 //	메소드
-	
 	@Override
 	public String toString() {
-		return "EntryDto [ename=" + ename + ", espot=" + espot + ", etype=" + etype + ", eazipcode=" + eazipcode
-				+ ", earoad=" + earoad + ", eastreet=" + eastreet + ", eadetail=" + eadetail + ", eno=" + eno
-				+ ", mename=" + mename + ", meprice=" + meprice + ", cno=" + cno + ", logInMno=" + logInMno + "]";
+		return "EntryDto [mno=" + mno + ", ename=" + ename + ", espot=" + espot + ", etype=" + etype + ", eazipcode="
+				+ eazipcode + ", earoad=" + earoad + ", eastreet=" + eastreet + ", eadetail=" + eadetail + ", eno="
+				+ eno + ", mename=" + mename + ", meprice=" + meprice + ", cno=" + cno + ", logInMno=" + logInMno + "]";
 	}
-	
+
+	public int getMno() {
+		return mno;
+	}
+
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
+
 	public String getEname() {
 		return ename;
 	}
@@ -61,63 +70,83 @@ public class EntryDto {
 	public void setEname(String ename) {
 		this.ename = ename;
 	}
+
 	public String getEspot() {
 		return espot;
 	}
+
 	public void setEspot(String espot) {
 		this.espot = espot;
 	}
-	public String getEtype() {
+
+	public int getEtype() {
 		return etype;
 	}
-	public void setEtype(String etype) {
+
+	public void setEtype(int etype) {
 		this.etype = etype;
 	}
+
 	public String getEazipcode() {
 		return eazipcode;
 	}
+
 	public void setEazipcode(String eazipcode) {
 		this.eazipcode = eazipcode;
 	}
+
 	public String getEaroad() {
 		return earoad;
 	}
+
 	public void setEaroad(String earoad) {
 		this.earoad = earoad;
 	}
+
 	public String getEastreet() {
 		return eastreet;
 	}
+
 	public void setEastreet(String eastreet) {
 		this.eastreet = eastreet;
 	}
+
 	public String getEadetail() {
 		return eadetail;
 	}
+
 	public void setEadetail(String eadetail) {
 		this.eadetail = eadetail;
 	}
+
 	public int getEno() {
 		return eno;
 	}
+
 	public void setEno(int eno) {
 		this.eno = eno;
 	}
+
 	public String getMename() {
 		return mename;
 	}
+
 	public void setMename(String mename) {
 		this.mename = mename;
 	}
+
 	public String getMeprice() {
 		return meprice;
 	}
+
 	public void setMeprice(String meprice) {
 		this.meprice = meprice;
 	}
+
 	public int getCno() {
 		return cno;
 	}
+
 	public void setCno(int cno) {
 		this.cno = cno;
 	}
@@ -129,13 +158,5 @@ public class EntryDto {
 	public void setLogInMno(String logInMno) {
 		this.logInMno = logInMno;
 	}
-	
-
-	
-	
-	
-
-	
-	
 	
 }

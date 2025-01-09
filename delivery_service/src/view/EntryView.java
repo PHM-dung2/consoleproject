@@ -7,8 +7,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import controller.EntryController;
-import controller.MemberJoinController;
 import controller.RoadAddressController;
+import model.dao.Dao;
 import model.dto.EntryDto;
 import model.dto.MemberDto;
 import model.dto.RoadAddressDto;
@@ -33,25 +33,12 @@ public class EntryView extends DSTask{
 		return loginMember.getId();
 	}
 	
-//	메소드
-//	1. 입점 페이지 출력
-	public void entryStart() throws IOException {
-		// 여기서 메뉴 작성 시작하면 됩니다.
-		// println() 함수는 System.out.println() 함수와 같습니다.
-		// nextInt() 함수는 
-			// Scanner scan = new Scanner(System.in);
-			// scan.nextInt(); <-- 이 함수와 같습니다.
-		// next() 함수도 똑같습니다.
-		
-		
-//		boolean result = EntryController.getInstance().entryJoin(entryDto);
-	} // f end
-	
-//	2. 입점 신청
+//	메소드	
+//	1. 입점 신청
 	public void entryJoin() throws IOException {
 		println("==================     입점신청     ==================");
-		println("상호명 : ");			String ename = next();
-		println("지점명 : ");			String espot = next();
+		print("상호명 : ");			String ename = next();
+		print("지점명 : ");			String espot = next();
 		
 		print("도로명주소 검색: ");
 		RoadAddressDto roadAddress = choiceRoadAddress(next());
@@ -64,23 +51,40 @@ public class EntryView extends DSTask{
 		entryDto.setLogInMno(getLoginId());
 		
 		boolean result = EntryController.getInstance().entryJoin( entryDto , roadAddress);
-		if( result ) { System.out.println( "입점신청이 완료되었습니다." ); }
-		else { System.out.println( "입점신청 실패" ); }
+		if( result ) { println( "입점신청이 완료되었습니다." ); }
+		else { println( "입점신청 실패" ); }
+		
+	} // f end
+	
+//	2. 메뉴 등록 페이지
+	public void menuIndex() throws IOException {
+		while( true ) {
+			println("==================     지점선택     ==================");
+			println("지점번호\t카테고리\t메뉴명\t메뉴가격");
+			
+			ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
+			
+			for( int i = 0 ; i < result.size() ; i++ ) {
+				EntryDto entryDto = result.get(i);
+				if( entryDto.getMno() == Dao.getInstance().selectMno(getLoginId()) ) {
+					print(i+ "\t");
+					print(entryDto.getEname() + "\t");
+					print(entryDto.getEspot() + "\t");
+					if( entryDto.getEtype() == 0 ) { print("승인\t"); }
+					else if( entryDto.getEtype() == 1 ){ print("미승인\t"); }
+				}
+			} // for end
+			
+		} //  w end
+		
+		
+		
+		
+		
 		
 	} // f end
 	
 //	3. 메뉴 등록
-	public void menu() throws IOException {
-		// 여기서 메뉴 작성 시작하면 됩니다.
-		// println() 함수는 System.out.println() 함수와 같습니다.
-		// nextInt() 함수는 
-			// Scanner scan = new Scanner(System.in);
-			// scan.nextInt(); <-- 이 함수와 같습니다.
-		// next() 함수도 똑같습니다.
-		System.out.println("========== 메뉴신청 ==========");
-		System.out.print("상호명\t지점명\t\t지점주소\t\t카테고리");
-		
-	} // f end
 	
 	
 	private RoadAddressDto choiceRoadAddress(String keyword) throws IOException {

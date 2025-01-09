@@ -3,6 +3,7 @@ package model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.dto.EntryDto;
 import model.dto.RoadAddressDto;
@@ -55,10 +56,26 @@ public class EntryDao extends Dao {
 		return false;
 	} // f end
 	
-//	2. 메뉴등록
-	public boolean menu() {
-		
-		return false;
+//	2. 입점목록
+	public ArrayList<EntryDto> entryList() {
+		try {
+			ArrayList<EntryDto> result = new ArrayList<>();
+			String sql = "select * from entry";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while( rs.next() ) {
+				EntryDto entryDto = new EntryDto();
+				entryDto.setEno(rs.getInt("eno"));
+				entryDto.setEname(rs.getString("ename"));
+				entryDto.setEspot(rs.getString("eno"));
+				entryDto.setEtype(rs.getInt("etype"));
+				entryDto.setMno(rs.getInt("mno"));
+				result.add( entryDto );
+			} // w end
+		}catch( SQLException e ) {
+			System.out.println( e );
+		}
+		return null;
 	} // f end
 	
 }
