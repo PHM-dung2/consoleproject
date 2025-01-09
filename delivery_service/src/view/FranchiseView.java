@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.security.KeyStore.Entry;
 
 import network.DSTask;
 
@@ -34,11 +33,12 @@ public class FranchiseView extends DSTask {
 		println("1.입점신청 2.메뉴등록 3.주문콜대기 4.콜리스트 5.로그아웃");
 		int choose = nextInt(1, 5);
 		
+		switch (choose) {
 		case 1:
-			new EntryView(clientSocket, reader, writer).entryJoin();
+			new EntryView(clientSocket, reader, writer, getLoginMember() ).entryJoin();
 			return;
 		case 2:
-			new EntryView(clientSocket, reader, writer).menu();
+			new EntryView(clientSocket, reader, writer, getLoginMember() ).menu();
 			return;
 		}
 	}

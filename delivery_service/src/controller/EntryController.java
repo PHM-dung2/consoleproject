@@ -1,8 +1,8 @@
 package controller;
 
-import java.io.IOException;
-
 import model.dao.EntryDao;
+import model.dto.EntryDto;
+import model.dto.RoadAddressDto;
 
 public class EntryController {
 //	싱글톤
@@ -14,14 +14,17 @@ public class EntryController {
 	
 //	메소드
 //	1. 입점신청
-	public boolean entryJoin( EntryDto entryDto ) throws IOException {
-		boolean result = EntryDao.getInstance().entryJoin(entryDto);
+	public boolean entryJoin( EntryDto entryDto , RoadAddressDto roadAddress ) {
+		boolean result = EntryDao.getInstance().entryJoin(entryDto , roadAddress);
 		return result;
 	} // f end
-	
+
 //	2. 메뉴등록
-	public boolean menu() throws IOException {
+	public boolean menu() {
 		
 		return true;
 	} // f end
+	
+
+	
 }

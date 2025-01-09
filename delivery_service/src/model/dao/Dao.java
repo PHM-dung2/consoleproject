@@ -13,9 +13,9 @@ public class Dao {
 	private String DBID = "root";
 	private String DBPWD = "1234";
 
-	private Connection conn = null;
+	protected Connection conn = null;
 
-	private Dao() {
+	protected Dao() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(DBURL, DBID, DBPWD);
