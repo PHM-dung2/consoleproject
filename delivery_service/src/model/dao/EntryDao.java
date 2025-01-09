@@ -58,8 +58,8 @@ public class EntryDao extends Dao {
 	
 //	2. 입점목록
 	public ArrayList<EntryDto> entryList() {
+		ArrayList<EntryDto> result = new ArrayList<>();
 		try {
-			ArrayList<EntryDto> result = new ArrayList<>();
 			String sql = "select * from entry";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -67,16 +67,35 @@ public class EntryDao extends Dao {
 				EntryDto entryDto = new EntryDto();
 				entryDto.setEno(rs.getInt("eno"));
 				entryDto.setEname(rs.getString("ename"));
-				entryDto.setEspot(rs.getString("eno"));
+				entryDto.setEspot(rs.getString("espot"));
 				entryDto.setEtype(rs.getInt("etype"));
 				entryDto.setMno(rs.getInt("mno"));
 				result.add( entryDto );
 			} // w end
-		}catch( SQLException e ) {
-			System.out.println( e );
-		}
-		return null;
+		}catch( SQLException e ) { System.out.println( e );	}
+		return result;
 	} // f end
+	
+//	3. 메뉴 리스트
+	public ArrayList<EntryDto> menuList() {
+		ArrayList<EntryDto> result = new ArrayList<>();
+		try {
+			String sql = "select * from menu";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while( rs.next() ) {
+				EntryDto entryDto = new EntryDto();
+				entryDto.setEno(rs.getInt("eno"));
+				entryDto.setMename(rs.getString("mename"));
+				entryDto.setMeprice(rs.getString("meprice"));
+				entryDto.setCno(rs.getInt("cno"));
+				entryDto.setEno(rs.getInt("eno"));
+				result.add( entryDto );
+			} // w end
+		}catch( SQLException e ) { System.out.println( e ); }
+		return result;
+	} // f end
+	
 	
 }
 

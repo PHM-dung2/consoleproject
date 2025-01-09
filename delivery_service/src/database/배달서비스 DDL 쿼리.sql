@@ -138,7 +138,7 @@ insert into dodge (eno, mno) values (2, 2);
 create table rating(
 	rno int unsigned auto_increment,
     constraint primary key( rno ),
-    rrating int unsigned,
+    rrating int unsigned default 3,
     mno int unsigned
 );
 -- 별점목록 샘플
@@ -147,4 +147,6 @@ insert into rating(rrating , mno) values(4 , 2);
 insert into rating(rrating , mno) values(5 , 2);
 
 show tables;
--- select * from orderlist;
+select * from rating;
+select * from entry;
+select * from entryaddress;
