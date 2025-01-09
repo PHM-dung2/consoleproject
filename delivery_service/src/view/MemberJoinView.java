@@ -69,8 +69,7 @@ public class MemberJoinView extends DSTask {
 		
 		// 올바른 검색 주소 입력할때까지 무한 루프
 		while ( (roadAddress = choiceRoadAddressInter(next())) == null) {			
-		}
-		
+		}		
 		
 		return roadAddress;
 	}
