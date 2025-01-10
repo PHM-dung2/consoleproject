@@ -80,15 +80,16 @@ public class EntryDao extends Dao {
 	public ArrayList<EntryDto> menuList() {
 		ArrayList<EntryDto> result = new ArrayList<>();
 		try {
-			String sql = "select * from menu";
+			String sql = "select m.* , c.cname from menu m inner join category c "
+					+ "on m.cno = c.cno";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while( rs.next() ) {
 				EntryDto entryDto = new EntryDto();
 				entryDto.setEno(rs.getInt("eno"));
 				entryDto.setMename(rs.getString("mename"));
-				entryDto.setMeprice(rs.getString("meprice"));
-				entryDto.setCno(rs.getInt("cno"));
+				entryDto.setMeprice(rs.getInt("meprice"));
+				entryDto.setCname(rs.getString("cname"));
 				entryDto.setEno(rs.getInt("eno"));
 				result.add( entryDto );
 			} // w end

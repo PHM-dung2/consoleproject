@@ -18,14 +18,14 @@ public class EntryDto {
 //	menu 멤버변수
 	private int meno;
 	private String mename;
-	private String meprice;
+	private int meprice;
 //	로그인 정보 멤버변수
 	private String logInMno;
 	
 //	생성자
 	public EntryDto(){}
 	public EntryDto(int mno, String ename, String espot, int etype, String eazipcode, String earoad, String eastreet,
-			String eadetail, int eno, int cno, String cname, int meno, String mename, String meprice, String logInMno) {
+			String eadetail, int eno, int cno, String cname, int meno, String mename, int meprice, String logInMno) {
 		super();
 		this.mno = mno;
 		this.ename = ename;
@@ -43,7 +43,7 @@ public class EntryDto {
 		this.meprice = meprice;
 		this.logInMno = logInMno;
 	}
-	public EntryDto(String mename, String meprice, int cno) {
+	public EntryDto(String mename, int meprice, int cno) {
 		super();
 		this.mename = mename;
 		this.meprice = meprice;
@@ -136,10 +136,10 @@ public class EntryDto {
 	public void setMename(String mename) {
 		this.mename = mename;
 	}
-	public String getMeprice() {
+	public int getMeprice() {
 		return meprice;
 	}
-	public void setMeprice(String meprice) {
+	public void setMeprice(int meprice) {
 		this.meprice = meprice;
 	}
 	public String getLogInMno() {

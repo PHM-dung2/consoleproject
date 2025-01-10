@@ -61,15 +61,19 @@ public class EntryView extends DSTask{
 		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
 		
 		println("\n==================     지점선택     ==================");
-		println("번호\t상호명\t\t지점명\t\t입점상태 ");
+		printf("%-5s%-15s%-20s%-10s\r\n " , "지점번호" , "상호명" , "지점명" , "입점상태" );
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
 			if( entryDto.getMno() == Dao.getInstance().selectMno(getLoginId()) ) {
-				print(entryDto.getEno() + "\t");
-				print(entryDto.getEname() + "\t");
-				print(entryDto.getEspot() + "\t");
-				if( entryDto.getEtype() == 0 ) { println("승인"); }
-				else if( entryDto.getEtype() == 1 ){ println("미승인"); }
+				String eType = null;
+				if( entryDto.getEtype() == 0 ) { eType = "미승인"; }
+				else if( entryDto.getEtype() == 1 ){ eType = "승인"; }
+				printf("%-5s%-15s%-20s%-10s\r\n" , 
+						entryDto.getEno() , 
+						entryDto.getEname() ,
+						entryDto.getEspot() , 
+						eType
+						);
 			}
 		} // for end
 		
@@ -81,15 +85,18 @@ public class EntryView extends DSTask{
 		ArrayList<EntryDto> arr = new ArrayList<>();
 		
 		println("\n==================     메뉴선택     ==================");
-		println("번호\t카테고리\t메뉴명\t\t메뉴가격 ");
+		
+		printf("%-5s%-15s%-20s%-10s\r\n", "번호", "카테고리", "메뉴명", "메뉴가격");
+		int count = 1;
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
-			int count = 1;
 			if( entryDto.getEno() == eno ) {
-				print(count + "\t");
-				print(entryDto.getCno() + "\t\t");
-				print(entryDto.getMename() + "\t\t");
-				print(entryDto.getMeprice() + "\r\n" );	  // \r 첫 포인터로 이동
+				printf("%-5d%-15s%-20s%-10d\r\n", 
+						count , 
+						entryDto.getCname() ,
+						entryDto.getMename() , 
+						entryDto.getMeprice()
+						);
 				count++;
 			}
 		} // for end
@@ -99,29 +106,52 @@ public class EntryView extends DSTask{
 	
 //	3. 메뉴 등록 페이지
 	public void menuIndex() throws IOException {
-		while( true ) {
 			entryList();
-			print("지점번호 선택 : "); 
+			print("\n지점번호 선택 : "); 
 			int eno = nextInt();
 			menuList(eno);
-			int choose = nextInt(1,4);
-			print("\n1.메뉴등록 2.메뉴수정 3.메뉴삭제 4.뒤로가기");
-			switch( choose ) {
+			while( true ) {
+				print("\n1.메뉴등록 2.메뉴수정 3.메뉴삭제 4.뒤로가기");
+				int choose = nextInt(1,4);
+				switch( choose ) {
 				case 1: 
+					write();
 					break;
 				case 2: 
+					update();
 					break;
 				case 3:
+					delete();
 					break;
 				case 4:
-					break;
-			} // switch end
-			
-		} //  w end
+					return;
+				} // switch end
+				
+			} // w end
 		
 	} // f end
 	
-//	4. 메뉴 등록
+//	4. 메뉴등록
+	public void write() throws IOException {
+		println("\n==================     메뉴등록     ==================");
+		
+		
+	} // f end
+	
+//	5. 메뉴수정
+	public void update() throws IOException {
+		println("\n==================     메뉴수정     ==================");
+	} // f end
+	
+//	6. 메뉴삭제
+	public void delete() throws IOException {
+		println("\n==================     메뉴수정     ==================");
+	} // f end
+	
+//	7. 뒤로가기
+	
+	
+	
 	private RoadAddressDto choiceRoadAddress(String keyword) throws IOException {
 		RoadAddressDto roadAddress;
 		

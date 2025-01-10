@@ -15,7 +15,7 @@ public class ManagView extends DSTask{
 	}
 	
 	public void index() throws IOException {
-		println("===== 가맹점 신청목록 =====");
+		println("\n==================     가맹점 신청목록     ==================");
 		
 		
 		// println() 함수는 System.out.println() 함수와 같습니다.

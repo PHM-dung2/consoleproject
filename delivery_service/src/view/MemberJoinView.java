@@ -26,7 +26,7 @@ public class MemberJoinView extends DSTask {
 		MemberJoinController memberJoinController = MemberJoinController.getInstance();
 
 		// TODO: 입력값 유효성 확인
-		println("----- 회원가입 -----");
+		println("\n==================     회원가입     ==================");
 		print("ID: ");
 		String id = next();
 		while (memberJoinController.checkID(id)) {

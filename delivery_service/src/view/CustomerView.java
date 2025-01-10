@@ -31,8 +31,8 @@ public class CustomerView extends DSTask {
 	public void index() throws IOException {
 		System.out.println(getLoginMember());
 		System.out.println(getLoginId());
-		println("===== 일반회원 페이지입니다. =====");
-		println("1.배달음식검색 2.로그아웃");
+		println("/n==================     일반회원 페이지     ==================");
+		println("1.배달음식검색 2.로그아웃 ");
 		int choose = nextInt(1, 2);
 
 		if (choose == 1) {
