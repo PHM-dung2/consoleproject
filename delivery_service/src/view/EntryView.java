@@ -7,8 +7,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import controller.EntryController;
-import controller.MemberJoinController;
 import controller.RoadAddressController;
+import model.dao.Dao;
 import model.dto.EntryDto;
 import model.dto.MemberDto;
 import model.dto.RoadAddressDto;
@@ -33,25 +33,12 @@ public class EntryView extends DSTask{
 		return loginMember.getId();
 	}
 	
-//	메소드
-//	1. 입점 페이지 출력
-	public void entryStart() throws IOException {
-		// 여기서 메뉴 작성 시작하면 됩니다.
-		// println() 함수는 System.out.println() 함수와 같습니다.
-		// nextInt() 함수는 
-			// Scanner scan = new Scanner(System.in);
-			// scan.nextInt(); <-- 이 함수와 같습니다.
-		// next() 함수도 똑같습니다.
-		
-		
-//		boolean result = EntryController.getInstance().entryJoin(entryDto);
-	} // f end
-	
-//	2. 입점 신청
+//	메소드	
+//	1. 입점 신청
 	public void entryJoin() throws IOException {
-		println("==================     입점신청     ==================");
-		println("상호명 : ");			String ename = next();
-		println("지점명 : ");			String espot = next();
+		println("\n==================     입점신청     ==================");
+		print("상호명 : ");			String ename = next();
+		print("지점명 : ");			String espot = next();
 		
 		print("도로명주소 검색: ");
 		RoadAddressDto roadAddress = choiceRoadAddress(next());
@@ -64,23 +51,115 @@ public class EntryView extends DSTask{
 		entryDto.setLogInMno(getLoginId());
 		
 		boolean result = EntryController.getInstance().entryJoin( entryDto , roadAddress);
-		if( result ) { System.out.println( "입점신청이 완료되었습니다." ); }
-		else { System.out.println( "입점신청 실패" ); }
+		if( result ) { println( "입점신청이 완료되었습니다." ); }
+		else { println( "입점신청 실패" ); }
 		
 	} // f end
 	
-//	3. 메뉴 등록
-	public void menu() throws IOException {
-		// 여기서 메뉴 작성 시작하면 됩니다.
-		// println() 함수는 System.out.println() 함수와 같습니다.
-		// nextInt() 함수는 
-			// Scanner scan = new Scanner(System.in);
-			// scan.nextInt(); <-- 이 함수와 같습니다.
-		// next() 함수도 똑같습니다.
-		System.out.println("========== 메뉴신청 ==========");
-		System.out.print("상호명\t지점명\t\t지점주소\t\t카테고리");
+//	2. 입점목록 리스트
+	public void entryList() throws IOException {
+		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
+		
+		println("\n==================     지점선택     ==================");
+		printf("%-5s%-15s%-20s%-10s\r\n " , "지점번호" , "상호명" , "지점명" , "입점상태" );
+		for( int i = 0 ; i < result.size() ; i++ ) {
+			EntryDto entryDto = result.get(i);
+			if( entryDto.getMno() == Dao.getInstance().selectMno(getLoginId()) ) {
+				String eType = null;
+				if( entryDto.getEtype() == 0 ) { eType = "미승인"; }
+				else if( entryDto.getEtype() == 1 ){ eType = "승인"; }
+				printf("%-5s%-15s%-20s%-10s\r\n" , 
+						entryDto.getEno() , 
+						entryDto.getEname() ,
+						entryDto.getEspot() , 
+						eType
+						);
+			}
+		} // for end
 		
 	} // f end
+	
+//	3. 메뉴 리스트
+	public ArrayList<EntryDto> menuList( int eno ) throws IOException {
+		ArrayList<EntryDto> result = EntryController.getInstance().menuList();
+		ArrayList<EntryDto> arr = new ArrayList<>();
+		
+		println("\n==================     메뉴선택     ==================");
+		
+		printf("%-5s%-15s%-20s%-10s\r\n", "번호", "카테고리", "메뉴명", "메뉴가격");
+		int count = 1;
+		for( int i = 0 ; i < result.size() ; i++ ) {
+			EntryDto entryDto = result.get(i);
+			if( entryDto.getEno() == eno ) {
+				arr.add(entryDto);
+				printf("%-5d%-15s%-20s%-10d\r\n", 
+						count , 
+						entryDto.getCname() ,
+						entryDto.getMename() , 
+						entryDto.getMeprice()
+						);
+				count++;
+			}
+		} // for end
+		return arr;
+		
+	} // f end
+	
+//	3. 메뉴 등록 페이지
+	public void menuIndex() throws IOException {
+			entryList();
+			print("\n지점번호 선택 : "); 
+			int eno = nextInt();
+			while( true ) {
+				print("\n1.메뉴등록 2.메뉴수정 3.메뉴삭제 4.뒤로가기");
+				int choose = nextInt(1,4);
+				switch( choose ) {
+				case 1: 
+					write(eno);
+					break;
+				case 2: 
+					update(eno);
+					break;
+				case 3:
+					delete(eno);
+					break;
+				case 4:
+					return;
+				} // switch end
+				
+			} // w end
+		
+	} // f end
+	
+//	4. 메뉴등록
+	public void write( int eno ) throws IOException {
+		println("\n==================     메뉴등록     ==================");
+		ArrayList<EntryDto> arr = menuList(eno);
+		print("메뉴번호 선택 : "); 
+		int no = nextInt();
+		
+		
+		
+	} // f end
+	
+//	5. 메뉴수정
+	public void update( int eno ) throws IOException {
+		println("\n==================     메뉴수정     ==================");
+		menuList(eno);
+		print("메뉴번호 선택 : "); 
+		int no = nextInt();
+	} // f end
+	
+//	6. 메뉴삭제
+	public void delete( int eno ) throws IOException {
+		println("\n==================     메뉴삭제     ==================");
+		menuList(eno);
+		print("메뉴번호 선택 : "); 
+		int no = nextInt();
+	} // f end
+	
+//	7. 뒤로가기
+	
 	
 	
 	private RoadAddressDto choiceRoadAddress(String keyword) throws IOException {
@@ -97,6 +176,8 @@ public class EntryView extends DSTask{
 		return roadAddress;
 	}
 
+	
+	
 	private RoadAddressDto choiceRoadAddressInter(String keyword) throws IOException {
 		ArrayList<RoadAddressDto> roadAddressList = RoadAddressController.getInstance().getRoadAddress(keyword);
 		
@@ -119,4 +200,5 @@ public class EntryView extends DSTask{
 		// 선택한 도로명 주소 DTO 리턴
 		return roadAddressList.get(choose - 1); // ArrayList 인덱스는 0부터 시작하므로 choose 값에 -1 해준다.
 	}
+	
 }

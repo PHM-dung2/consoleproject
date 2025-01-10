@@ -29,17 +29,19 @@ public class FranchiseView extends DSTask {
 
 	public void index() throws IOException {
 		// TODO: 가맹여부 포함한 환영메시지 구현
-		println("==================     입점회원 페이지     ==================");
-		println("1.입점신청 2.메뉴등록 3.주문콜대기 4.콜리스트 5.로그아웃");
-		int choose = nextInt(1, 5);
-		
-		switch (choose) {
-		case 1:
-			new EntryView(clientSocket, reader, writer, getLoginMember() ).entryJoin();
-			return;
-		case 2:
-			new EntryView(clientSocket, reader, writer, getLoginMember() ).menu();
-			return;
-		}
+		while(true) {
+			println("\n==================     입점회원 페이지     ==================");
+			print("1.입점신청 2.메뉴등록 3.주문콜대기 4.콜리스트 5.로그아웃 ");
+			int choose = nextInt(1, 5);
+			switch (choose) {
+				case 1:
+					new EntryView(clientSocket, reader, writer, getLoginMember() ).entryJoin();
+					break;
+				case 2:
+					new EntryView(clientSocket, reader, writer, getLoginMember() ).menuIndex();
+					break;
+			}
+			
+		} // w end
 	}
 }

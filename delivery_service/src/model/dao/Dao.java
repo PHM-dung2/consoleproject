@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import model.dto.MemberDto;
 
 public class Dao {
-	private String DBURL = "jdbc:mysql://140.245.79.114:3306/dssystem";
+	private String DBURL = "jdbc:mysql://127.0.0.1:3306/dssystem";
 	private String DBID = "root";
 	private String DBPWD = "1234";
 

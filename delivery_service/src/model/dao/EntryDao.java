@@ -3,6 +3,7 @@ package model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.dto.EntryDto;
 import model.dto.RoadAddressDto;
@@ -55,11 +56,47 @@ public class EntryDao extends Dao {
 		return false;
 	} // f end
 	
-//	2. 메뉴등록
-	public boolean menu() {
-		
-		return false;
+//	2. 입점목록
+	public ArrayList<EntryDto> entryList() {
+		ArrayList<EntryDto> result = new ArrayList<>();
+		try {
+			String sql = "select * from entry";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while( rs.next() ) {
+				EntryDto entryDto = new EntryDto();
+				entryDto.setEno(rs.getInt("eno"));
+				entryDto.setEname(rs.getString("ename"));
+				entryDto.setEspot(rs.getString("espot"));
+				entryDto.setEtype(rs.getInt("etype"));
+				entryDto.setMno(rs.getInt("mno"));
+				result.add( entryDto );
+			} // w end
+		}catch( SQLException e ) { System.out.println( e );	}
+		return result;
 	} // f end
+	
+//	3. 메뉴 리스트
+	public ArrayList<EntryDto> menuList() {
+		ArrayList<EntryDto> result = new ArrayList<>();
+		try {
+			String sql = "select m.* , c.cname from menu m inner join category c "
+					+ "on m.cno = c.cno";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while( rs.next() ) {
+				EntryDto entryDto = new EntryDto();
+				entryDto.setEno(rs.getInt("eno"));
+				entryDto.setMename(rs.getString("mename"));
+				entryDto.setMeprice(rs.getInt("meprice"));
+				entryDto.setCname(rs.getString("cname"));
+				entryDto.setEno(rs.getInt("eno"));
+				result.add( entryDto );
+			} // w end
+		}catch( SQLException e ) { System.out.println( e ); }
+		return result;
+	} // f end
+	
 	
 }
 

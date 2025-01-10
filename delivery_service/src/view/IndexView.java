@@ -15,8 +15,8 @@ public class IndexView extends DSTask {
 	}
 
 	public void index() throws IOException {
-		println("----- 배달서비스 시스템에 오신걸 환영합니다. -----");
-		println("1. 회원가입 2. 로그인");
+		println("\n==================     배달서비스 시스템     ==================");
+		print("1. 회원가입 2. 로그인 ");
 
 		int choose = nextInt(1, 2);
 		switch (choose) {
