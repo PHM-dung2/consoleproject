@@ -26,10 +26,10 @@ public class DSServer {
     	
         ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE); // 고정 크기 스레드풀 생성
 
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {        	
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) { 	
             System.out.println("Delivery Service Server is running on port " + PORT);
 
-            while (true) {
+            while (true) { 
                 // 클라이언트 연결 대기
                 Socket clientSocket = serverSocket.accept();                
                 System.out.println("Client connected: " + clientSocket.getRemoteSocketAddress());
