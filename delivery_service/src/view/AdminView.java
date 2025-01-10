@@ -35,7 +35,7 @@ public class AdminView extends DSTask {
 		switch (choose) {
 		
 		case 1:
-			new ManagView(clientSocket, reader, writer).index();
+			new ManagView(clientSocket, reader, writer).ManagView();
 			return;
 		
 		case 2:

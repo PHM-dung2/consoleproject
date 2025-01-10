@@ -5,17 +5,46 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import model.dto.EntryDto;
+import model.dto.MemberDto;
 import network.DSTask;
 
 public class ManagView extends DSTask{
+	private MemberDto loginMember;
+	
 	public ManagView(Socket clientSocket , BufferedReader reader, PrintWriter writer) {
 		this.clientSocket = clientSocket;
 		this.reader = reader;
 		this.writer = writer;	
 	}
 	
-	public void index() throws IOException {
+	public MemberDto getLoginMember() {
+		return loginMember;
+	}
+	
+	public String getLoginId() {
+		return loginMember.getId();
+	}
+	
+	public void ManagView() throws IOException {
+		//1. 페이지 출력
 		println("===== 가맹점 신청목록 =====");
+		
+		
+		
+		
+		
+		println("1.번호선택 2.뒤로가기");
+		int choose = nextInt(1,2);
+		switch (choose) {
+		case 1: 
+			
+		case 2:
+		
+		}//s end
+		
+		
+	
 		
 		
 		// println() 함수는 System.out.println() 함수와 같습니다.

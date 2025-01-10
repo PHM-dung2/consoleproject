@@ -2,11 +2,11 @@ package controller;
 
 import java.io.IOException;
 
-public class FranController {
+public class ManagController {
 		// 싱글톤
-		private static FranController instance = new FranController();
-		private FranController() {}
-		public static FranController getInstance() {
+		private static ManagController instance = new ManagController();
+		private ManagController() {}
+		public static ManagController getInstance() {
 			return instance;
 		}
 		
