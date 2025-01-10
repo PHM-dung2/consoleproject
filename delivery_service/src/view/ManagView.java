@@ -18,7 +18,7 @@ public class ManagView extends DSTask{
 		this.writer = writer;	
 	}
 	
-<<<<<<< HEAD
+
 	public MemberDto getLoginMember() {
 		return loginMember;
 	}
@@ -30,12 +30,7 @@ public class ManagView extends DSTask{
 	public void ManagView() throws IOException {
 		//1. 페이지 출력
 		println("===== 가맹점 신청목록 =====");
-=======
-	public void index() throws IOException {
-		println("\n==================     가맹점 신청목록     ==================");
->>>>>>> branch 'parkheeman' of https://github.com/devcube2/deliveryService
-		
-		
+
 		
 		
 		
