@@ -78,6 +78,7 @@ public class EntryView extends DSTask{
 //	3. 메뉴 리스트
 	public void menuList( int eno ) throws IOException {
 		ArrayList<EntryDto> result = EntryController.getInstance().menuList();
+		ArrayList<EntryDto> arr = new ArrayList<>();
 		
 		println("\n==================     메뉴선택     ==================");
 		println("번호\t카테고리\t메뉴명\t\t메뉴가격 ");
@@ -88,7 +89,7 @@ public class EntryView extends DSTask{
 				print(count + "\t");
 				print(entryDto.getCno() + "\t\t");
 				print(entryDto.getMename() + "\t\t");
-				println(entryDto.getMeprice());
+				print(entryDto.getMeprice() + "\r\n" );	  // \r 첫 포인터로 이동
 				count++;
 			}
 		} // for end
@@ -159,4 +160,5 @@ public class EntryView extends DSTask{
 		// 선택한 도로명 주소 DTO 리턴
 		return roadAddressList.get(choose - 1); // ArrayList 인덱스는 0부터 시작하므로 choose 값에 -1 해준다.
 	}
+	
 }
