@@ -80,7 +80,7 @@ public class EntryView extends DSTask{
 	} // f end
 	
 //	3. 메뉴 리스트
-	public void menuList( int eno ) throws IOException {
+	public ArrayList<EntryDto> menuList( int eno ) throws IOException {
 		ArrayList<EntryDto> result = EntryController.getInstance().menuList();
 		ArrayList<EntryDto> arr = new ArrayList<>();
 		
@@ -91,6 +91,7 @@ public class EntryView extends DSTask{
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
 			if( entryDto.getEno() == eno ) {
+				arr.add(entryDto);
 				printf("%-5d%-15s%-20s%-10d\r\n", 
 						count , 
 						entryDto.getCname() ,
@@ -100,7 +101,7 @@ public class EntryView extends DSTask{
 				count++;
 			}
 		} // for end
-		
+		return arr;
 		
 	} // f end
 	
@@ -109,19 +110,18 @@ public class EntryView extends DSTask{
 			entryList();
 			print("\n지점번호 선택 : "); 
 			int eno = nextInt();
-			menuList(eno);
 			while( true ) {
 				print("\n1.메뉴등록 2.메뉴수정 3.메뉴삭제 4.뒤로가기");
 				int choose = nextInt(1,4);
 				switch( choose ) {
 				case 1: 
-					write();
+					write(eno);
 					break;
 				case 2: 
-					update();
+					update(eno);
 					break;
 				case 3:
-					delete();
+					delete(eno);
 					break;
 				case 4:
 					return;
@@ -132,20 +132,30 @@ public class EntryView extends DSTask{
 	} // f end
 	
 //	4. 메뉴등록
-	public void write() throws IOException {
+	public void write( int eno ) throws IOException {
 		println("\n==================     메뉴등록     ==================");
+		ArrayList<EntryDto> arr = menuList(eno);
+		print("메뉴번호 선택 : "); 
+		int no = nextInt();
+		
 		
 		
 	} // f end
 	
 //	5. 메뉴수정
-	public void update() throws IOException {
+	public void update( int eno ) throws IOException {
 		println("\n==================     메뉴수정     ==================");
+		menuList(eno);
+		print("메뉴번호 선택 : "); 
+		int no = nextInt();
 	} // f end
 	
 //	6. 메뉴삭제
-	public void delete() throws IOException {
-		println("\n==================     메뉴수정     ==================");
+	public void delete( int eno ) throws IOException {
+		println("\n==================     메뉴삭제     ==================");
+		menuList(eno);
+		print("메뉴번호 선택 : "); 
+		int no = nextInt();
 	} // f end
 	
 //	7. 뒤로가기
