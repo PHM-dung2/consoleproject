@@ -105,6 +105,11 @@ public class DSTask implements Runnable {
 		writer.print(content);
 		writer.flush();
 	}
+	
+	public final void printf(String format, Object... args) throws IOException {
+		writer.printf(format, args);
+		writer.flush();
+	}
 
 	@Override // 이 메소드는 상속받은 클래스가 사용하면 안된다. 특정 메소드만 상속 자체를 막을수는 없어서 그냥 두었다.
 	public final void run() {
