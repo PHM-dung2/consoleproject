@@ -99,6 +99,7 @@ public class DSTask implements Runnable {
 
 	public final void println(String content) throws IOException {
 		writer.println(content);
+		writer.flush();
 	}
 
 	public final void print(String content) throws IOException {

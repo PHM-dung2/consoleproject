@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import controller.LoginViewController;
+import controller.MemberCommunicateController;
 import network.DSTask;
 
 import model.dto.MemberDto;
@@ -28,9 +29,11 @@ public class LoginView extends DSTask {
 			print("ID: "); String id = next();
 			print("Password: "); String password = next();
 			member = loginViewController.login(id, password);
-//			clientSocket.
+
 			if (member != null) {
 				println("로그인 성공");
+				// 통신 멤버 추가
+				MemberCommunicateController.getInstance().addComm(id, writer);				
 				switch (member.getType()) {
 				case 1:
 					new AdminView(clientSocket, reader, writer, member).index();
