@@ -14,7 +14,7 @@ public class IndexView extends DSTask {
 		this.writer = writer;
 	}
 
-	public void index() throws IOException {
+	public void index() throws IOException , InterruptedException {
 		
 		while(true) {
 			println("\n==================     배달서비스 시스템     ==================");
@@ -28,10 +28,9 @@ public class IndexView extends DSTask {
 			case 2:
 				new LoginView(clientSocket, reader, writer).index();
 				break;
-			default:
-				break;
-			}
-			return;
+			case 3:
+				return;
+			}			
 		} // w end
 	}
 }

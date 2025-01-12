@@ -5,6 +5,8 @@ public class RoadAddressDto {
 	private String roadAddress = ""; // 도로명 주소
 	private String jibunAddress = ""; // 지번 주소
 	private String detailAddress = ""; // 상세 주소
+	private String si = ""; // 시
+	private String sgg = ""; // 군
 
 	public RoadAddressDto() {
 	}
@@ -46,6 +48,22 @@ public class RoadAddressDto {
 
 	public void setDetailAddress(String detailAddress) {
 		this.detailAddress = detailAddress;
+	}	
+
+	public String getSi() {
+		return si;
+	}
+
+	public void setSi(String si) {
+		this.si = si;
+	}
+
+	public String getSgg() {
+		return sgg;
+	}
+
+	public void setSgg(String sgg) {
+		this.sgg = sgg;
 	}
 
 	@Override
