@@ -34,7 +34,7 @@ public class MemberCommunicateController {
 	}
 
 	public void delComm(String id) {
-		commList.remove(id);
+		if (id != null) commList.remove(id);
 	}
 
 	// 로그인 되어 있으면 true, 아니면 false

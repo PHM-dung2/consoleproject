@@ -14,12 +14,12 @@ public class IndexView extends DSTask {
 		this.writer = writer;
 	}
 
-	public void index() throws IOException , InterruptedException {
-		
-		while(true) {
+	public void index() throws IOException, InterruptedException {
+
+		while (true) {
 			println("\n==================     배달서비스 시스템     ==================");
 			print("1. 회원가입 2. 로그인 3. 종료 ");
-			
+
 			int choose = nextInt(1, 3);
 			switch (choose) {
 			case 1:
@@ -30,7 +30,7 @@ public class IndexView extends DSTask {
 				break;
 			case 3:
 				return;
-			}			
+			}
 		} // w end
 	}
 }
