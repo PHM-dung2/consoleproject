@@ -76,6 +76,7 @@ create table category (
 insert into category (cname) values ('패스트푸드');
 insert into category (cname) values ('치킨');
 insert into category (cname) values ('고기/구이');
+insert into category (cname) values ('고기');
 
 # 6. 메뉴
 create table menu (
@@ -102,9 +103,9 @@ create table orderlist (
     constraint foreign key (mno) references member  (mno) on update cascade on delete cascade
 );
 -- 주문목록 샘플
-insert into orderlist (odate, mno) values (now(), 1);
-insert into orderlist (odate, mno) values (now(), 2);
-insert into orderlist (odate, mno) values (now(), 2);
+insert into orderlist (mno) values (1);
+insert into orderlist (mno) values (2);
+insert into orderlist (mno) values (2);
 
 # 8. 주문상세
 create table orderdetail (
@@ -150,3 +151,5 @@ show tables;
 select * from rating;
 select * from entry;
 select * from entryaddress;
+select * from category;
+select * from menu;
