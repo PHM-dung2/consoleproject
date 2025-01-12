@@ -22,10 +22,10 @@ public class IndexView extends DSTask {
 		switch (choose) {
 		case 1:
 			new MemberJoinView(clientSocket, reader, writer).index();
-			return;
+			break;
 		case 2:
 			new LoginView(clientSocket, reader, writer).index();
-			return;
+			break;
 		}
 	}
 }
