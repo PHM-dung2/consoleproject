@@ -6,11 +6,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import model.dto.MemberDto;
 import model.dto.ShopDto;
 import model.dto.ShopMenuDto;
+import model.dto.OrderCompleteDto;
 
 public class Dao {
 	private String DBURL = "jdbc:mysql://127.0.0.1:3306/dssystem";
@@ -141,7 +145,8 @@ public class Dao {
 			String sql = String.format("select distinct e.eno, e.ename, e.espot, ea.earoad from entry as e"
 					+ " join menu using (eno)" + " join entryaddress as ea using (eno) where"
 					+ " mename like '%%%s%%' and" + " ea.earoad like ("
-					+ " select concat(masi, ' ', masgg, '%%') from memberaddress where mno = %d)", menu, mno);
+					+ " select concat(masi, ' ', masgg, '%%') from memberaddress where mno = %d)" + " and etype = 1",
+					menu, mno);
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -164,12 +169,15 @@ public class Dao {
 		ArrayList<ShopMenuDto> shopMenuList = new ArrayList<>();
 
 		try {
-			String sql = String.format("select meno, mename, meprice, eno from menu where eno = %d", eno);
+			// select meno, mename, meprice, eno, concat(ename, " ", espot) as efullname
+			// from menu as m join entry as e using(eno) where eno = 1;
+			String sql = String.format("select meno, mename, meprice, eno, concat(ename, \" \", espot) as efullname"
+					+ " from menu as m join entry as e using(eno)" + " where eno = %d", eno);
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				shopMenuList.add(new ShopMenuDto(rs.getInt("meno"), rs.getString("mename"), rs.getInt("meprice"),
-						rs.getInt("eno")));
+						rs.getInt("eno"), rs.getString("efullname")));
 			}
 		} catch (SQLException e) {
 			System.out.println(">> " + e);
@@ -246,11 +254,11 @@ public class Dao {
 	// eno 에 해당하는 mid 리턴하는 메소드
 	public String selectMid(int eno) {
 		try {
-			String sql = String.format("select m.mid from member as m join entry using (mno) where eno = %d", eno);					
+			String sql = String.format("select m.mid from member as m join entry using (mno) where eno = %d", eno);
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				return rs.getString("m.mid");				
+				return rs.getString("m.mid");
 			} else {
 				System.err.printf("select failed: %s", sql);
 			}
@@ -259,5 +267,51 @@ public class Dao {
 		}
 
 		return null;
+	}
+
+	// mno 에 해당하는 eno 목록 리턴하는 메소드
+	public ArrayList<Integer> selectEnoList(int mno) {
+		ArrayList<Integer> enoList = new ArrayList<>();
+
+		try {
+			String sql = String.format("select eno from entry where mno = %d", mno);
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				enoList.add(rs.getInt("eno"));
+			}
+		} catch (SQLException e) {
+			System.out.println(">> " + e);
+		}
+
+		return enoList;
+	}
+
+	public ArrayList<OrderCompleteDto> getOrderCompleteList(int mno) {
+		ArrayList<OrderCompleteDto> orderCompleteList = new ArrayList<>();
+
+		// mno 에 해당하는 eno 목록(해당 회원의 입점목록) 추출
+		ArrayList<Integer> enoList = selectEnoList(mno);
+
+		// 해당 회원의 입점 가게들 에서 주문 완료된 목록 추출 (주문일자 오름차순)
+		for (int eno : enoList) {
+			try {
+				String sql = String.format("select eno, mid, odate, mename, meprice, mno from orderlist"
+						+ "	join orderdetail using (ono)" + " join menu using (meno)" + " join member using (mno)"
+						+ " where eno = %d", eno);
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					Timestamp timestamp = rs.getTimestamp("odate"); // now() 함수 결과값 가져오기
+					OrderCompleteDto dto = new OrderCompleteDto(rs.getString("mid"), timestamp.toLocalDateTime(),
+							rs.getString("mename"), rs.getInt("meprice"), rs.getInt("mno"), rs.getInt("eno"));
+					orderCompleteList.add(dto);
+				}
+			} catch (SQLException e) {
+				System.out.println(">> " + e);
+			}
+		}
+
+		return orderCompleteList;
 	}
 }

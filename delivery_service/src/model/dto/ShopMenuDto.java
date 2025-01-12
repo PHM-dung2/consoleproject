@@ -6,12 +6,14 @@ public class ShopMenuDto {
 	private int meprice;
 	private int cno;
 	private int eno;
+	private String ename;
 
-	public ShopMenuDto(int meno, String mename, int meprice, int eno) {
+	public ShopMenuDto(int meno, String mename, int meprice, int eno, String ename) {
 		this.meno = meno;
 		this.mename = mename;
 		this.meprice = meprice;
 		this.eno = eno;
+		this.ename = ename;
 	}
 
 	public int getMeno() {
@@ -20,6 +22,14 @@ public class ShopMenuDto {
 
 	public void setMeno(int meno) {
 		this.meno = meno;
+	}	
+	
+	public String getEname() {
+		return ename;
+	}
+
+	public void setEname(String ename) {
+		this.ename = ename;
 	}
 
 	public String getMename() {

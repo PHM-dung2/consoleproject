@@ -14,7 +14,7 @@ public class IndexView extends DSTask {
 		this.writer = writer;
 	}
 
-	public void index() throws IOException {
+	public void index() throws IOException , InterruptedException {
 		println("\n==================     배달서비스 시스템     ==================");
 		print("1. 회원가입 2. 로그인 ");
 

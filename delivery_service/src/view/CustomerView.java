@@ -40,16 +40,14 @@ public class CustomerView extends DSTask {
 	public void index() throws IOException {
 		while (true) {
 			println("\n==================     일반회원 페이지     ==================");
-			println("1.배달음식검색 2.로그아웃 3.메시지 전달 테스트");
+			println("1.배달음식검색 2.로그아웃");
 			int choose = nextInt(1, 3);
 
 			if (choose == 1) {
 				search();
 			} else if (choose == 2) {
-				logout();
+				logout(getLoginId());
 				break;
-			} else if (choose == 3) {
-				test();
 			}
 		}
 	}
@@ -71,17 +69,17 @@ public class CustomerView extends DSTask {
 
 		// 3. 선택 메뉴 주문
 		if (orderMenu(shopMenuDto)) {
-			// TODO: 주문콜 대기하는 가맹점 회원에게 성공 메시지 보내기
-			String franId = CustomerController.getInstance().selectMid(shopMenuDto.getEno());
+			String franId = CustomerController.getInstance().selectMid(shopMenuDto.getEno());			
 			if (franId != null) {
 				MemberCommunicateController.getInstance().printf(franId,
 						"--------------------------------------------------\r\n" +
 						"| 주문 들어왔습니다!!\r\n" +
-						"| 주문자 아이디: %s\r\n" +
-						"| 메뉴: %s\r\n" +
-						"| 가격: %d\r\n" +
+						"| 주문자: %s\r\n" +
+						"| 주문점: %s\r\n" +
+						"| 주문메뉴: %s\r\n" +
+						"| 주문가격: %d\r\n" +
 						"--------------------------------------------------\r\n"
-						, getLoginId(), shopMenuDto.getMename(),
+						, getLoginId(), shopMenuDto.getEname(), shopMenuDto.getMename(),
 						shopMenuDto.getMeprice());
 			}
 		}
@@ -94,11 +92,10 @@ public class CustomerView extends DSTask {
 		if (shopList.size() == 0) {
 			printf("'%s' 메뉴를 판매중인 가맹점이 없습니다.\r\n", menu);
 			return null;
-		}
-		println(""); // 한줄 밑에서 출력
+		}		
 
 		// 메뉴 판매하는 가맹점 출력
-		println("번호 가맹점명 가맹점위치");
+		println("\r\n번호 가맹점명 가맹점위치");
 		int i;
 		for (i = 0; i < shopList.size(); i++) {
 			printf("%d. %s %s\r\n", i + 1, shopList.get(i).getEname(), shopList.get(i).getEspot());
@@ -122,11 +119,10 @@ public class CustomerView extends DSTask {
 			// 다만 혹시 모르기 때문에 넣은 코드이다.
 			println("메뉴가 없습니다.");
 			return null;
-		}
-		println(""); // 한줄 밑에서 출력
+		}		
 
 		// 해당 가맹점 메뉴 출력
-		println("번호 메뉴명 메뉴가격");
+		println("\r\n번호 메뉴명 메뉴가격");
 		int i;
 		for (i = 0; i < shopMenuList.size(); i++) {
 			printf("%d. %s %s\r\n", i + 1, shopMenuList.get(i).getMename(), shopMenuList.get(i).getMeprice());
@@ -150,13 +146,5 @@ public class CustomerView extends DSTask {
 		}
 		println("\r\n주문 완료되었습니다.");
 		return true;
-	}
-
-	private void test() throws IOException {
-		while (true) {
-			print("보낼 메시지(테스트): ");
-			String msg = next();
-			MemberCommunicateController.getInstance().println("fran", msg);
-		}
 	}
 }

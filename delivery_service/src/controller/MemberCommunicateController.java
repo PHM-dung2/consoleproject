@@ -1,29 +1,22 @@
 package controller;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.net.Socket;
+import java.util.concurrent.ConcurrentHashMap;
 
-// 접속한 멤버에게 메시지 전달 정도만 할 수 있는 클래스
-// (따로 통신 프로토콜 설계 및 클라이언트 프로그램을 운영하는게 아니고, 
-//  단순 텍스트 주고받는 용도를 위해서 putty 를 쓰기 때문에 한계가 좀 있다.)
-
-class Comm {
-	public String id;
-	public PrintWriter writer;
-
-	public Comm(String id, PrintWriter writer) {
-		this.id = id;
-		this.writer = writer;
-	}
-}
+import util.DSLogger;
 
 public class MemberCommunicateController {
-	// 접속한 클라이언트들 쓰기 소켓 리스트
-	private ArrayList<Comm> commList;
+	// 접속한 클라이언트들 쓰기 소켓 해시맵
+	private ConcurrentHashMap<String, PrintWriter> commList; // id, PrintWriter
 
-	// 싱글턴
+	// 접속한 클라이언트 프로그램(putty)을 강제 종료한다던가 할때, 해당하는 commList 의 키값을 가져오기 위한 해시맵
+	// key 값은 Socket 이고 value 값이 id 이다. commList.delComm() 메소드의 인자값으로 사용될 값이다.
+	private ConcurrentHashMap<Socket, String> sockIdList; // Socket, id
+
 	private MemberCommunicateController() {
-		commList = new ArrayList<Comm>();
+		commList = new ConcurrentHashMap<>();
+		sockIdList = new ConcurrentHashMap<>();
 	}
 
 	private static MemberCommunicateController instance = new MemberCommunicateController();
@@ -33,17 +26,32 @@ public class MemberCommunicateController {
 	}
 
 	private PrintWriter getWriter(String id) {
-		for (Comm comm : commList) {
-			if (comm.id.equals(id)) {
-				return comm.writer;
-			}
-		}
-		return null;
+		return commList.get(id);
 	}
 
-	// 로그인 된 id 로 가정(이미 DB 에서 검증완료)하기 때문에 들어온 인자값들은 신뢰한다.
 	public void addComm(String id, PrintWriter writer) {
-		commList.add(new Comm(id, writer));
+		commList.put(id, writer);
+	}
+
+	public void delComm(String id) {
+		commList.remove(id);
+	}
+
+	// 로그인 되어 있으면 true, 아니면 false
+	public boolean hasComm(String id) {
+		return commList.get(id) != null ? true : false;
+	}
+
+	public void addSockId(Socket socket, String id) {
+		sockIdList.put(socket, id);
+	}
+
+	public void delSockId(Socket socket) {
+		sockIdList.remove(socket);
+	}
+
+	public String getSockId(Socket socket) {
+		return sockIdList.get(socket);
 	}
 
 	public final void println(String id, String content) {
@@ -51,6 +59,8 @@ public class MemberCommunicateController {
 		if (writer != null) {
 			writer.println(content);
 			writer.flush();
+		} else {
+			DSLogger.debug("%s writer is null\n", id);
 		}
 	}
 
@@ -59,6 +69,8 @@ public class MemberCommunicateController {
 		if (writer != null) {
 			writer.print(content);
 			writer.flush();
+		} else {
+			DSLogger.debug("%s writer is null\n", id);
 		}
 	}
 
@@ -67,6 +79,8 @@ public class MemberCommunicateController {
 		if (writer != null) {
 			writer.printf(format, args);
 			writer.flush();
+		} else {
+			DSLogger.debug("%s writer is null\n", id);
 		}
 	}
 }
