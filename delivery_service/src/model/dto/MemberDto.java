@@ -1,6 +1,7 @@
 package model.dto;
 
 public class MemberDto {
+	private int mno;
 	private String id;
 	private String password;
 	private String name;
@@ -11,13 +12,31 @@ public class MemberDto {
 	public MemberDto() {
 	}
 
-	public MemberDto(String id, String password, String name, String telno, RoadAddressDto roadAddressDto, int type) {
+	public MemberDto(int mno, String id, String password, String name, String telno, RoadAddressDto roadAddressDto, int type) {
+		this.mno = mno;
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.telno = telno;
 		this.roadAddressDto = roadAddressDto;
 		this.type = type;
+	}
+	
+	public MemberDto(String id, String password, String name, String telno, RoadAddressDto roadAddressDto, int type) {	
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.telno = telno;
+		this.roadAddressDto = roadAddressDto;
+		this.type = type;
+	}
+
+	public int getMno() {
+		return mno;
+	}
+
+	public void setMno(int mno) {
+		this.mno = mno;
 	}
 
 	public String getId() {

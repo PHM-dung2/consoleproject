@@ -34,9 +34,10 @@ public class MemberJoinController {
 		
 		// 도로명주소 테이블에 insert
 		sql = String.format(
-				"insert into memberaddress (mazipcode, maroad, mastreet, madetail, mno) values ('%s', '%s', '%s', '%s', '%d')",
+				"insert into memberaddress (mazipcode, maroad, mastreet, madetail, masi, masgg, mno) values ('%s', '%s', '%s', '%s', '%s', '%s', '%d')",
 				member.getRoadAddressDto().getZipCode(), member.getRoadAddressDto().getRoadAddress(),
-				member.getRoadAddressDto().getJibunAddress(), member.getRoadAddressDto().getDetailAddress(), mno);
+				member.getRoadAddressDto().getJibunAddress(), member.getRoadAddressDto().getDetailAddress(), 
+				member.getRoadAddressDto().getSi(), member.getRoadAddressDto().getSgg(), mno);
 
 		return Dao.getInstance().execute(sql); 
 	}

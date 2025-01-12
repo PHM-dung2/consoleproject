@@ -87,7 +87,7 @@ public class MemberJoinView extends DSTask {
 			println(String.format("(%d) 주소", i + 1));
 			println(String.format("우편번호: %s", roadAddressList.get(i).getZipCode()));
 			println(String.format("도로명 주소: %s", roadAddressList.get(i).getRoadAddress()));
-			println(String.format("지번 주소: %s", roadAddressList.get(i).getJibunAddress()));
+			println(String.format("지번 주소: %s\r\n", roadAddressList.get(i).getJibunAddress()));
 		}		
 
 		print(": ");

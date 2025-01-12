@@ -89,8 +89,8 @@ public class RoadAddressController {
 
 		// common 객체에서 총 검색 결과 수 확인
 		JSONObject common = (JSONObject) results.get("common");
-		String totalCount = (String) common.get("totalCount");		
-
+		String totalCount = (String) common.get("totalCount");	
+		
 		// juso 배열 가져오기
 		JSONArray jusoArray = (JSONArray) results.get("juso");
 		for (Object obj : jusoArray) {
@@ -99,6 +99,8 @@ public class RoadAddressController {
 			roadAddressDto.setRoadAddress( (String)address.get("roadAddr") );
 			roadAddressDto.setJibunAddress( (String)address.get("jibunAddr") );
 			roadAddressDto.setZipCode( (String)address.get("zipNo") );
+			roadAddressDto.setSi((String)address.get("siNm") );
+			roadAddressDto.setSgg((String)address.get("sggNm") );
 			roadAddressList.add(roadAddressDto);
 		}
 		
