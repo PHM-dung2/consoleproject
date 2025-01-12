@@ -40,8 +40,14 @@ public class FranchiseView extends DSTask {
 				case 2:
 					new EntryView(clientSocket, reader, writer, getLoginMember() ).menuIndex();
 					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				default:
+					break;
 			}
-			
+			return;
 		} // w end
 	}
 }

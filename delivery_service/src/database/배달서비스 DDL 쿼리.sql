@@ -40,7 +40,7 @@ insert into memberaddress (mazipcode, maroad, mastreet, madetail, mno) values ('
 create table entry(
 	eno int unsigned auto_increment,
     ename varchar(30) not null,
-    espot varchar(30) not null,
+    espot varchar(30) not null unique,
     etype tinyint default 0,
     mno int unsigned,
 	constraint primary key( eno ) ,
@@ -48,7 +48,7 @@ create table entry(
 );
 insert into entry ( ename , espot , etype , mno ) value( "BHC치킨" , "부평점" , 0 , 3 );
 insert into entry ( ename , espot , etype , mno ) value( "맥도날드" , "부평중앙점" , 1 , 4 );
-insert into entry ( ename , espot , etype , mno ) value( "BHC치킨" , "부평점" , 1 , 5 );
+insert into entry ( ename , espot , etype , mno ) value( "BHC치킨" , "계산점" , 1 , 5 );
 
 # 4. 입점주소
 create table entryaddress (
@@ -68,7 +68,7 @@ insert into entryaddress (eazipcode, earoad, eastreet, eadetail, eno) values ('2
 
 # 5. 카테고리
 create table category (
-	cno int unsigned auto_increment ,
+	cno int unsigned auto_increment,
     cname varchar(30) not null unique ,
     constraint primary key (cno)
 );
@@ -76,7 +76,6 @@ create table category (
 insert into category (cname) values ('패스트푸드');
 insert into category (cname) values ('치킨');
 insert into category (cname) values ('고기/구이');
-insert into category (cname) values ('고기');
 
 # 6. 메뉴
 create table menu (
@@ -151,5 +150,6 @@ show tables;
 select * from rating;
 select * from entry;
 select * from entryaddress;
-select * from category;
+select * from category order by cno asc;
 select * from menu;
+select * from orderlist;
