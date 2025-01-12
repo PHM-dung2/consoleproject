@@ -22,7 +22,7 @@ public class MemberJoinView extends DSTask {
 		this.writer = writer;
 	}
 
-	public void index() throws IOException {
+	public void index() throws IOException, InterruptedException {
 		MemberJoinController memberJoinController = MemberJoinController.getInstance();
 
 		// TODO: 입력값 유효성 확인
