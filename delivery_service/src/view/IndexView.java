@@ -15,17 +15,23 @@ public class IndexView extends DSTask {
 	}
 
 	public void index() throws IOException {
-		println("\n==================     배달서비스 시스템     ==================");
-		print("1. 회원가입 2. 로그인 ");
-
-		int choose = nextInt(1, 2);
-		switch (choose) {
-		case 1:
-			new MemberJoinView(clientSocket, reader, writer).index();
-			break;
-		case 2:
-			new LoginView(clientSocket, reader, writer).index();
-			break;
-		}
+		
+		while(true) {
+			println("\n==================     배달서비스 시스템     ==================");
+			print("1. 회원가입 2. 로그인 3. 종료 ");
+			
+			int choose = nextInt(1, 3);
+			switch (choose) {
+			case 1:
+				new MemberJoinView(clientSocket, reader, writer).index();
+				break;
+			case 2:
+				new LoginView(clientSocket, reader, writer).index();
+				break;
+			default:
+				break;
+			}
+			return;
+		} // w end
 	}
 }
