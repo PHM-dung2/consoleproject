@@ -173,7 +173,15 @@ public class EntryView extends DSTask{
 	public void update( int eno ) throws IOException {
 		println("\n==================     메뉴수정     ==================");
 		int meno = meno( eno );
-		boolean result = EntryController.getInstance().update(meno);
+		cList();
+		print("카테고리 번호 : ");		int cno = nextInt();
+		print("메뉴명 : ");			String mename = next();
+		print("메뉴 가격 : ");		int meprice = nextInt();
+		EntryDto entryDto = new EntryDto( mename , meprice , cno , eno );
+		
+		boolean result = EntryController.getInstance().update(meno , entryDto);
+		if( result ) { println("메뉴수정이 완료되었습니다."); } 
+		else { println("메뉴수정 실패"); }
 		
 	} // f end
 	
@@ -181,8 +189,13 @@ public class EntryView extends DSTask{
 	public void delete( int eno ) throws IOException {
 		println("\n==================     메뉴삭제     ==================");
 		int meno = meno( eno );
+		println("\n정말 삭제하시겠습니까?");
+		print("1. 예 2. 아니요 ");
+		int choose = nextInt();
+		if( choose == 2 ) { return; }
 		boolean result = EntryController.getInstance().delete(meno);
-		
+		if( result ) { println("메뉴삭제가 완료되었습니다."); } 
+		else { println("메뉴삭제 실패"); }
 	} // f end
 	
 	

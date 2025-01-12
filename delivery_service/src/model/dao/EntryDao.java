@@ -132,18 +132,30 @@ public class EntryDao extends Dao {
 	} // f end
 	
 //	6. 메뉴수정
-	public boolean update( int meno ) throws IOException {
-//		try {
-//			String sql = "update menu set where meno"
-//		}catch( SQLException e ) { System.out.println(e); }
+	public boolean update( int meno , EntryDto entryDto ) throws IOException {
+		try {
+			String sql = "update menu set mename = ? , "
+					+ "meprice = ? , cno = ? where meno = ? ";
+			PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setString(1, entryDto.getMename());
+				ps.setInt(2, entryDto.getMeprice());
+				ps.setInt(3, entryDto.getCno());
+				ps.setInt(4, meno);
+			int count = ps.executeUpdate();
+			if( count == 1 ) { return true;	}
+		}catch( SQLException e ) { System.out.println(e); }
 		return false;
 	} // f end
 	
 //	7. 메뉴삭제
 	public boolean delete( int meno ) throws IOException {
-//		try {
-//			
-//		}catch( SQLException e ) { System.out.println(e); }
+		try {
+			String sql = "delete from menu where meno = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, meno);
+			int count = ps.executeUpdate();
+			if( count == 1 ) { return true;	}
+		}catch( SQLException e ) { System.out.println(e); }
 		return false;
 	} // f end
 	

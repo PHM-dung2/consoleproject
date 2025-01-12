@@ -47,8 +47,8 @@ public class EntryController {
 	} // f end
 	
 //	6. 메뉴수정
-	public boolean update( int meno ) throws IOException {
-		boolean result = EntryDao.getInstance().update(meno);
+	public boolean update( int meno , EntryDto entryDto ) throws IOException {
+		boolean result = EntryDao.getInstance().update(meno , entryDto);
 		return result;
 	} // f end
 	
