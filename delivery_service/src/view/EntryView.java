@@ -179,6 +179,10 @@ public class EntryView extends DSTask{
 		print("메뉴 가격 : ");		int meprice = nextInt();
 		EntryDto entryDto = new EntryDto( mename , meprice , cno , eno );
 		
+		println("\n정말 수정하시겠습니까?");
+		print("1. 예 2. 아니요 ");
+		int choose = nextInt();
+		if( choose == 2 ) { return; }
 		boolean result = EntryController.getInstance().update(meno , entryDto);
 		if( result ) { println("메뉴수정이 완료되었습니다."); } 
 		else { println("메뉴수정 실패"); }
