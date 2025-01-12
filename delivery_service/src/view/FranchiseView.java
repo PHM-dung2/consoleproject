@@ -77,6 +77,11 @@ public class FranchiseView extends DSTask {
 		// 주문일 기준 오름차순 정렬
 		orderCompleteList.sort(Comparator.comparing(OrderCompleteDto::getOrderDate));
 
+		if (orderCompleteList.size() == 0) {
+			println("\r\n주문완료 목록이 없습니다.");
+			return;
+		}
+		
 		println("\r\n------------------      주문완료목록      ------------------");
 		println("번호 주문자 주문일 주문메뉴 주문가격");
 
