@@ -48,19 +48,25 @@ public class MemberCommunicateController {
 
 	public final void println(String id, String content) {
 		PrintWriter writer = getWriter(id);
-		writer.println(content);
-		writer.flush();
+		if (writer != null) {
+			writer.println(content);
+			writer.flush();
+		}
 	}
 
 	public final void print(String id, String content) {
 		PrintWriter writer = getWriter(id);
-		writer.print(content);
-		writer.flush();
+		if (writer != null) {
+			writer.print(content);
+			writer.flush();
+		}
 	}
 
 	public final void printf(String id, String format, Object... args) {
 		PrintWriter writer = getWriter(id);
-		writer.printf(format, args);
-		writer.flush();
+		if (writer != null) {
+			writer.printf(format, args);
+			writer.flush();
+		}
 	}
 }
