@@ -13,14 +13,14 @@ import model.dto.ShopDto;
 import model.dto.ShopMenuDto;
 
 public class Dao {
-//	private String DBURL = "jdbc:mysql://127.0.0.1:3306/dssystem";
-//	private String DBID = "root";
-//	private String DBPWD = "1234";
+	private String DBURL = "jdbc:mysql://127.0.0.1:3306/dssystem";
+	private String DBID = "root";
+	private String DBPWD = "1234";
 
 	// 클라우드 디비 접속정보
-	private String DBURL = "jdbc:mysql://140.245.79.114:3306/dssystem";
-	private String DBID = "root";
-	private String DBPWD = "Don3bw3elY84167!!";
+//	private String DBURL = "jdbc:mysql://140.245.79.114:3306/dssystem";
+//	private String DBID = "root";
+//	private String DBPWD = "Don3bw3elY84167!!";
 
 	protected Connection conn = null;
 
