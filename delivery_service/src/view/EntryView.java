@@ -79,39 +79,14 @@ public class EntryView extends DSTask{
 		
 	} // f end
 	
-//	3. 메뉴 리스트
-	public ArrayList<EntryDto> menuList( int eno ) throws IOException {
-		ArrayList<EntryDto> result = EntryController.getInstance().menuList();
-		ArrayList<EntryDto> arr = new ArrayList<>();
-		
-		println("\n==================     메뉴선택     ==================");
-		
-		printf("%-5s%-15s%-20s%-10s\r\n", "번호", "카테고리", "메뉴명", "메뉴가격");
-		int count = 1;
-		for( int i = 0 ; i < result.size() ; i++ ) {
-			EntryDto entryDto = result.get(i);
-			if( entryDto.getEno() == eno ) {
-				arr.add(entryDto);
-				printf("%-5d%-15s%-20s%-10d\r\n", 
-						count , 
-						entryDto.getCname() ,
-						entryDto.getMename() , 
-						entryDto.getMeprice()
-						);
-				count++;
-			}
-		} // for end
-		return arr;
-		
-	} // f end
-	
 //	3. 메뉴 등록 페이지
 	public void menuIndex() throws IOException {
 			entryList();
 			print("\n지점번호 선택 : "); 
 			int eno = nextInt();
 			while( true ) {
-				print("\n1.메뉴등록 2.메뉴수정 3.메뉴삭제 4.뒤로가기");
+				println("\n==================     메뉴 페이지     ==================");
+				print("\n1.메뉴등록 2.메뉴수정 3.메뉴삭제 4.뒤로가기 ");
 				int choose = nextInt(1,4);
 				switch( choose ) {
 				case 1: 
@@ -131,37 +106,87 @@ public class EntryView extends DSTask{
 		
 	} // f end
 	
-//	4. 메뉴등록
+//	4. 메뉴 리스트
+	public ArrayList<Integer> menuList( int eno ) throws IOException {
+		ArrayList<EntryDto> result = EntryController.getInstance().menuList();
+		ArrayList<Integer> arr = new ArrayList<>();
+		
+		printf("%-5s%-15s%-20s%-10s\r\n", "번호", "카테고리", "메뉴명", "메뉴가격");
+		int count = 1;
+		for( int i = 0 ; i < result.size() ; i++ ) {
+			EntryDto entryDto = result.get(i);
+			if( entryDto.getEno() == eno ) {
+				arr.add(entryDto.getMeno());
+				printf("%-5d%-15s%-20s%-10d\r\n", 
+						count , 
+						entryDto.getCname() ,
+						entryDto.getMename() , 
+						entryDto.getMeprice()
+						);
+				count++;
+			} // if end
+		} // for end
+		return arr;
+		
+	} // f end
+	
+//	5. 메뉴번호 호출 메소드
+	public int meno( int eno ) throws IOException{
+		ArrayList<Integer> arr = menuList(eno);
+		print("메뉴번호 선택 : "); 
+		int mIndex = nextInt();
+		int result = arr.get(mIndex-1);
+		return result;
+	} // f end
+	
+//	6. 카테고리 리스트
+	public void cList() throws IOException{
+		println("\n==================     카테고리     ==================");
+		printf("%-5s%-15s\r\n", "번호", "카테고리명");
+		
+		ArrayList<EntryDto> result = EntryController.getInstance().cList();
+		for( int i = 0 ; i < result.size() ; i++ ) {
+			EntryDto entryDto = result.get(i);
+				printf("%-5d%-15s\r\n", 
+						entryDto.getCno() ,
+						entryDto.getCname()
+						);
+		} // for end
+		
+	} // f end
+	
+//	7. 메뉴등록
 	public void write( int eno ) throws IOException {
 		println("\n==================     메뉴등록     ==================");
-		ArrayList<EntryDto> arr = menuList(eno);
-		print("메뉴번호 선택 : "); 
-		int no = nextInt();
+		cList();
+		print("카테고리 번호 : ");		int cno = nextInt();
+		print("메뉴명 : ");			String mename = next();
+		print("메뉴 가격 : ");		int meprice = nextInt();
+		EntryDto entryDto = new EntryDto( mename , meprice , cno , eno );
 		
-		
-		
+		boolean result = EntryController.getInstance().write( entryDto );		
+		if( result ) { println("메뉴등록이 완료되었습니다."); } 
+		else { println("메뉴등록 실패"); } 
 	} // f end
 	
-//	5. 메뉴수정
+//	8. 메뉴수정
 	public void update( int eno ) throws IOException {
 		println("\n==================     메뉴수정     ==================");
-		menuList(eno);
-		print("메뉴번호 선택 : "); 
-		int no = nextInt();
+		int meno = meno( eno );
+		boolean result = EntryController.getInstance().update(meno);
+		
 	} // f end
 	
-//	6. 메뉴삭제
+//	9. 메뉴삭제
 	public void delete( int eno ) throws IOException {
 		println("\n==================     메뉴삭제     ==================");
-		menuList(eno);
-		print("메뉴번호 선택 : "); 
-		int no = nextInt();
+		int meno = meno( eno );
+		boolean result = EntryController.getInstance().delete(meno);
+		
 	} // f end
 	
-//	7. 뒤로가기
 	
-	
-	
+//	주소 불러오기 api
 	private RoadAddressDto choiceRoadAddress(String keyword) throws IOException {
 		RoadAddressDto roadAddress;
 		

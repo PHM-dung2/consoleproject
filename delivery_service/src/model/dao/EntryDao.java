@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -86,7 +87,7 @@ public class EntryDao extends Dao {
 			ResultSet rs = ps.executeQuery();
 			while( rs.next() ) {
 				EntryDto entryDto = new EntryDto();
-				entryDto.setEno(rs.getInt("eno"));
+				entryDto.setMeno(rs.getInt("meno"));
 				entryDto.setMename(rs.getString("mename"));
 				entryDto.setMeprice(rs.getInt("meprice"));
 				entryDto.setCname(rs.getString("cname"));
@@ -97,6 +98,54 @@ public class EntryDao extends Dao {
 		return result;
 	} // f end
 	
+//	4. 카테고리 리스트
+	public ArrayList<EntryDto> cList() throws IOException{
+		ArrayList<EntryDto> result = new ArrayList<>();
+		try {
+			String sql = "select * from category order by cno asc";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while( rs.next() ) {
+				EntryDto entryDto = new EntryDto();
+				entryDto.setCno(rs.getInt("cno"));
+				entryDto.setCname(rs.getString("cname"));
+				result.add(entryDto);
+			}
+		}catch( SQLException e ) { System.out.println( e ); }
+		return result;
+	} // f end
+	
+//	5. 메뉴등록
+	public boolean write( EntryDto entryDto ) throws IOException {
+		try {
+			String sql = "insert into menu( mename , meprice , cno , eno ) "
+					+ "values( ? , ? , ? , ? )";
+			PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setString(1, entryDto.getMename());
+				ps.setInt(2, entryDto.getMeprice());
+				ps.setInt(3, entryDto.getCno());
+				ps.setInt(4, entryDto.getEno());
+			int count = ps.executeUpdate();
+			if( count == 1 ) { return true; }
+		}catch( SQLException e ) { System.out.println(e); }
+		return false;
+	} // f end
+	
+//	6. 메뉴수정
+	public boolean update( int meno ) throws IOException {
+//		try {
+//			String sql = "update menu set where meno"
+//		}catch( SQLException e ) { System.out.println(e); }
+		return false;
+	} // f end
+	
+//	7. 메뉴삭제
+	public boolean delete( int meno ) throws IOException {
+//		try {
+//			
+//		}catch( SQLException e ) { System.out.println(e); }
+		return false;
+	} // f end
 	
 }
 

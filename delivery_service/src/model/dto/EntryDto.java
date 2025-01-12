@@ -43,11 +43,12 @@ public class EntryDto {
 		this.meprice = meprice;
 		this.logInMno = logInMno;
 	}
-	public EntryDto(String mename, int meprice, int cno) {
+	public EntryDto(String mename, int meprice, int cno , int eno) {
 		super();
 		this.mename = mename;
 		this.meprice = meprice;
 		this.cno = cno;
+		this.eno = eno;
 	}
 	
 //	메소드

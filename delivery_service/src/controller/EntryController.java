@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import model.dao.EntryDao;
@@ -31,7 +32,30 @@ public class EntryController {
 	public ArrayList<EntryDto> menuList() {
 		ArrayList<EntryDto> result = EntryDao.getInstance().menuList();
 		return result;
-	}
-
+	} // f end
+	
+//	4. 카테고리 리스트
+	public ArrayList<EntryDto> cList(  ) throws IOException{
+		ArrayList<EntryDto> result = EntryDao.getInstance().cList();
+		return result;
+	} // f end
+	
+//	5. 메뉴등록
+	public boolean write( EntryDto entryDto ) throws IOException {
+		boolean result = EntryDao.getInstance().write(entryDto);
+		return result;
+	} // f end
+	
+//	6. 메뉴수정
+	public boolean update( int meno ) throws IOException {
+		boolean result = EntryDao.getInstance().update(meno);
+		return result;
+	} // f end
+	
+//	7. 메뉴삭제
+	public boolean delete( int meno ) throws IOException {
+		boolean result = EntryDao.getInstance().delete(meno);
+		return result;
+	} // f end
 	
 }
