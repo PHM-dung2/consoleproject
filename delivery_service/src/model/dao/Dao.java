@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import model.dto.DodgeDto;
 import model.dto.MemberDto;
 import model.dto.ShopDto;
 import model.dto.ShopMenuDto;
@@ -128,7 +129,7 @@ public class Dao {
 	}
 
 	// 해당 메뉴를 가진 가맹점 검색
-	public ArrayList<ShopDto> searchShop(String menu, int mno) {
+	public ArrayList<ShopDto> searchShop(String menu, int mno) { // mno 는 로그인한 일반 주문회원이다.
 		ArrayList<ShopDto> shopList = new ArrayList<>();
 
 		try {
@@ -154,6 +155,20 @@ public class Dao {
 				String ename = rs.getString("e.ename");
 				String espot = rs.getString("e.espot");
 
+				// dodge 리스트를 ArrayList 로 먼저 조회해서 가지고, eno mno 값이 같으면 추가 안하는 로직으로 추가
+				boolean flag = false;
+				ArrayList<DodgeDto> dodgeList = getDodgeList();
+				for (DodgeDto dto : dodgeList) {
+					// 기피 신청한 eno 이고, 지금 로그인(일반회원)한 mno 와 기피신청당한 get.getMno() 가 같다면!
+					if (eno == dto.getEno() && dto.getMno() == mno) {
+						flag = true;
+						break;
+					}
+				}
+				if (flag) {
+					continue; // true 면 닷지에 해당하므로, 다음 레코드로 이동한다.
+				}
+
 				ShopDto dto = new ShopDto(eno, ename, espot);
 				shopList.add(dto);
 			}
@@ -162,6 +177,25 @@ public class Dao {
 		}
 
 		return shopList;
+	}
+
+	private ArrayList<DodgeDto> getDodgeList() {
+		ArrayList<DodgeDto> dodgeDtoList = new ArrayList<>();
+
+		String sql = "select eno, mno from dodge";
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				DodgeDto dto = new DodgeDto(rs.getInt("eno"), rs.getInt("mno"));
+				dodgeDtoList.add(dto);
+			}
+		} catch (SQLException e) {
+			System.out.println(">> " + e);
+		}
+
+		return dodgeDtoList;
 	}
 
 	// 해당 가맹점에서 제공하는 메뉴 검색
