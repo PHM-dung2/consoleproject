@@ -168,7 +168,11 @@ public class ManageView extends DSTask{
 		print("상태 변경하시겠습니까?");	
 		print("1.예 2.아니오");		int etype = nextInt();
 		if( etype == 1 ) { etype = 0; }
-		System.out.println( etype );
+		
+		println("\n입점 정보를 수정하시겠습니까?");
+		print("1.예 2.아니오 ");
+		int choose = nextInt();
+		if( choose == 2 ) { return; }
 		
 		EntryDto entryDto = new EntryDto();
 		entryDto.setEname(ename);
@@ -183,7 +187,17 @@ public class ManageView extends DSTask{
 	
 //	9. 입정 정보 삭제
 	public void delete( int eIndex ) throws IOException {
-		
+		println("\n입점 승인하시겠습니까?");
+		print("1.예 2.아니오 ");
+		int choose = nextInt();
+		switch(choose) {
+			case 1:
+				boolean result = ManageController.getInstance().entryApproval(eIndex);
+				if( result ) { println("입점 승인되었습니다"); }
+				else { println("입점 승인 실패"); }
+				break;
+		} // s end
+		return;
 	} // f end
 	
 	
