@@ -24,4 +24,10 @@ public class FranchiseController {
 
 		return Dao.getInstance().execute(sql);
 	}
+	
+	public boolean insertDodgeMember(OrderCompleteDto dto) {
+		String sql = String.format("insert into dodge (eno, mno) values (%d, %d)", dto.getOrderEno(), dto.getOrderMno());
+
+		return Dao.getInstance().execute(sql);
+	}
 }

@@ -109,20 +109,23 @@ public class FranchiseView extends DSTask {
 		print(": ");
 		switch (nextInt(1, 3)) {
 		case 1:
-			print("별점(1 ~ 5): ");			
-			boolean result = FranchiseController.getInstance().insertStarPoint(nextInt(1, 5), dto);
-			if (result) {
+			// 별점주기
+			print("별점(1 ~ 5): ");			 
+			if (FranchiseController.getInstance().insertStarPoint(nextInt(1, 5), dto)) {
 				println("\r\n별점주기 성공");
 			} else {
 				println("\r\n** 별점주기 실패 **");
 			}
 			break;
-		case 2:
+		case 2:			 
+			if (FranchiseController.getInstance().insertDodgeMember(dto)) {
+				println("\r\n기피신청 성공");
+			} else {
+				println("\r\n** 기피신청 실패 **");
+			}			
 			break;
 		case 3:
 			return;
 		}
-
-		// TODO: 기피목록 구현
 	}
 }
