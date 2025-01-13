@@ -60,8 +60,8 @@ public class ManageView extends DSTask{
 		println("\n==================     입점신청 목록     ==================");
 		nonentryList();
 		
-		print("\n1.번호선택 2.뒤로가기 ");
-		int choose = nextInt();
+		print("\r\n1.번호선택 2.뒤로가기 ");
+		int choose = nextInt(1,2);
 		
 		switch( choose ) {
 			case 1:
@@ -79,8 +79,8 @@ public class ManageView extends DSTask{
 			println("\n==================     입점 목록     ==================");
 			entryList();
 			
-			print("\n1.번호선택 2.뒤로가기 ");
-			int choose = nextInt();
+			print("\r\n1.번호선택 2.뒤로가기 ");
+			int choose = nextInt(1,2);
 			
 			switch( choose ) {
 				case 1:
@@ -98,7 +98,7 @@ public class ManageView extends DSTask{
 		while( true ) {
 			print("\n번호선택 : ");
 			int eIndex = nextInt();
-			println("\n1.입점 승인 2.입점 거절 3.뒤로가기");
+			print("\n1.입점 승인 2.입점 거절 3.뒤로가기");
 			int choose = nextInt(1,3);
 			
 			switch( choose ) {
@@ -120,7 +120,7 @@ public class ManageView extends DSTask{
 		while( true ) {
 			print("\n번호선택 : ");
 			int eIndex = nextInt();
-			println("\n1.입점수정 2.입점삭제 3.뒤로가기");
+			print("\n1.입점수정 2.입점삭제 3.뒤로가기");
 			int choose2 = nextInt(1,3);
 			
 			switch( choose2 ) {
@@ -140,7 +140,7 @@ public class ManageView extends DSTask{
 	public void entryApproval( int eIndex ) throws IOException {
 		println("\n입점 승인하시겠습니까?");
 		print("1.예 2.아니오 ");
-		int choose = nextInt();
+		int choose = nextInt(1,2);
 		switch(choose) {
 			case 1:
 				boolean result = ManageController.getInstance().entryApproval(eIndex);
@@ -165,13 +165,13 @@ public class ManageView extends DSTask{
 		println("\n==================     입점 정보 수정     ==================");
 		print("상호명 : ");			String ename = next();
 		print("지점명 : ");			String espot = next();
-		print("상태 변경하시겠습니까?");	
+		println("상태 변경을 하시겠습니까?");	
 		print("1.예 2.아니오");		int etype = nextInt();
 		if( etype == 1 ) { etype = 0; }
 		
 		println("\n입점 정보를 수정하시겠습니까?");
 		print("1.예 2.아니오 ");
-		int choose = nextInt();
+		int choose = nextInt(1,2);
 		if( choose == 2 ) { return; }
 		
 		EntryDto entryDto = new EntryDto();
@@ -187,9 +187,10 @@ public class ManageView extends DSTask{
 	
 //	9. 입정 정보 삭제
 	public void delete( int eIndex ) throws IOException {
+		println("\n==================     입점 정보 삭제     ==================");
 		println("\n입점 정보를 삭제하시겠습니까?");
 		print("1.예 2.아니오 ");
-		int choose = nextInt();
+		int choose = nextInt(1,2);
 		switch(choose) {
 			case 1:
 				boolean result = ManageController.getInstance().delete(eIndex);
