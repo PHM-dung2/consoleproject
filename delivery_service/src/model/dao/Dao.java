@@ -287,6 +287,7 @@ public class Dao {
 		return enoList;
 	}
 
+	// 주문 완료 목록
 	public ArrayList<OrderCompleteDto> getOrderCompleteList(int mno) {
 		ArrayList<OrderCompleteDto> orderCompleteList = new ArrayList<>();
 

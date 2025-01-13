@@ -58,8 +58,8 @@ public class FranchiseView extends DSTask {
 				break;
 			case 5:
 				logout(getLoginId());
-				return; // 로그아웃은 break 아닌 return 해서 접속을 끊는다.				
-			}			
+				return; // 로그아웃은 break 아닌 return 해서 접속을 끊는다.
+			}
 		} // w end
 	}
 
@@ -73,7 +73,7 @@ public class FranchiseView extends DSTask {
 		ArrayList<OrderCompleteDto> orderCompleteList = new ArrayList<>();
 
 		orderCompleteList = FranchiseController.getInstance().getOrderCompleteList(getLoginMno());
-		
+
 		// 주문일 기준 오름차순 정렬
 		orderCompleteList.sort(Comparator.comparing(OrderCompleteDto::getOrderDate));
 
@@ -81,19 +81,17 @@ public class FranchiseView extends DSTask {
 			println("\r\n주문완료 목록이 없습니다.");
 			return;
 		}
-		
+
 		println("\r\n------------------      주문완료목록      ------------------");
 		println("번호 주문자 주문일 주문메뉴 주문가격");
-
 		int i;
 		for (i = 0; i < orderCompleteList.size(); i++) {
 			// 날짜포맷변경
 			String orderDate = orderCompleteList.get(i).getOrderDate()
-					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")); 
-			
-			printf("%d. %s %s %s %d\r\n", i + 1, orderCompleteList.get(i).getOrderId(),
-					orderDate, orderCompleteList.get(i).getOrderMenuName(),
-					orderCompleteList.get(i).getOrderMenuPrice());
+					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+			printf("%d. %s %s %s %d\r\n", i + 1, orderCompleteList.get(i).getOrderId(), orderDate,
+					orderCompleteList.get(i).getOrderMenuName(), orderCompleteList.get(i).getOrderMenuPrice());
 		}
 		printf("%d. 뒤로가기\r\n", ++i);
 
@@ -103,7 +101,27 @@ public class FranchiseView extends DSTask {
 			return;
 		}
 
-		// TODO: 별점주기 구현
+		// 별점주기
+		OrderCompleteDto dto = orderCompleteList.get(choose - 1); // 선택한 주문 정보
+
+		printf("\r\n'%s' 회원 별점주기 or 기피신청\r\n", dto.getOrderId());
+		println("1. 별점주기 2. 기피신청 3. 처음으로");
+		print(": ");
+		switch (nextInt(1, 3)) {
+		case 1:
+			print("별점(1 ~ 5): ");			
+			boolean result = FranchiseController.getInstance().insertStarPoint(nextInt(1, 5), dto);
+			if (result) {
+				println("\r\n별점주기 성공");
+			} else {
+				println("\r\n** 별점주기 실패 **");
+			}
+			break;
+		case 2:
+			break;
+		case 3:
+			return;
+		}
 
 		// TODO: 기피목록 구현
 	}
