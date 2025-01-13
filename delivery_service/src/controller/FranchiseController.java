@@ -24,10 +24,16 @@ public class FranchiseController {
 
 		return Dao.getInstance().execute(sql);
 	}
-	
-	public boolean insertDodgeMember(OrderCompleteDto dto) {
-		String sql = String.format("insert into dodge (eno, mno) values (%d, %d)", dto.getOrderEno(), dto.getOrderMno());
 
-		return Dao.getInstance().execute(sql);
+	// 리턴값 ( 0: 성공 , 1: insert 실패 , 2: 이미 기피 신청된 멤버 )
+	public int insertDodgeMember(OrderCompleteDto dto) {
+		if (Dao.getInstance().isDodgeMember(dto.getOrderEno(), dto.getOrderMno())) {
+			return 2; // 이미 기피 신청된 멤버
+		}
+
+		String sql = String.format("insert into dodge (eno, mno) values (%d, %d)", dto.getOrderEno(),
+				dto.getOrderMno());
+
+		return Dao.getInstance().execute(sql) ? 0 : 1;
 	}
 }

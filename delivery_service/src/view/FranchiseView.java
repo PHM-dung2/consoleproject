@@ -113,17 +113,23 @@ public class FranchiseView extends DSTask {
 			// 별점주기
 			print("별점(1 ~ 5): ");
 			if (FranchiseController.getInstance().insertStarPoint(nextInt(1, 5), dto)) {
-				println("\r\n별점주기 성공");
+				println("\r\n별점주기 성공하였습니다.");
 			} else {
 				println("\r\n** 별점주기 실패 **");
 			}
 			break;
 		case 2:
-			if (FranchiseController.getInstance().insertDodgeMember(dto)) {
-				println("\r\n기피신청 성공");
-			} else {
-				println("\r\n** 기피신청 실패 **");
-			}
+			int result = FranchiseController.getInstance().insertDodgeMember(dto);
+			switch (result) {
+				case 0:
+					printf("\r\n'%s' 가맹점에서 '%s' 회원에 대해 기피신청 완료되었습니다.", dto.getOrderEntryName(), dto.getOrderId());
+					break;
+				case 1:
+					println("\r\n** 기피신청 실패 **");
+					break;
+				case 2:
+					println("\r\n 이미 기피신청된 회원입니다.");					
+			}			
 			break;
 		case 3:
 			return;

@@ -340,8 +340,9 @@ public class Dao {
 //				where me.eno = 1;
 				String sql = String.format(
 						"select me.eno, mem.mid, ol.odate, me.mename, me.meprice, ol.mno, concat(en.ename, \" \", en.espot) as entryname"
-								+ " from orderlist as ol" + " join orderdetail as od using (ono)" + " join menu as me using (meno)"
-								+ " join member as mem using (mno)" + " join entry as en using (eno)" + " where me.eno = %d",
+								+ " from orderlist as ol" + " join orderdetail as od using (ono)"
+								+ " join menu as me using (meno)" + " join member as mem using (mno)"
+								+ " join entry as en using (eno)" + " where me.eno = %d",
 						eno);
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ResultSet rs = ps.executeQuery();
@@ -358,5 +359,20 @@ public class Dao {
 		}
 
 		return orderCompleteList;
+	}
+
+	// 해당 가게에 이미 기피 신청된 회원인지 확인
+	public boolean isDodgeMember(int eno, int mno) {
+		try {
+			String sql = String.format("select mno from dodge where eno = %d and mno = %d", eno, mno);
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) { // 조회되었기 때문에 해당 가게에 이미 등록된 기피 회원이다.
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println(">> " + e);
+		}
+		return false;
 	}
 }
