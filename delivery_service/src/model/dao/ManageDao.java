@@ -43,6 +43,13 @@ public class ManageDao extends Dao{
 	
 //	3. 입정 정보 삭제
 	public boolean delete( int eIndex ) {
+		try {
+			String sql = "delete from entry where eno = ? ";
+			PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, eIndex);
+			int count = ps.executeUpdate();
+			if( count == 1) { return true; }
+		}catch( SQLException e ) { System.out.println( e ); }
 		return false;
 	} // f end
 	
