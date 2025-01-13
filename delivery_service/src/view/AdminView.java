@@ -29,20 +29,21 @@ public class AdminView extends DSTask {
 	}
 
 	public void index() throws IOException {
-		println("\n==================     관리자 페이지     ==================");
-		println("1.가맹신청목록 2.가맹점 목록 3.로그아웃 ");
-		int choose = nextInt(1 , 3);
-		switch (choose) {
+		while(true) {
+			println("\n==================     관리자 페이지     ==================");
+			println("1.입점승인 목록 2.입점 목록 3.로그아웃 ");
+			int choose = nextInt(1 , 3);
+			switch (choose) {
+				case 1:
+					new ManageView(clientSocket, reader, writer).nonEntry();
+					break;
+				case 2:
+					new ManageView(clientSocket, reader, writer).entry();
+					break;
+				case 3:
+					break;
+			} //s end
+		}
 		
-		case 1:
-			new ManagView(clientSocket, reader, writer).index();
-			return;
-		
-		case 2:
-			
-			
-		case 3:
-		
-		} //s end
 	}// f end
 }
