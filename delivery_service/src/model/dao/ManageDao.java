@@ -43,7 +43,7 @@ public class ManageDao extends Dao{
 	
 //	3. 입정 정보 삭제
 	public boolean delete( int eIndex ) {
-		
+		return false;
 	} // f end
 	
 }
