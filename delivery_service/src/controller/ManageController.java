@@ -19,7 +19,8 @@ public class ManageController {
 	
 //	2. 입점 정보 수정
 	public boolean update( EntryDto entryDto ) {
-		
+		boolean result = ManageDao.getInstance().update(entryDto);
+		return result;
 	} // f end
 	
 //	3. 입정 정보 삭제

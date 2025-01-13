@@ -167,7 +167,7 @@ public class ManageView extends DSTask{
 		print("지점명 : ");			String espot = next();
 		print("상태 변경하시겠습니까?");	
 		print("1.예 2.아니오");		int etype = nextInt();
-		if( etype == 2 ) { etype = 0; }
+		if( etype == 1 ) { etype = 0; }
 		System.out.println( etype );
 		
 		EntryDto entryDto = new EntryDto();
