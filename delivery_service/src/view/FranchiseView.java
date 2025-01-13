@@ -83,15 +83,16 @@ public class FranchiseView extends DSTask {
 		}
 
 		println("\r\n------------------      주문완료목록      ------------------");
-		println("번호 주문자 주문일 주문메뉴 주문가격");
+		println("번호 | 주문자 | 주문일 | 주문점 | 주문메뉴 | 주문가격");
 		int i;
 		for (i = 0; i < orderCompleteList.size(); i++) {
 			// 날짜포맷변경
 			String orderDate = orderCompleteList.get(i).getOrderDate()
 					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-			printf("%d. %s %s %s %d\r\n", i + 1, orderCompleteList.get(i).getOrderId(), orderDate,
-					orderCompleteList.get(i).getOrderMenuName(), orderCompleteList.get(i).getOrderMenuPrice());
+			printf("%d. | %s | %s | %s | %s | %d\r\n", i + 1, orderCompleteList.get(i).getOrderId(), orderDate,
+					orderCompleteList.get(i).getOrderEntryName(), orderCompleteList.get(i).getOrderMenuName(),
+					orderCompleteList.get(i).getOrderMenuPrice());
 		}
 		printf("%d. 뒤로가기\r\n", ++i);
 
@@ -110,19 +111,19 @@ public class FranchiseView extends DSTask {
 		switch (nextInt(1, 3)) {
 		case 1:
 			// 별점주기
-			print("별점(1 ~ 5): ");			 
+			print("별점(1 ~ 5): ");
 			if (FranchiseController.getInstance().insertStarPoint(nextInt(1, 5), dto)) {
 				println("\r\n별점주기 성공");
 			} else {
 				println("\r\n** 별점주기 실패 **");
 			}
 			break;
-		case 2:			 
+		case 2:
 			if (FranchiseController.getInstance().insertDodgeMember(dto)) {
 				println("\r\n기피신청 성공");
 			} else {
 				println("\r\n** 기피신청 실패 **");
-			}			
+			}
 			break;
 		case 3:
 			return;

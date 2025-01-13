@@ -328,18 +328,28 @@ public class Dao {
 		// mno 에 해당하는 eno 목록(해당 회원의 입점목록) 추출
 		ArrayList<Integer> enoList = selectEnoList(mno);
 
-		// 해당 회원의 입점 가게들 에서 주문 완료된 목록 추출 (주문일자 오름차순)
+		// 해당 회원의 입점 가게들 에서 주문 완료된 목록 추출
+		// (주문일자 오름차순: enoList 를 각각 돌기에 order by 적용이 불가능함)
 		for (int eno : enoList) {
 			try {
-				String sql = String.format("select eno, mid, odate, mename, meprice, mno from orderlist"
-						+ "	join orderdetail using (ono)" + " join menu using (meno)" + " join member using (mno)"
-						+ " where eno = %d", eno);
+//				select me.eno, mem.mid, ol.odate, me.mename, me.meprice, ol.mno, concat(en.ename, " ", en.espot) as entryname from orderlist as ol
+//				join orderdetail as od using (ono)
+//				join menu as me using (meno)
+//				join member as mem using (mno)
+//				join entry as en using (eno)
+//				where me.eno = 1;
+				String sql = String.format(
+						"select me.eno, mem.mid, ol.odate, me.mename, me.meprice, ol.mno, concat(en.ename, \" \", en.espot) as entryname"
+								+ " from orderlist as ol" + " join orderdetail as od using (ono)" + " join menu as me using (meno)"
+								+ " join member as mem using (mno)" + " join entry as en using (eno)" + " where me.eno = %d",
+						eno);
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
 					Timestamp timestamp = rs.getTimestamp("odate"); // now() 함수 결과값 가져오기
 					OrderCompleteDto dto = new OrderCompleteDto(rs.getString("mid"), timestamp.toLocalDateTime(),
-							rs.getString("mename"), rs.getInt("meprice"), rs.getInt("mno"), rs.getInt("eno"));
+							rs.getString("mename"), rs.getInt("meprice"), rs.getInt("mno"), rs.getInt("eno"),
+							rs.getString("entryname"));
 					orderCompleteList.add(dto);
 				}
 			} catch (SQLException e) {

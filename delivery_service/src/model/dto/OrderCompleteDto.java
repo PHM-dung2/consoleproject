@@ -9,14 +9,16 @@ public class OrderCompleteDto {
 	private int orderMenuPrice; // 주문메뉴가격
 	private int orderMno; // 주문자 회원번호 (기피신청/별점기능 구현시 사용)
 	private int orderEno; // 주문 가게번호 (기피신청기능 구현시 사용)
+	public String orderEntryName; // 주문 가게명
 
-	public OrderCompleteDto(String orderId, LocalDateTime orderDate, String orderMenuName, int orderMenuPrice, int orderMno, int orderEno) {
+	public OrderCompleteDto(String orderId, LocalDateTime orderDate, String orderMenuName, int orderMenuPrice, int orderMno, int orderEno, String orderEntryName) {
 		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.orderMenuName = orderMenuName;
 		this.orderMenuPrice = orderMenuPrice;
 		this.orderMno = orderMno;
 		this.orderEno = orderEno;
+		this.orderEntryName = orderEntryName;
 	}
 
 	public String getOrderId() {
@@ -65,6 +67,14 @@ public class OrderCompleteDto {
 
 	public void setOrderEno(int orderEno) {
 		this.orderEno = orderEno;
+	}
+	
+	public String getOrderEntryName() {
+		return orderEntryName;
+	}
+
+	public void setOrderEntryName(String orderEntryName) {
+		this.orderEntryName = orderEntryName;
 	}
 
 	@Override
