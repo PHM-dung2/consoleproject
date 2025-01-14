@@ -3,6 +3,7 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -61,19 +62,17 @@ public class EntryView extends DSTask{
 		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
 		
 		println("\n==================     지점선택     ==================");
-		printf("%-5s%-15s%-20s%-10s\r\n " , "지점번호" , "상호명" , "지점명" , "입점상태" );
+		println("지점번호     상호명     지점명     입점상태" );
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
 			if( entryDto.getMno() == Dao.getInstance().selectMno(getLoginId()) ) {
 				String eType = null;
 				if( entryDto.getEtype() == 0 ) { eType = "미승인"; }
 				else if( entryDto.getEtype() == 1 ){ eType = "승인"; }
-				printf("%-5s%-15s%-20s%-10s\r\n" , 
-						entryDto.getEno() , 
-						entryDto.getEname() ,
-						entryDto.getEspot() , 
-						eType
-						);
+				print(entryDto.getEno() + "     "); 
+				print(entryDto.getEname() + "     ");
+				print(entryDto.getEspot() + "     ");
+				println(eType + "     ");
 			}
 		} // for end
 		
@@ -111,18 +110,16 @@ public class EntryView extends DSTask{
 		ArrayList<EntryDto> result = EntryController.getInstance().menuList();
 		ArrayList<Integer> arr = new ArrayList<>();
 		
-		printf("%-5s%-15s%-20s%-10s\r\n", "번호", "카테고리", "메뉴명", "메뉴가격");
+		println("번호     카테고리     메뉴명     메뉴가격");
 		int count = 1;
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
 			if( entryDto.getEno() == eno ) {
 				arr.add(entryDto.getMeno());
-				printf("%-5d%-15s%-20s%-10d\r\n", 
-						count , 
-						entryDto.getCname() ,
-						entryDto.getMename() , 
-						entryDto.getMeprice()
-						);
+				println(count + "     " );
+				println(entryDto.getCname() + "     " );
+				println(entryDto.getMename() + "     " ); 
+				println(entryDto.getMeprice() + "     " );
 				count++;
 			} // if end
 		} // for end
@@ -142,15 +139,13 @@ public class EntryView extends DSTask{
 //	6. 카테고리 리스트
 	public void cList() throws IOException{
 		println("\n==================     카테고리     ==================");
-		printf("%-5s%-15s\r\n", "번호", "카테고리명");
+		println("번호     카테고리명");
 		
 		ArrayList<EntryDto> result = EntryController.getInstance().cList();
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
-				printf("%-5d%-15s\r\n", 
-						entryDto.getCno() ,
-						entryDto.getCname()
-						);
+				println(entryDto.getCno() + "     " );
+				println(entryDto.getCname() + "     " );
 		} // for end
 		
 	} // f end

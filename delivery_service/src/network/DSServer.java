@@ -3,7 +3,6 @@ package network;
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
-import java.sql.SQLException;
 
 import model.dao.Dao;
 
