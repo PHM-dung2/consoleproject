@@ -2,7 +2,6 @@ package controller;
 
 import model.dao.Dao;
 import model.dto.MemberDto;
-import util.DSCrypto;
 
 public class LoginViewController {
 	private LoginViewController() {
