@@ -15,6 +15,8 @@ import model.dto.DodgeDto;
 import model.dto.MemberDto;
 import model.dto.ShopDto;
 import model.dto.ShopMenuDto;
+import util.DSCrypto;
+import util.DSLogger;
 import model.dto.OrderCompleteDto;
 
 public class Dao {
@@ -60,7 +62,7 @@ public class Dao {
 				return true;
 			}
 		} catch (SQLException e) {
-			System.err.printf("Query Failed - %s >> %s", sql, e.getMessage());
+			System.err.printf(">> %s", e);
 		}
 
 		return false;
@@ -102,25 +104,29 @@ public class Dao {
 		return result;
 	}
 
-	// 회원정보(1명) 검색
-	public MemberDto selectMember(String id) {
+	// 로그인
+	public MemberDto login(String id, String password) {
 		MemberDto member = null;
 
 		try {
-			String sql = String.format("select mno, mid, mpwd, mname, mphone, mtype from member where mid = '%s'", id);
+			String sql = String.format("select m.mno, m.mid, m.mname, m.mphone, m.mtype, mp.mppassword from member as m"
+					+ " join memberpassword as mp using(mno) where mid = '%s';", id);
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
-
-			if (!rs.next())
-				return null; // 아무것도 조회되지 않았음
-
+			if (!rs.next()) {
+				System.out.printf("없는 ID(%s) 입니다. \n", id); // 디버깅 메시지
+				return null; // ID 없음
+			} else if (!DSCrypto.compareHash(id, password, rs.getString("mp.mppassword"))) {				
+				System.out.printf("%s 패스워드가 맞지 않습니다.\n", id); // 디버깅 메시지
+				return null;
+			}
 			member = new MemberDto();
-			member.setMno(rs.getInt("mno"));
-			member.setId(rs.getString("mid"));
-			member.setPassword(rs.getString("mpwd"));
-			member.setName(rs.getString("mname"));
-			member.setTelno(rs.getString("mphone"));
-			member.setType(rs.getInt("mtype"));
+			member.setMno(rs.getInt("m.mno"));
+			member.setId(rs.getString("m.mid"));
+			member.setName(rs.getString("m.mname"));
+			member.setTelno(rs.getString("m.mphone"));
+			member.setType(rs.getInt("m.mtype"));
+			member.setPassword(rs.getString("mp.mppassword"));
 		} catch (SQLException e) {
 			System.out.println(">> " + e);
 		}
@@ -374,5 +380,65 @@ public class Dao {
 			System.out.println(">> " + e);
 		}
 		return false;
+	}
+
+	// 회원 가입
+	public boolean join(MemberDto member) {
+		try {
+			conn.setAutoCommit(false);
+
+			// 멤버 테이블 insert
+			String sql = String.format("insert into member (mid, mname, mphone, mtype) values ('%s', '%s', '%s', %d)",
+					member.getId(), member.getName(), member.getTelno(), member.getType());
+			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			if (ps.executeUpdate() < 1) {
+				DSLogger.error("SQL failed: %s\n", sql);
+				return false;
+			}
+
+			// auto_increment 된 주문 번호를 가지고 오기 위한 코드이다. 아래 INSERT 쿼리들에 사용된다.
+			int mno;
+			ResultSet generatedKeys = ps.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				mno = generatedKeys.getInt(1); // member 테이블에 마지막에 insert 된 mno
+			} else {
+				DSLogger.error("generatedKeys() 생성 실패");
+				return false;
+			}
+
+			// 패스워드 테이블 insert
+			sql = String.format("insert into memberpassword (mppassword, mno) values ('%s', %d)",
+					DSCrypto.makeSafePassword(member.getId(), member.getPassword()), mno);
+			PreparedStatement ps1 = conn.prepareStatement(sql);
+			if (ps1.executeUpdate() < 1) {
+				DSLogger.error("SQL failed: %s\n", sql);
+				return false;
+			}
+
+			// 도로명주소 테이블 insert
+			sql = String.format(
+					"insert into memberaddress (mazipcode, maroad, mastreet, madetail, masi, masgg, mno) values ('%s', '%s', '%s', '%s', '%s', '%s', '%d')",
+					member.getRoadAddressDto().getZipCode(), member.getRoadAddressDto().getRoadAddress(),
+					member.getRoadAddressDto().getJibunAddress(), member.getRoadAddressDto().getDetailAddress(),
+					member.getRoadAddressDto().getSi(), member.getRoadAddressDto().getSgg(), mno);
+			PreparedStatement ps2 = conn.prepareStatement(sql);
+			if (ps2.executeUpdate() < 1) {
+				DSLogger.error("SQL failed: %s\n", sql);
+				return false;
+			}
+
+			// 트랜잭션 수동 커밋
+			conn.commit();
+		} catch (SQLException e) {
+			DSLogger.error(">> %s", e);
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				DSLogger.error("setAutoCommit(true) failed: %s\n", e);
+			}
+		}
+
+		return true;
 	}
 }

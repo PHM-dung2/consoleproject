@@ -25,8 +25,8 @@ public class MemberJoinView extends DSTask {
 	public void index() throws IOException, InterruptedException {
 		MemberJoinController memberJoinController = MemberJoinController.getInstance();
 
-		// TODO: 입력값 유효성 확인
-		println("\n==================     회원가입     ==================");
+		// TODO: 입력값 유효성 확인		
+		println("\r\n------------------      회원가입신청      ------------------");
 		print("ID: ");
 		String id = next();
 		while (memberJoinController.checkID(id)) {
@@ -52,13 +52,10 @@ public class MemberJoinView extends DSTask {
 
 		// 컨트롤러 싱글턴 객체를 통해 DB 에 insert 한다. insert 성공하면 true 다.
 		if (MemberJoinController.getInstance().join(member)) {
-			println("----- 회원가입 성공 -----\n");
+			println("\r\n가입 성공하였습니다!");
 		} else {
-			println("!!!!! 회원가입 실패 !!!!!\n");
+			println("\r\n** 가입 실패 **");
 		}
-
-		// 다시 초기화면으로 간다.
-		new IndexView(clientSocket, reader, writer).index();
 	}
 	
 	private RoadAddressDto choiceRoadAddress(String keyword) throws IOException {
