@@ -41,7 +41,7 @@ public class ManageDao extends Dao{
 		return false;
 	} // f end
 	
-//	3. 입정 정보 삭제
+//	3. 입점 정보 삭제
 	public boolean delete( int eIndex ) {
 		try {
 			String sql = "delete from entry where eno = ? ";
