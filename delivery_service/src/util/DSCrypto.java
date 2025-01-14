@@ -20,4 +20,9 @@ public class DSCrypto {
 			return null;
 		}
 	}
+	
+	// 패스워드가 일치하면 true , 불일치하면 false
+	public static boolean compareHash(String id, String password, String hashString) {
+		return makeSafePassword(id, password).equals(hashString); 
+	}
 }
