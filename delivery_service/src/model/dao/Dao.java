@@ -396,7 +396,7 @@ public class Dao {
 				return false;
 			}
 
-			// auto_increment 된 주문 번호를 가지고 오기 위한 코드이다. 아래 INSERT 쿼리들에 사용된다.
+			// auto_increment 된 번호를 가지고 오기 위한 코드이다. 아래 INSERT 쿼리들에 사용된다.
 			int mno;
 			ResultSet generatedKeys = ps.getGeneratedKeys();
 			if (generatedKeys.next()) {

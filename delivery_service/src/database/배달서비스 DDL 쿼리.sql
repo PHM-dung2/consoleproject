@@ -215,10 +215,11 @@ create table dodge (
 
 # 11. 별점목록
 create table rating(
-	rno int unsigned auto_increment,
-    constraint primary key( rno ),
-    rrating int unsigned default 3,
-    mno int unsigned
+	rno int unsigned auto_increment ,
+    constraint primary key( rno ) ,
+    rrating int unsigned default 3 ,
+    mno int unsigned ,
+    constraint foreign key (mno) references member (mno) on update cascade on delete cascade
 );
 -- 별점목록 샘플
 insert into rating(rrating , mno) values(3 , 4);
