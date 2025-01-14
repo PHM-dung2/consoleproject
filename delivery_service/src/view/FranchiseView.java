@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import controller.FranController;
 import controller.FranchiseController;
 import network.DSTask;
 

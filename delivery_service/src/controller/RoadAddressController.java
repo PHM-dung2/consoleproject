@@ -87,10 +87,6 @@ public class RoadAddressController {
 		// results 객체 가져오기
 		JSONObject results = (JSONObject) rootObject.get("results");
 
-		// common 객체에서 총 검색 결과 수 확인
-		JSONObject common = (JSONObject) results.get("common");
-		String totalCount = (String) common.get("totalCount");	
-		
 		// juso 배열 가져오기
 		JSONArray jusoArray = (JSONArray) results.get("juso");
 		for (Object obj : jusoArray) {
