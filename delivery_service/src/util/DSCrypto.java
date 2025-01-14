@@ -16,7 +16,7 @@ public class DSCrypto {
 			// 바이트 배열을 Base64 인코딩한 문자열로 리턴한다.
 			return Base64.getEncoder().encodeToString(hashBytes);
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 			return null;
 		}
 	}
