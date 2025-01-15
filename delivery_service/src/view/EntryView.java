@@ -36,7 +36,7 @@ public class EntryView extends DSTask{
 //	메소드	
 //	1. 입점 신청
 	public void entryJoin() throws IOException {
-		println("\r\n==================     입점신청     ==================\r\n");
+		print("\r\n==================     입점신청     ==================\r\n");
 		print("상호명 : ");			String ename = next();
 		print("지점명 : ");			String espot = next();
 		
@@ -51,8 +51,8 @@ public class EntryView extends DSTask{
 		entryDto.setLogInMno(getLoginId());
 		
 		boolean result = EntryController.getInstance().entryJoin( entryDto , roadAddress);
-		if( result ) { println( "입점신청이 완료되었습니다." ); }
-		else { println( "입점신청 실패" ); }
+		if( result ) { print( "입점신청이 완료되었습니다.\r\n" ); }
+		else { print( "입점신청 실패\r\n" ); }
 		
 	} // f end
 	
@@ -71,7 +71,7 @@ public class EntryView extends DSTask{
 				print(entryDto.getEno() + "     "); 
 				print(entryDto.getEname() + "     ");
 				print(entryDto.getEspot() + "     ");
-				println(eType + "     ");
+				print(eType + "     \r\n");
 			}
 		} // for end
 		
@@ -80,7 +80,7 @@ public class EntryView extends DSTask{
 //	3. 메뉴 등록 페이지
 	public void menuIndex() throws IOException {
 			entryList();
-			print("\n지점번호 선택 : "); 
+			print("\r\n지점번호 선택 : "); 
 			int eno = nextInt();
 			while( true ) {
 				print("\r\n==================     메뉴 페이지     ==================\r\n");
@@ -115,10 +115,10 @@ public class EntryView extends DSTask{
 			EntryDto entryDto = result.get(i);
 			if( entryDto.getEno() == eno ) {
 				arr.add(entryDto.getMeno());
-				println(count + "     " );
-				println(entryDto.getCname() + "     " );
-				println(entryDto.getMename() + "     " ); 
-				println(entryDto.getMeprice() + "     " );
+				print(count + "     " );
+				print(entryDto.getCname() + "     " );
+				print(entryDto.getMename() + "     " ); 
+				print(entryDto.getMeprice() + "     \r\n" );
 				count++;
 			} // if end
 		} // for end
