@@ -3,7 +3,6 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -37,7 +36,7 @@ public class EntryView extends DSTask{
 //	메소드	
 //	1. 입점 신청
 	public void entryJoin() throws IOException {
-		println("\n==================     입점신청     ==================");
+		println("\r\n==================     입점신청     ==================\r\n");
 		print("상호명 : ");			String ename = next();
 		print("지점명 : ");			String espot = next();
 		
@@ -61,8 +60,8 @@ public class EntryView extends DSTask{
 	public void entryList() throws IOException {
 		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
 		
-		println("\n==================     지점선택     ==================");
-		println("지점번호     상호명     지점명     입점상태" );
+		print("\r\n==================     지점선택     ==================\r\n");
+		print("지점번호     상호명     지점명     입점상태\r\n" );
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
 			if( entryDto.getMno() == Dao.getInstance().selectMno(getLoginId()) ) {
@@ -84,8 +83,8 @@ public class EntryView extends DSTask{
 			print("\n지점번호 선택 : "); 
 			int eno = nextInt();
 			while( true ) {
-				println("\n==================     메뉴 페이지     ==================");
-				print("\n1.메뉴등록 2.메뉴수정 3.메뉴삭제 4.뒤로가기 ");
+				print("\r\n==================     메뉴 페이지     ==================\r\n");
+				print("\r\n1.메뉴등록 2.메뉴수정 3.메뉴삭제 4.뒤로가기 ");
 				int choose = nextInt(1,4);
 				switch( choose ) {
 				case 1: 
@@ -110,7 +109,7 @@ public class EntryView extends DSTask{
 		ArrayList<EntryDto> result = EntryController.getInstance().menuList();
 		ArrayList<Integer> arr = new ArrayList<>();
 		
-		println("번호     카테고리     메뉴명     메뉴가격");
+		print("번호     카테고리     메뉴명     메뉴가격\r\n");
 		int count = 1;
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
@@ -138,21 +137,21 @@ public class EntryView extends DSTask{
 	
 //	6. 카테고리 리스트
 	public void cList() throws IOException{
-		println("\n==================     카테고리     ==================");
-		println("번호     카테고리명");
+		print("\r\n==================     카테고리     ==================\r\n");
+		print("번호     카테고리명\r\n");
 		
 		ArrayList<EntryDto> result = EntryController.getInstance().cList();
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
-				println(entryDto.getCno() + "     " );
-				println(entryDto.getCname() + "     " );
+				print(entryDto.getCno() + "     \r\n" );
+				print(entryDto.getCname() + "     \r\n" );
 		} // for end
 		
 	} // f end
 	
 //	7. 메뉴등록
 	public void write( int eno ) throws IOException {
-		println("\n==================     메뉴등록     ==================");
+		print("\r\n==================     메뉴등록     ==================\r\n");
 		cList();
 		print("카테고리 번호 : ");		int cno = nextInt();
 		print("메뉴명 : ");			String mename = next();
@@ -160,13 +159,13 @@ public class EntryView extends DSTask{
 		EntryDto entryDto = new EntryDto( mename , meprice , cno , eno );
 		
 		boolean result = EntryController.getInstance().write( entryDto );		
-		if( result ) { println("메뉴등록이 완료되었습니다."); } 
-		else { println("메뉴등록 실패"); } 
+		if( result ) { print("메뉴등록이 완료되었습니다.\r\n"); } 
+		else { print("메뉴등록 실패\r\n"); } 
 	} // f end
 	
 //	8. 메뉴수정
 	public void update( int eno ) throws IOException {
-		println("\n==================     메뉴수정     ==================");
+		print("\r\n==================     메뉴수정     ==================\r\n");
 		int meno = meno( eno );
 		cList();
 		print("카테고리 번호 : ");		int cno = nextInt();
@@ -174,27 +173,27 @@ public class EntryView extends DSTask{
 		print("메뉴 가격 : ");		int meprice = nextInt();
 		EntryDto entryDto = new EntryDto( mename , meprice , cno , eno );
 		
-		println("\n정말 수정하시겠습니까?");
+		print("\r\n정말 수정하시겠습니까?\r\n");
 		print("1. 예 2. 아니요 ");
 		int choose = nextInt();
 		if( choose == 2 ) { return; }
 		boolean result = EntryController.getInstance().update(meno , entryDto);
-		if( result ) { println("메뉴수정이 완료되었습니다."); } 
-		else { println("메뉴수정 실패"); }
+		if( result ) { print("메뉴수정이 완료되었습니다.\r\n"); } 
+		else { print("메뉴수정 실패\r\n"); }
 		
 	} // f end
 	
 //	9. 메뉴삭제
 	public void delete( int eno ) throws IOException {
-		println("\n==================     메뉴삭제     ==================");
+		print("\r\n==================     메뉴삭제     ==================\r\n");
 		int meno = meno( eno );
-		println("\n정말 삭제하시겠습니까?");
+		print("\r\n정말 삭제하시겠습니까?\r\n");
 		print("1. 예 2. 아니요 ");
 		int choose = nextInt();
 		if( choose == 2 ) { return; }
 		boolean result = EntryController.getInstance().delete(meno);
-		if( result ) { println("메뉴삭제가 완료되었습니다."); } 
-		else { println("메뉴삭제 실패"); }
+		if( result ) { print("메뉴삭제가 완료되었습니다.\r\n"); } 
+		else { print("메뉴삭제 실패\r\n"); }
 	} // f end
 	
 	
@@ -223,12 +222,12 @@ public class EntryView extends DSTask{
 			return null;
 		}
 
-		println("----- 검색된 주소 확인후 맞는 주소 번호 선택해주세요.");
+		print("----- 검색된 주소 확인후 맞는 주소 번호 선택해주세요.\r\n");
 		for (int i = 0; i < roadAddressList.size(); i++) {
-			println(String.format("(%d) 주소", i + 1));
-			println(String.format("우편번호: %s", roadAddressList.get(i).getZipCode()));
-			println(String.format("도로명 주소: %s", roadAddressList.get(i).getRoadAddress()));
-			println(String.format("지번 주소: %s", roadAddressList.get(i).getJibunAddress()));
+			print(String.format("(%d) 주소\r\n", i + 1));
+			print(String.format("우편번호: %s\r\n", roadAddressList.get(i).getZipCode()));
+			print(String.format("도로명 주소: %s\r\n", roadAddressList.get(i).getRoadAddress()));
+			print(String.format("지번 주소: %s\r\n", roadAddressList.get(i).getJibunAddress()));
 		}		
 
 		print(": ");
