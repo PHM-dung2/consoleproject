@@ -45,26 +45,8 @@ public class ManageView extends DSTask{
 			}
 		} // for end
 	} // f end
-//	
-////	2. 승인 입점목록
-//	public void entryList() throws IOException {
-//		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
-//		
-//		println("지점번호     상호명     지점명     입점상태" );
-//		for( int i = 0 ; i < result.size() ; i++ ) {
-//			EntryDto entryDto = result.get(i);
-//			if( entryDto.getEtype() == 1 ) {
-//				String eType = "승인";
-//				print(entryDto.getEno() + "     "); 
-//				print(entryDto.getEname() + "     ");
-//				print(entryDto.getEspot() + "     ");
-//				println(eType + "     ");
-//			}
-//		} // for end
-//		
-//	} // f end
 	
-//	3. 입점신청 목록 페이지
+//	2. 입점신청 목록 페이지
 	public void entry( int type ) throws IOException {
 		while(true) {
 			if( type == 0 ) {
@@ -89,27 +71,7 @@ public class ManageView extends DSTask{
 		
 	}// f end
 	
-////	4. 입점목록 페이지
-//	public void entry() throws IOException {
-//		while(true) {
-//			
-//			entryList( 1 );
-//			
-//			print("\r\n1.번호선택 2.뒤로가기 ");
-//			int choose = nextInt(1,2);
-//			
-//			switch( choose ) {
-//				case 1:
-//					entryChoice();
-//					break;
-//				default:
-//					return;
-//			} // s end
-//		} // w end
-//		
-//	}// f end
-	
-//	5. 입접신청목록 번호선택 페이지
+//	3. 입접신청목록 번호선택 페이지
 	public void entryChoice( int type ) throws IOException {
 		
 		while( true ) {
@@ -141,29 +103,7 @@ public class ManageView extends DSTask{
 		
 	} // f end
 	
-////	6. 입접목록 번호선택 페이지
-//	public void entryChoice() throws IOException {
-//		
-//		while( true ) {
-//			print("\n번호선택 : ");
-//			int eIndex = nextInt();
-//			print("\n1.입점수정 2.입점삭제 3.뒤로가기");
-//			int choose2 = nextInt(1,3);
-//			
-//			switch( choose2 ) {
-//			case 1:
-//				update( eIndex );
-//				break;
-//			case 2:
-//				delete( eIndex );
-//				break;	
-//			} // s end
-//			return;
-//		} // w end
-//		
-//	} // f end
-	
-//	7. 입점승인
+//	4. 입점승인
 	public void entryApproval( int eIndex ) throws IOException {
 		print("\n입점 승인하시겠습니까?\r\n");
 		print("1.예 2.아니오 ");
@@ -177,7 +117,7 @@ public class ManageView extends DSTask{
 		} // s end
 	} // f end
 	
-//	8. 입점거절
+//	5. 입점거절
 	public void entryRefusal( int eIndex ) throws IOException {
 		print("\n입점 거절하시겠습니까?\r\n");
 		print("1.예 2.아니오 ");
@@ -186,7 +126,7 @@ public class ManageView extends DSTask{
 		return;
 	} // f end
 	
-//	9. 입점 정보 수정
+//	6. 입점 정보 수정
 	public void update( int eIndex ) throws IOException {
 		print("\n==================     입점 정보 수정     ==================\r\n");
 		print("상호명 : ");			String ename = next();
@@ -211,7 +151,7 @@ public class ManageView extends DSTask{
 		else { print("입점 정보 수정 실패\r\n"); }
 	} // f end
 	
-//	10. 입정 정보 삭제
+//	7. 입정 정보 삭제
 	public void delete( int eIndex ) throws IOException {
 		print("\n==================     입점 정보 삭제     ==================\r\n");
 		print("\n입점 정보를 삭제하시겠습니까?\r\n");
@@ -227,7 +167,7 @@ public class ManageView extends DSTask{
 		return;
 	} // f end
 	
-//	11. 유효성검사
+//	8. 유효성검사
 	public boolean check( int eIndex , int type ) throws IOException {
 		if(	!ManageDao.getInstance().check( eIndex , type ) ) {
 			print("존재하지 않는 번호입니다.\r\n");
