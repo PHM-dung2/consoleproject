@@ -22,7 +22,7 @@ public class ManageView extends DSTask{
 	public void nonentryList() throws IOException {
 		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
 		
-		println("지점번호     상호명     지점명     입점상태" );
+		print("지점번호     상호명     지점명     입점상태\r\n" );
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
 			if( entryDto.getEtype() == 0 ) {
@@ -40,7 +40,7 @@ public class ManageView extends DSTask{
 	public void entryList() throws IOException {
 		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
 		
-		println("지점번호     상호명     지점명     입점상태" );
+		print("지점번호     상호명     지점명     입점상태\r\n" );
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
 			if( entryDto.getEtype() == 1 ) {
@@ -48,7 +48,7 @@ public class ManageView extends DSTask{
 				print(entryDto.getEno() + "     "); 
 				print(entryDto.getEname() + "     ");
 				print(entryDto.getEspot() + "     ");
-				println(eType + "     ");
+				print(eType + "     \r\n");
 			}
 		} // for end
 		
@@ -57,7 +57,7 @@ public class ManageView extends DSTask{
 //	3. 입점신청 목록 페이지
 	public void nonEntry() throws IOException {
 		while(true) {
-			println("\n==================     입점신청 목록     ==================");
+			print("\r\n==================     입점신청 목록     ==================\r\n");
 			nonentryList();
 			
 			print("\r\n1.번호선택 2.뒤로가기 ");
@@ -77,7 +77,7 @@ public class ManageView extends DSTask{
 //	4. 입점목록 페이지
 	public void entry() throws IOException {
 		while(true) {
-			println("\n==================     입점 목록     ==================");
+			print("\r\n==================     입점 목록     ==================\r\n");
 			entryList();
 			
 			print("\r\n1.번호선택 2.뒤로가기 ");
@@ -98,9 +98,9 @@ public class ManageView extends DSTask{
 	public void nonEntryChoice() throws IOException {
 		
 		while( true ) {
-			print("\n번호선택 : ");
+			print("\r\n번호선택 : ");
 			int eIndex = nextInt();
-			print("\n1.입점 승인 2.입점 거절 3.뒤로가기");
+			print("\r\n1.입점 승인 2.입점 거절 3.뒤로가기");
 			int choose = nextInt(1,3);
 			
 			switch( choose ) {
@@ -120,9 +120,9 @@ public class ManageView extends DSTask{
 	public void entryChoice() throws IOException {
 		
 		while( true ) {
-			print("\n번호선택 : ");
+			print("\r\n번호선택 : ");
 			int eIndex = nextInt();
-			print("\n1.입점수정 2.입점삭제 3.뒤로가기");
+			print("\r\n1.입점수정 2.입점삭제 3.뒤로가기");
 			int choose2 = nextInt(1,3);
 			
 			switch( choose2 ) {
@@ -140,21 +140,21 @@ public class ManageView extends DSTask{
 	
 //	7. 입점승인
 	public void entryApproval( int eIndex ) throws IOException {
-		println("\n입점 승인하시겠습니까?");
+		print("\r\n입점 승인하시겠습니까?");
 		print("1.예 2.아니오 ");
 		int choose = nextInt(1,2);
 		switch(choose) {
 			case 1:
 				boolean result = ManageController.getInstance().entryApproval(eIndex);
-				if( result ) { println("입점 승인되었습니다"); }
-				else { println("입점 승인 실패"); }
+				if( result ) { print("입점 승인되었습니다\r\n"); }
+				else { print("입점 승인 실패\r\n"); }
 				break;
 		} // s end
 	} // f end
 	
 //	8. 입점거절
 	public void entryRefusal( int eIndex ) throws IOException {
-		println("\n입점 거절하시겠습니까?");
+		print("\r\n입점 거절하시겠습니까?");
 		print("1.예 2.아니오 ");
 		nextInt(1,2);
 		
@@ -163,14 +163,14 @@ public class ManageView extends DSTask{
 	
 //	9. 입점 정보 수정
 	public void update( int eIndex ) throws IOException {
-		println("\n==================     입점 정보 수정     ==================");
+		print("\r\n==================     입점 정보 수정     ==================\r\n");
 		print("상호명 : ");			String ename = next();
 		print("지점명 : ");			String espot = next();
-		println("상태 변경을 하시겠습니까?");	
+		print("상태 변경을 하시겠습니까?\r\n");	
 		print("1.예 2.아니오");		int etype = nextInt();
 		if( etype == 1 ) { etype = 0; }
 		
-		println("\n입점 정보를 수정하시겠습니까?");
+		print("\r\n입점 정보를 수정하시겠습니까?\r\n");
 		print("1.예 2.아니오 ");
 		int choose = nextInt(1,2);
 		if( choose == 2 ) { return; }
@@ -182,21 +182,21 @@ public class ManageView extends DSTask{
 		entryDto.setEno(eIndex);
 		
 		boolean result = ManageController.getInstance().update(entryDto);
-		if(result) { println("입점 정보 수정이 완료되었습니다."); }
-		else { println("입점 정보 수정 실패"); }
+		if(result) { print("\r\n입점 정보 수정이 완료되었습니다.\r\n"); }
+		else { print("\r\n입점 정보 수정 실패\r\n"); }
 	} // f end
 	
 //	10. 입정 정보 삭제
 	public void delete( int eIndex ) throws IOException {
-		println("\n==================     입점 정보 삭제     ==================");
-		println("\n입점 정보를 삭제하시겠습니까?");
+		print("\r\n==================     입점 정보 삭제     ==================\r\n");
+		print("\r\n입점 정보를 삭제하시겠습니까?\r\n");
 		print("1.예 2.아니오 ");
 		int choose = nextInt(1,2);
 		switch(choose) {
 			case 1:
 				boolean result = ManageController.getInstance().delete(eIndex);
-				if( result ) { println("입점 정보가 삭제되었습니다"); }
-				else { println("입점 정보 삭제 실패"); }
+				if( result ) { print("\r\n입점 정보가 삭제되었습니다\r\n"); }
+				else { print("\r\n입점 정보 삭제 실패\r\n"); }
 				break;
 		} // s end
 		return;
