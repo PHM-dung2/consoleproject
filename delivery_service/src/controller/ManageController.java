@@ -23,7 +23,7 @@ public class ManageController {
 		return result;
 	} // f end
 	
-//	3. 입정 정보 삭제
+//	3. 입점 정보 삭제
 	public boolean delete( int eIndex ) {
 		boolean result = ManageDao.getInstance().delete(eIndex);
 		return result;
