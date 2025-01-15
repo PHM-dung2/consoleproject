@@ -57,18 +57,19 @@ public class ManageView extends DSTask{
 //	3. 입점신청 목록 페이지
 	public void nonEntry() throws IOException {
 		while(true) {
-		println("\n==================     입점신청 목록     ==================");
-		nonentryList();
-		
-		print("\r\n1.번호선택 2.뒤로가기 ");
-		int choose = nextInt(1,2);
-		
-		switch( choose ) {
-			case 1:
-				nonEntryChoice();
-				break;
-		} // s end
-		return;
+			println("\n==================     입점신청 목록     ==================");
+			nonentryList();
+			
+			print("\r\n1.번호선택 2.뒤로가기 ");
+			int choose = nextInt(1,2);
+			
+			switch( choose ) {
+				case 1:
+					nonEntryChoice();
+					break;
+				default:
+					return;
+			} // s end
 		} // w end
 		
 	}// f end
@@ -86,8 +87,9 @@ public class ManageView extends DSTask{
 				case 1:
 					entryChoice();
 					break;
+				default:
+					return;
 			} // s end
-			return;
 		} // w end
 		
 	}// f end
@@ -148,7 +150,6 @@ public class ManageView extends DSTask{
 				else { println("입점 승인 실패"); }
 				break;
 		} // s end
-		return;
 	} // f end
 	
 //	8. 입점거절
