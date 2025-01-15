@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import controller.CustomerController;
 import controller.MemberCommunicateController;
 import network.DSTask;
-import model.dao.Dao;
 import model.dto.MemberDto;
 import model.dto.ShopDto;
 import model.dto.ShopMenuDto;

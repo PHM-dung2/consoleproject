@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 
 import model.dao.Dao;
-import model.dto.MemberDto;
 import model.dto.ShopDto;
 import model.dto.ShopMenuDto;
 

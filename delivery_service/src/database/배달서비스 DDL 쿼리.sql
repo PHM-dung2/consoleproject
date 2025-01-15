@@ -5,21 +5,34 @@ use dssystem;
 # 1. 로그인 기능
 create table member (
 	mno int unsigned auto_increment ,
-    mid varchar(30) not null ,
-    mpwd varchar(30) not null ,
+    mid varchar(30) not null ,    
     mname varchar(30) not null ,
     mphone varchar(13) not null ,
     mtype tinyint not null ,
     constraint primary key(mno)
 );
 -- 로그인 샘플
-insert into member (mid, mpwd, mname, mphone, mtype) values ('admin', '1234', '유재석', '010-1111-1111', 1);
-insert into member (mid, mpwd, mname, mphone, mtype) values ('fran', '1234', '강호동', '010-2222-2222', 2);
-insert into member (mid, mpwd, mname, mphone, mtype) values ('fran1', '1234', '신동엽', '010-3333-3333', 2);
-insert into member (mid, mpwd, mname, mphone, mtype) values ('guest', '1234', '딘딘', '010-4444-4444', 3);
-insert into member (mid, mpwd, mname, mphone, mtype) values ('guest1', '1234', '조현영', '010-5555-5555', 3);
+insert into member (mid, mname, mphone, mtype) values ('admin', '유재석', '010-1111-1111', 1);
+insert into member (mid, mname, mphone, mtype) values ('fran', '강호동', '010-2222-2222', 2);
+insert into member (mid, mname, mphone, mtype) values ('fran1', '신동엽', '010-3333-3333', 2);
+insert into member (mid, mname, mphone, mtype) values ('guest', '딘딘', '010-4444-4444', 3);
+insert into member (mid, mname, mphone, mtype) values ('guest1', '조현영', '010-5555-5555', 3);
 
-# 2. 회원주소기능
+# 2. 회원비밀번호 암호화 기능
+create table memberpassword (
+	mpno int unsigned auto_increment ,
+    mppassword varchar(64) not null unique,   -- sha256 BASE64 인코딩 (패스워드와 다른값을 더하기 때문에 unique 속성이 적용된다. 즉 패스워드가 같더라도, 각각 다른값이 생성된다.)
+    mno int unsigned ,
+    constraint primary key(mpno) ,
+    constraint foreign key(mno) references member(mno) on update cascade on delete cascade
+);
+insert into memberpassword (mppassword, mno) values ('rJaJ4ickJwheNbnT4+i+2IyzQ0gotDuG/AWWytTG4nA=', 1); -- 암호화 되어있지만 비밀번호 1234 이다.
+insert into memberpassword (mppassword, mno) values ('99P6xip05DLBC7zGucHtdOtw/SAkFGiFPpH+Lodzk+w=', 2); -- 암호화 되어있지만 비밀번호 1234 이다.
+insert into memberpassword (mppassword, mno) values ('v6w0LNaN41NRXaOa3EjqTMPzO8rT2Z9NWPUSvRR22fg=', 3); -- 암호화 되어있지만 비밀번호 1234 이다.
+insert into memberpassword (mppassword, mno) values ('Z0xMcQYxllCv+/G451pQesxAW7rrTVaumCqwposszow=', 4); -- 암호화 되어있지만 비밀번호 1234 이다.
+insert into memberpassword (mppassword, mno) values ('UHQHL0ORa2Nhqx9wjGblNdc/fOuIJ1mYx11BvEKH5v0=', 5); -- 암호화 되어있지만 비밀번호 1234 이다.
+
+# 3. 회원주소기능
 create table memberaddress (
 	mano int unsigned auto_increment ,
     mazipcode varchar(100) not null ,
@@ -40,7 +53,7 @@ insert into memberaddress (mazipcode, maroad, mastreet, madetail, masi, masgg, m
 insert into memberaddress (mazipcode, maroad, mastreet, madetail, masi, masgg, mno) values ('08830', '서울특별시 관악구 참숯5길 7 (봉천동, e편한세상 서울대입구 3단지)', '서울특별시 관악구 봉천동 1730-2 e편한세상 서울대입구 3단지', '505호', '서울특별시', '관악구', 5);
 
 -- 부평구는 2번 가맹회원 독점, 관악구는 3번 가맹회원 독점
-# 3. 입점목록
+# 4. 입점목록
 create table entry(
 	eno int unsigned auto_increment,
     ename varchar(30) not null,
@@ -65,7 +78,7 @@ insert into entry (ename, espot, etype, mno ) value("버거킹", "신림미림�
 insert into entry (ename, espot, etype, mno ) value("BHC치킨", "신림신원점", 1, 3);
 insert into entry (ename, espot, etype, mno ) value("BHC치킨", "봉천중앙점", 1, 3);
 
-# 4. 입점주소
+# 5. 입점주소
 create table entryaddress (
 	eano int unsigned auto_increment ,
     eazipcode varchar(5) not null ,
@@ -91,7 +104,7 @@ insert into entryaddress (eazipcode, earoad, eastreet, eadetail, eno) values ('0
 insert into entryaddress (eazipcode, earoad, eastreet, eadetail, eno) values ('08774', '서울특별시 관악구 신원로3가길 14 (신림동)', '서울특별시 관악구 신림동 1606-12', '1층', 11);
 insert into entryaddress (eazipcode, earoad, eastreet, eadetail, eno) values ('08729', '서울특별시 관악구 은천로 143 (봉천동)', '서울특별시 관악구 봉천동 1719-1 관악동부센트레빌아파트', '상가 1층 102호', 12);
 
-# 5. 카테고리
+# 6. 카테고리
 create table category (
 	cno int unsigned auto_increment ,
     cname varchar(30) not null unique ,
@@ -102,7 +115,7 @@ insert into category (cname) values ('패스트푸드');
 insert into category (cname) values ('치킨');
 insert into category (cname) values ('고기/구이');
 
-# 6. 메뉴
+# 7. 메뉴
 create table menu (
 	meno int unsigned auto_increment ,
     mename varchar(30) not null ,
@@ -156,7 +169,7 @@ insert into menu (mename, meprice, cno, eno) values ('뿌링클치킨', 22000, 1
 insert into menu (mename, meprice, cno, eno) values ('맛초킹치킨', 21000, 1, 12);
 insert into menu (mename, meprice, cno, eno) values ('치퐁당후라이드치킨', 23000, 1, 12);
 
-# 7. 주문목록
+# 8. 주문목록
 create table orderlist (
 	ono int unsigned auto_increment ,
     odate datetime default now() ,
@@ -172,7 +185,7 @@ insert into orderlist (odate, mno) values ('2025-01-12 15:30:00', 5);
 insert into orderlist (odate, mno) values ('2025-01-12 16:30:00', 5);
 insert into orderlist (odate, mno) values ('2025-01-12 17:30:00', 5);
 
-# 8. 주문상세
+# 9. 주문상세
 create table orderdetail (
 	odno int unsigned auto_increment ,
     meno int unsigned ,
@@ -189,7 +202,7 @@ insert into orderdetail (meno, ono) values (7, 4);
 insert into orderdetail (meno, ono) values (8, 5);
 insert into orderdetail (meno, ono) values (16, 6);
 
-# 9. 기피목록
+# 10. 기피목록
 create table dodge (
 	dno int unsigned auto_increment ,
     eno int unsigned ,
@@ -198,19 +211,17 @@ create table dodge (
     constraint foreign key (eno) references entry (eno) on update cascade on delete cascade ,
     constraint foreign key (mno) references member (mno) on update cascade on delete cascade
 );
--- 기피목록 샘플 
-insert into dodge (eno, mno) values (1, 1);
-insert into dodge (eno, mno) values (1, 2);
-insert into dodge (eno, mno) values (2, 2);
+-- 기피목록 샘플은 넣지 않는다. putty 프로그램으로 접근해서 직접 추가하며 기능 확인.
 
-# 10. 별점목록
+# 11. 별점목록
 create table rating(
-	rno int unsigned auto_increment,
-    constraint primary key( rno ),
-    rrating int unsigned default 3,
-    mno int unsigned
+	rno int unsigned auto_increment ,
+    constraint primary key( rno ) ,
+    rrating int unsigned default 3 ,
+    mno int unsigned ,
+    constraint foreign key (mno) references member (mno) on update cascade on delete cascade
 );
 -- 별점목록 샘플
-insert into rating(rrating , mno) values(3 , 1);
-insert into rating(rrating , mno) values(4 , 2);
-insert into rating(rrating , mno) values(5 , 2);
+insert into rating(rrating , mno) values(3 , 4);
+insert into rating(rrating , mno) values(4 , 4);
+insert into rating(rrating , mno) values(5 , 5);

@@ -25,7 +25,7 @@ public class DSServer {
 
 		ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE); // 고정 크기 스레드풀 생성
 
-		try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+		try (ServerSocket serverSocket = new ServerSocket(PORT, 50, InetAddress.getByName("0.0.0.0"))) {
 			System.out.println("Delivery Service Server is running on port " + PORT);
 
 			while (true) {
