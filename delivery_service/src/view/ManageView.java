@@ -21,7 +21,8 @@ public class ManageView extends DSTask{
 	
 //	1. 입점목록 ( type = 0 (미승인) , type = 1 ( 승인 )
 	public void entryList( int type ) throws IOException {
-		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
+		ArrayList<EntryDto> result = 
+				EntryController.getInstance().enrtyList();
 		
 //      승인 상태 구분
 		String eType = null;
