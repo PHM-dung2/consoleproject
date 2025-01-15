@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.dto.EntryDto;
@@ -48,7 +49,20 @@ public class ManageDao extends Dao{
 			PreparedStatement ps = conn.prepareStatement(sql);
 				ps.setInt(1, eIndex);
 			int count = ps.executeUpdate();
-			if( count == 1) { return true; }
+			if( count == 1 ) { return true; }
+		}catch( SQLException e ) { System. out.println( e ); }
+		return false;
+	} // f end
+	
+//	4. 입점번호 유효성검사
+	public boolean check( int eIndex , int type ) {
+		try {
+			String sql = "select eno from entry where eno = ? and etype = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, eIndex);
+				ps.setInt(2, type);
+			ResultSet rs = ps.executeQuery();
+			if( rs.next() ) { return true; }
 		}catch( SQLException e ) { System.out.println( e ); }
 		return false;
 	} // f end

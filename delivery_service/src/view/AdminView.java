@@ -35,10 +35,10 @@ public class AdminView extends DSTask {
 			int choose = nextInt(1 , 3);
 			switch (choose) {
 				case 1:
-					new ManageView(clientSocket, reader, writer).nonEntry();
+					new ManageView(clientSocket, reader, writer).entry( 0 );
 					break;
 				case 2:
-					new ManageView(clientSocket, reader, writer).entry();
+					new ManageView(clientSocket, reader, writer).entry( 1 );
 					break;
 				default:
 					return;
