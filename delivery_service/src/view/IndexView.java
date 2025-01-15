@@ -17,7 +17,7 @@ public class IndexView extends DSTask {
 	public void index() throws IOException, InterruptedException {
 
 		while (true) {
-			println("\n==================     배달서비스 시스템     ==================");
+			print("\r\n==================     배달서비스 시스템     ==================\r\n");
 			print("1. 회원가입 2. 로그인 3. 종료 ");
 
 			int choose = nextInt(1, 3);
