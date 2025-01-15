@@ -40,8 +40,9 @@ public class AdminView extends DSTask {
 				case 2:
 					new ManageView(clientSocket, reader, writer).entry();
 					break;
+				default:
+					return;
 			} //s end
-			return;
 		}
 		
 	}// f end
