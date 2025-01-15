@@ -3,7 +3,6 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -37,7 +36,7 @@ public class EntryView extends DSTask{
 //	메소드	
 //	1. 입점 신청
 	public void entryJoin() throws IOException {
-		print("\r\n==================     입점신청     ==================\r\n");
+		println("\r\n==================     입점신청     ==================\r\n");
 		print("상호명 : ");			String ename = next();
 		print("지점명 : ");			String espot = next();
 		
@@ -61,8 +60,8 @@ public class EntryView extends DSTask{
 	public void entryList() throws IOException {
 		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
 		
-		println("\n==================     지점선택     ==================");
-		println("지점번호     상호명     지점명     입점상태" );
+		print("\r\n==================     지점선택     ==================\r\n");
+		print("지점번호     상호명     지점명     입점상태\r\n" );
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
 			if( entryDto.getMno() == Dao.getInstance().selectMno(getLoginId()) ) {
@@ -81,7 +80,7 @@ public class EntryView extends DSTask{
 //	3. 메뉴 등록 페이지
 	public void menuIndex() throws IOException {
 			entryList();
-			print("\r\n지점번호 선택 : \r\n"); 
+			print("\n지점번호 선택 : "); 
 			int eno = nextInt();
 			while( true ) {
 				print("\r\n==================     메뉴 페이지     ==================\r\n");
@@ -110,7 +109,7 @@ public class EntryView extends DSTask{
 		ArrayList<EntryDto> result = EntryController.getInstance().menuList();
 		ArrayList<Integer> arr = new ArrayList<>();
 		
-		println("번호     카테고리     메뉴명     메뉴가격");
+		print("번호     카테고리     메뉴명     메뉴가격\r\n");
 		int count = 1;
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
@@ -138,14 +137,14 @@ public class EntryView extends DSTask{
 	
 //	6. 카테고리 리스트
 	public void cList() throws IOException{
-		println("\n==================     카테고리     ==================");
-		println("번호     카테고리명");
+		print("\r\n==================     카테고리     ==================\r\n");
+		print("번호     카테고리명\r\n");
 		
 		ArrayList<EntryDto> result = EntryController.getInstance().cList();
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
-				println(entryDto.getCno() + "     " );
-				println(entryDto.getCname() + "     " );
+				print(entryDto.getCno() + "     \r\n" );
+				print(entryDto.getCname() + "     \r\n" );
 		} // for end
 		
 	} // f end
@@ -179,8 +178,8 @@ public class EntryView extends DSTask{
 		int choose = nextInt();
 		if( choose == 2 ) { return; }
 		boolean result = EntryController.getInstance().update(meno , entryDto);
-		if( result ) { print("\r\n메뉴수정이 완료되었습니다.\r\n"); } 
-		else { print("\r\n메뉴수정 실패\r\n"); }
+		if( result ) { print("메뉴수정이 완료되었습니다.\r\n"); } 
+		else { print("메뉴수정 실패\r\n"); }
 		
 	} // f end
 	
@@ -193,8 +192,8 @@ public class EntryView extends DSTask{
 		int choose = nextInt();
 		if( choose == 2 ) { return; }
 		boolean result = EntryController.getInstance().delete(meno);
-		if( result ) { print("\r\n메뉴삭제가 완료되었습니다.\r\n"); } 
-		else { print("\r\n메뉴삭제 실패\r\n"); }
+		if( result ) { print("메뉴삭제가 완료되었습니다.\r\n"); } 
+		else { print("메뉴삭제 실패\r\n"); }
 	} // f end
 	
 	
@@ -225,10 +224,10 @@ public class EntryView extends DSTask{
 
 		print("----- 검색된 주소 확인후 맞는 주소 번호 선택해주세요.\r\n");
 		for (int i = 0; i < roadAddressList.size(); i++) {
-			printf(String.format("(%d) 주소\r\n", i + 1));
-			printf(String.format("우편번호: %s\r\n", roadAddressList.get(i).getZipCode()));
-			printf(String.format("도로명 주소: %s\r\n", roadAddressList.get(i).getRoadAddress()));
-			printf(String.format("지번 주소: %s\r\n", roadAddressList.get(i).getJibunAddress()));
+			print(String.format("(%d) 주소\r\n", i + 1));
+			print(String.format("우편번호: %s\r\n", roadAddressList.get(i).getZipCode()));
+			print(String.format("도로명 주소: %s\r\n", roadAddressList.get(i).getRoadAddress()));
+			print(String.format("지번 주소: %s\r\n", roadAddressList.get(i).getJibunAddress()));
 		}		
 
 		print(": ");
@@ -236,6 +235,5 @@ public class EntryView extends DSTask{
 
 		// 선택한 도로명 주소 DTO 리턴
 		return roadAddressList.get(choose - 1); // ArrayList 인덱스는 0부터 시작하므로 choose 값에 -1 해준다.
-	}
-	
+	}	
 }
