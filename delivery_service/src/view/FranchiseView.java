@@ -121,13 +121,13 @@ public class FranchiseView extends DSTask {
 			int result = FranchiseController.getInstance().insertDodgeMember(dto);
 			switch (result) {
 				case 0:
-					printf("\r\n'%s' 가맹점에서 '%s' 회원에 대해 기피신청 완료되었습니다.", dto.getOrderEntryName(), dto.getOrderId());
+					printf("\r\n'%s' 가맹점에서 '%s' 회원에 대해 기피신청 완료되었습니다.\r\n", dto.getOrderEntryName(), dto.getOrderId());
 					break;
 				case 1:
 					print("\r\n** 기피신청 실패 **\r\n");
 					break;
 				case 2:
-					print("\r\n 이미 기피신청된 회원입니다.\r\n");					
+					print("\r\n이미 기피신청된 회원입니다.\r\n");					
 			}			
 			break;
 		case 3:
