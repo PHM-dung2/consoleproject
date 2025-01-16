@@ -40,7 +40,7 @@ public class FranchiseView extends DSTask {
 		// TODO: 가맹여부 포함한 환영메시지 구현
 		while (true) {
 			print("\r\n==================     입점회원 페이지     ==================\r\n");
-			print("1.입점신청 2.메뉴등록 3.주문콜대기 4.주문완료목록 5.로그아웃 ");
+			print("1.입점신청 2.메뉴등록 3.주문콜대기 4.주문완료목록 5.로그아웃 : ");
 			int choose = nextInt(1, 5);
 			switch (choose) {
 			case 1:
@@ -77,7 +77,7 @@ public class FranchiseView extends DSTask {
 		orderCompleteList.sort(Comparator.comparing(OrderCompleteDto::getOrderDate));
 
 		if (orderCompleteList.size() == 0) {
-			println("\r\n주문완료 목록이 없습니다.");
+			print("\r\n주문완료 목록이 없습니다.\r\n");
 			return;
 		}
 
