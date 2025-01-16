@@ -39,7 +39,7 @@ public class FranchiseView extends DSTask {
 	public void index() throws IOException {
 		// TODO: 가맹여부 포함한 환영메시지 구현
 		while (true) {
-			println("\n==================     입점회원 페이지     ==================");
+			print("\r\n==================     입점회원 페이지     ==================\r\n");
 			print("1.입점신청 2.메뉴등록 3.주문콜대기 4.주문완료목록 5.로그아웃 ");
 			int choose = nextInt(1, 5);
 			switch (choose) {
@@ -63,7 +63,7 @@ public class FranchiseView extends DSTask {
 	}
 
 	public void waitCall() throws IOException {
-		println("\r\n주문 대기중입니다... (q 입력시 메뉴로 돌아갑니다.)");
+		print("\r\n주문 대기중입니다... (q 입력시 메뉴로 돌아갑니다.)\r\n");
 		while (!(next().equals("q"))) {
 		}
 	}
@@ -81,8 +81,8 @@ public class FranchiseView extends DSTask {
 			return;
 		}
 
-		println("\r\n------------------      주문완료목록      ------------------");
-		println("번호 | 주문자 | 주문일 | 주문점 | 주문메뉴 | 주문가격");
+		print("\r\n------------------      주문완료목록      ------------------\r\n");
+		print("번호 | 주문자 | 주문일 | 주문점 | 주문메뉴 | 주문가격\r\n");
 		int i;
 		for (i = 0; i < orderCompleteList.size(); i++) {
 			// 날짜포맷변경
@@ -105,16 +105,16 @@ public class FranchiseView extends DSTask {
 		OrderCompleteDto dto = orderCompleteList.get(choose - 1); // 선택한 주문 정보
 
 		printf("\r\n'%s' 회원 별점주기 or 기피신청\r\n", dto.getOrderId());
-		println("1. 별점주기 2. 기피신청 3. 처음으로");
+		print("1. 별점주기 2. 기피신청 3. 처음으로\r\n");
 		print(": ");
 		switch (nextInt(1, 3)) {
 		case 1:
 			// 별점주기
 			print("별점(1 ~ 5): ");
 			if (FranchiseController.getInstance().insertStarPoint(nextInt(1, 5), dto)) {
-				println("\r\n별점주기 성공하였습니다.");
+				print("\r\n별점주기 성공하였습니다.\r\n");
 			} else {
-				println("\r\n** 별점주기 실패 **");
+				print("\r\n** 별점주기 실패 **\r\n");
 			}
 			break;
 		case 2:
@@ -124,10 +124,10 @@ public class FranchiseView extends DSTask {
 					printf("\r\n'%s' 가맹점에서 '%s' 회원에 대해 기피신청 완료되었습니다.", dto.getOrderEntryName(), dto.getOrderId());
 					break;
 				case 1:
-					println("\r\n** 기피신청 실패 **");
+					print("\r\n** 기피신청 실패 **\r\n");
 					break;
 				case 2:
-					println("\r\n 이미 기피신청된 회원입니다.");					
+					print("\r\n 이미 기피신청된 회원입니다.\r\n");					
 			}			
 			break;
 		case 3:

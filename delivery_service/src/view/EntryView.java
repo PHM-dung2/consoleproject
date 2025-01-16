@@ -235,6 +235,5 @@ public class EntryView extends DSTask{
 
 		// 선택한 도로명 주소 DTO 리턴
 		return roadAddressList.get(choose - 1); // ArrayList 인덱스는 0부터 시작하므로 choose 값에 -1 해준다.
-	}
-	
+	}	
 }
