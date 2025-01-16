@@ -25,8 +25,8 @@ public class MemberJoinView extends DSTask {
 	public void index() throws IOException, InterruptedException {
 		MemberJoinController memberJoinController = MemberJoinController.getInstance();
 
-		// TODO: 입력값 유효성 확인		
-		println("\r\n------------------      회원가입신청      ------------------");
+		// TODO: 입력값 유효성 확인
+		print("\r\n------------------      회원가입신청      ------------------\r\n");
 		print("ID: ");
 		String id = next();
 		while (memberJoinController.checkID(id)) {
@@ -39,7 +39,7 @@ public class MemberJoinView extends DSTask {
 		print("이름: ");
 		String name = next();
 		print("전화번호: ");
-		String telno = next();		
+		String telno = next();
 		print("도로명주소 검색: ");
 		RoadAddressDto roadAddress = choiceRoadAddress(next());
 		print("상세주소: ");
@@ -52,40 +52,41 @@ public class MemberJoinView extends DSTask {
 
 		// 컨트롤러 싱글턴 객체를 통해 DB 에 insert 한다. insert 성공하면 true 다.
 		if (MemberJoinController.getInstance().join(member)) {
-			println("\r\n가입 성공하였습니다!");
+			print("\r\n가입 성공하였습니다!\r\n");
 		} else {
-			println("\r\n** 가입 실패 **");
+			print("\r\n** 가입 실패 **\r\n");
 		}
 	}
-	
+
 	private RoadAddressDto choiceRoadAddress(String keyword) throws IOException {
 		RoadAddressDto roadAddress;
-		
+
 		roadAddress = choiceRoadAddressInter(keyword);
-		if (roadAddress != null) return roadAddress;
-		
+		if (roadAddress != null)
+			return roadAddress;
+
 		// 올바른 검색 주소 입력할때까지 무한 루프
-		while ( (roadAddress = choiceRoadAddressInter(next())) == null) {			
-		}		
-		
+		while ((roadAddress = choiceRoadAddressInter(next())) == null) {
+		}
+
 		return roadAddress;
 	}
 
 	private RoadAddressDto choiceRoadAddressInter(String keyword) throws IOException {
 		ArrayList<RoadAddressDto> roadAddressList = RoadAddressController.getInstance().getRoadAddress(keyword);
-		
+
 		if (roadAddressList.size() == 0) {
-			print("도로명 주소가 없습니다. 검색어를 다시 입력해주세요 : ");
+			print("\r\n도로명 주소가 없습니다. 검색어를 다시 입력해주세요 : ");
 			return null;
 		}
 
-		println("----- 검색된 주소 확인후 맞는 주소 번호 선택해주세요.");
+		print("\r\n----- 검색된 주소 확인후 맞는 주소 번호 선택해주세요.\r\n");
 		for (int i = 0; i < roadAddressList.size(); i++) {
-			println(String.format("(%d) 주소", i + 1));
-			println(String.format("우편번호: %s", roadAddressList.get(i).getZipCode()));
-			println(String.format("도로명 주소: %s", roadAddressList.get(i).getRoadAddress()));
-			println(String.format("지번 주소: %s\r\n", roadAddressList.get(i).getJibunAddress()));
-		}		
+			print(String.format("\r\n(%d)번 주소\r\n", i + 1));
+			print(String.format("우편번호: %s\r\n", roadAddressList.get(i).getZipCode()));
+			print(String.format("도로명 주소: %s\r\n", roadAddressList.get(i).getRoadAddress()));
+			print(String.format("지번 주소: %s\r\n", roadAddressList.get(i).getJibunAddress()));
+		}
 
 		print(": ");
 		int choose = nextInt(1, roadAddressList.size());

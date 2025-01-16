@@ -39,8 +39,7 @@ public class CustomerView extends DSTask {
 	public void index() throws IOException {
 		while (true) {
 			print("\r\n==================     일반회원 페이지     ==================\r\n");
-			print("1.배달음식검색 2.로그아웃\r\n");
-			print(": ");
+			print("1.배달음식검색 2.로그아웃 : ");			
 			int choose = nextInt(1, 3);
 
 			if (choose == 1) {
@@ -102,7 +101,7 @@ public class CustomerView extends DSTask {
 		}
 		printf("%d. 뒤로가기\r\n", ++i);
 
-		print("\r\n번호 선택: ");
+		print("\r\n번호 선택 : ");
 		int choose = nextInt(1, i);
 		if (choose == i) { // 뒤로가기 선택했으면
 			return null;
@@ -129,7 +128,7 @@ public class CustomerView extends DSTask {
 		}
 		printf("%d. 첫화면가기\r\n", ++i);
 
-		print("\r\n번호 선택: ");
+		print("\r\n번호 선택 : ");
 		int choose = nextInt(1, i);
 		if (choose == i) { // 첫화면가기 선택했으면
 			return null;

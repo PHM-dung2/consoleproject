@@ -41,7 +41,7 @@ public class LoginView extends DSTask {
 					return;
 				}
 
-				println("\r\n로그인 성공하였습니다.");
+				print("\r\n로그인 성공하였습니다.\r\n");
 				// 클라이언트 비정상 종료시 로그인 세션 제거를 위한
 				MemberCommunicateController.getInstance().addSockId(clientSocket, id);
 				// 통신 멤버 추가
@@ -58,10 +58,10 @@ public class LoginView extends DSTask {
 					return;
 				}
 			}
-			println("ID or Password 정보가 일치하지 않습니다. 다시 입력해주세요.");
+			print("ID or Password 정보가 일치하지 않습니다. 다시 입력해주세요.\r\n");
 		}
 
-		println("\r\n** 최대입력횟수(3회)를 초과하였습니다. 2초후 연결 종료합니다. **\r\n");
+		print("\r\n** 최대입력횟수(3회)를 초과하였습니다. 2초후 연결 종료합니다. **\r\n");
 		Thread.sleep(2000); // 2초간 메시지 보여주고 연결을 끊는다.
 		close(); // 로그인 되어 있지 않으므로 close() 로 처리한다.
 	}
