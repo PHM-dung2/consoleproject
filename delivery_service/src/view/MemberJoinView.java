@@ -82,10 +82,10 @@ public class MemberJoinView extends DSTask {
 
 		print("\r\n----- 검색된 주소 확인후 맞는 주소 번호 선택해주세요.\r\n");
 		for (int i = 0; i < roadAddressList.size(); i++) {
-			print(String.format("\r\n(%d)번 주소\r\n", i + 1));
+			print(String.format("(%d)번 주소\r\n", i + 1));
 			print(String.format("우편번호: %s\r\n", roadAddressList.get(i).getZipCode()));
 			print(String.format("도로명 주소: %s\r\n", roadAddressList.get(i).getRoadAddress()));
-			print(String.format("지번 주소: %s\r\n", roadAddressList.get(i).getJibunAddress()));
+			print(String.format("지번 주소: %s\r\n\r\n", roadAddressList.get(i).getJibunAddress()));
 		}
 
 		print(": ");
