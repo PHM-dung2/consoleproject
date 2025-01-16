@@ -26,25 +26,25 @@ public class MemberJoinView extends DSTask {
 		MemberJoinController memberJoinController = MemberJoinController.getInstance();
 
 		// TODO: 입력값 유효성 확인
-		print("\r\n------------------      회원가입신청      ------------------\r\n");
-		print("ID: ");
+		print("\r\n┌───────────────────────── 회원가입신청 ────────────────────────┐\r\n");
+		print("/r/nID : ");
 		String id = next();
 		while (memberJoinController.checkID(id)) {
-			println("중복 ID 입니다.");
-			print("ID: ");
+			println("/r/n중복 ID 입니다.");
+			print("/r/nID : ");
 			id = next();
 		}
-		print("Password: ");
+		print("Password : ");
 		String password = next();
-		print("이름: ");
+		print("이름 : ");
 		String name = next();
-		print("전화번호: ");
+		print("전화번호 : ");
 		String telno = next();
-		print("도로명주소 검색: ");
+		print("도로명주소 검색 : ");
 		RoadAddressDto roadAddress = choiceRoadAddress(next());
-		print("상세주소: ");
+		print("상세주소 : ");
 		roadAddress.setDetailAddress(next());
-		print("가입유형(1: 관리자, 2: 가맹회원, 3: 일반회원): ");
+		print("가입유형(1: 관리자, 2: 가맹회원, 3: 일반회원) : ");
 		int type = nextInt(1, 3);
 
 		// 입력받은 값들을 MemberDto 에 넣는다.

@@ -40,7 +40,7 @@ public class FranchiseView extends DSTask {
 		// TODO: 가맹여부 포함한 환영메시지 구현
 		while (true) {
 			print("\r\n┌──────────────────────── 입점회원 페이지 ──────────────────────┐\r\n");
-			print("\r\n1.입점신청 2.메뉴관리 3.주문콜대기 4.주문완료목록 5.로그아웃 ");
+			print("\r\n1.입점신청 2.메뉴관리 3.주문콜대기 4.주문완료목록 5.로그아웃 : ");
 			int choose = nextInt(1, 5);
 			switch (choose) {
 			case 1:
@@ -105,7 +105,7 @@ public class FranchiseView extends DSTask {
 		OrderCompleteDto dto = orderCompleteList.get(choose - 1); // 선택한 주문 정보
 
 		printf("\r\n'%s' 회원 별점주기 or 기피신청\r\n", dto.getOrderId());
-		print("/r/n1. 별점주기 2. 기피신청 3. 처음으로 ");
+		print("/r/n1. 별점주기 2. 기피신청 3. 처음으로 : ");
 		switch (nextInt(1, 3)) {
 		case 1:
 			// 별점주기

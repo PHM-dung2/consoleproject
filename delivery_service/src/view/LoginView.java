@@ -26,9 +26,9 @@ public class LoginView extends DSTask {
 		int retryCount = 3; // 로그인 재시도 최대 회수는 3회
 
 		for (int i = 0; i < retryCount; i++) {
-			print("ID: ");
+			print("/r/nID : ");
 			String id = next();
-			print("Password: ");
+			print("Password : ");
 			String password = next();
 			member = loginViewController.login(id, password);
 

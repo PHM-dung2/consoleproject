@@ -18,7 +18,7 @@ public class IndexView extends DSTask {
 
 		while (true) {
 			print("\r\n┌────────────────────── 배달서비스 시스템 ──────────────────────┐\r\n");
-			print("\r\n1. 회원가입 2. 로그인 3. 종료 ");
+			print("\r\n1. 회원가입 2. 로그인 3. 종료 : ");
 
 			int choose = nextInt(1, 3);
 			switch (choose) {

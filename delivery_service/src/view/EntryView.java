@@ -40,9 +40,9 @@ public class EntryView extends DSTask{
 		print("상호명 : ");			String ename = next();
 		print("지점명 : ");			String espot = next();
 		
-		print("도로명주소 검색: ");
+		print("도로명주소 검색 : ");
 		RoadAddressDto roadAddress = choiceRoadAddress(next());
-		print("상세주소: ");
+		print("상세주소 : ");
 		roadAddress.setDetailAddress(next());
 		
 		EntryDto entryDto = new EntryDto();
@@ -97,7 +97,7 @@ public class EntryView extends DSTask{
 			int eno = nextInt(1,arr.size());
 			while( true ) {
 				print("\r\n┌────────────────────────── 메뉴 페이지 ────────────────────────┐\r\n");
-				print("\r\n1.메뉴등록 2.메뉴목록 3.메뉴수정 4.메뉴삭제 5.뒤로가기 ");
+				print("\r\n1.메뉴등록 2.메뉴목록 3.메뉴수정 4.메뉴삭제 5.뒤로가기 : ");
 				int choose = nextInt(1,5);
 				switch( choose ) {
 				case 1: 

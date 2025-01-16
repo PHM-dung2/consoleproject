@@ -31,7 +31,7 @@ public class AdminView extends DSTask {
 	public void index() throws IOException {
 		while(true) {
 			print("\r\n┌───────────────────────── 관리자 페이지 ───────────────────────┐\r\n");
-			print("\r\n1.입점승인 목록 2.입점 목록 3.로그아웃 ");
+			print("\r\n1.입점승인 목록 2.입점 목록 3.로그아웃 : ");
 			int choose = nextInt(1 , 3);
 			switch (choose) {
 				case 1:
