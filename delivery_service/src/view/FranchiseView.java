@@ -63,7 +63,7 @@ public class FranchiseView extends DSTask {
 	}
 
 	public void waitCall() throws IOException {
-		print("\r\n주문 대기중입니다... (q 입력시 메뉴로 돌아갑니다.)");
+		print("\r\n주문 대기중입니다... (q 입력시 메뉴로 돌아갑니다.)\r\n");
 		while (!(next().equals("q"))) {
 		}
 	}
@@ -77,7 +77,7 @@ public class FranchiseView extends DSTask {
 		orderCompleteList.sort(Comparator.comparing(OrderCompleteDto::getOrderDate));
 
 		if (orderCompleteList.size() == 0) {
-			print("\r\n주문완료 목록이 없습니다.");
+			print("\r\n주문완료 목록이 없습니다.\r\n");
 			return;
 		}
 
@@ -111,22 +111,22 @@ public class FranchiseView extends DSTask {
 			// 별점주기
 			print("별점(1 ~ 5): ");
 			if (FranchiseController.getInstance().insertStarPoint(nextInt(1, 5), dto)) {
-				println("\r\n별점주기 성공하였습니다.");
+				print("\r\n별점주기 성공하였습니다.\r\n");
 			} else {
-				println("\r\n** 별점주기 실패 **");
+				print("\r\n** 별점주기 실패 **\r\n");
 			}
 			break;
 		case 2:
 			int result = FranchiseController.getInstance().insertDodgeMember(dto);
 			switch (result) {
 				case 0:
-					printf("\r\n'%s' 가맹점에서 '%s' 회원에 대해 기피신청 완료되었습니다.", dto.getOrderEntryName(), dto.getOrderId());
+					printf("\r\n'%s' 가맹점에서 '%s' 회원에 대해 기피신청 완료되었습니다.\r\n", dto.getOrderEntryName(), dto.getOrderId());
 					break;
 				case 1:
-					println("\r\n** 기피신청 실패 **");
+					print("\r\n** 기피신청 실패 **\r\n");
 					break;
 				case 2:
-					println("\r\n 이미 기피신청된 회원입니다.");					
+					print("\r\n이미 기피신청된 회원입니다.\r\n");					
 			}			
 			break;
 		case 3:

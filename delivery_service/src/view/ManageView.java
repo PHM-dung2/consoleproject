@@ -57,7 +57,7 @@ public class ManageView extends DSTask{
 			}
 			entryList( type );
 			
-			print("\r\n1.번호선택 2.뒤로가기 ");
+			print("\r\n1.번호선택 2.뒤로가기 : ");
 			int choose = nextInt(1,2);
 			
 			switch( choose ) {
@@ -83,9 +83,9 @@ public class ManageView extends DSTask{
 			if( check(eIndex, type) ) {	continue; }
 			
 			if( type == 0 ) {
-				print("\r\n1.입점 승인 2.입점 거절 3.뒤로가기");
+				print("\r\n1.입점 승인 2.입점 거절 3.뒤로가기 : ");
 			}else if( type == 1 ) {
-				print("\r\n1.입점수정 2.입점삭제 3.뒤로가기");
+				print("\r\n1.입점수정 2.입점삭제 3.뒤로가기 : ");
 			}
 			int choose = nextInt(1,3);
 			
@@ -107,7 +107,7 @@ public class ManageView extends DSTask{
 //	4. 입점승인
 	public void entryApproval( int eIndex ) throws IOException {
 		print("\r\n입점 승인하시겠습니까?\r\n");
-		print("1.예 2.아니오 ");
+		print("1.예 2.아니오 : ");
 		int choose = nextInt(1,2);
 		switch(choose) {
 			case 1:
@@ -121,7 +121,7 @@ public class ManageView extends DSTask{
 //	5. 입점거절
 	public void entryRefusal( int eIndex ) throws IOException {
 		print("\r\n입점 거절하시겠습니까?\r\n");
-		print("1.예 2.아니오 ");
+		print("1.예 2.아니오 : ");
 		nextInt(1,2);
 		
 		return;
@@ -133,11 +133,11 @@ public class ManageView extends DSTask{
 		print("상호명 : ");			String ename = next();
 		print("지점명 : ");			String espot = next();
 		print("상태 변경을 하시겠습니까?\r\n");	
-		print("1.예 2.아니오");		int etype = nextInt();
+		print("1.예 2.아니오 : ");		int etype = nextInt();
 		if( etype == 1 ) { etype = 0; }
 		
 		print("\r\n입점 정보를 수정하시겠습니까?\r\n");
-		print("1.예 2.아니오 ");
+		print("1.예 2.아니오 : ");
 		int choose = nextInt(1,2);
 		if( choose == 2 ) { return; }
 		
@@ -156,7 +156,7 @@ public class ManageView extends DSTask{
 	public void delete( int eIndex ) throws IOException {
 		print("\r\n==================     입점 정보 삭제     ==================\r\n");
 		print("\r\n입점 정보를 삭제하시겠습니까?\r\n");
-		print("1.예 2.아니오 ");
+		print("1.예 2.아니오 : ");
 		int choose = nextInt(1,2);
 		switch(choose) {
 			case 1:

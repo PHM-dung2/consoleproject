@@ -38,8 +38,8 @@ public class CustomerView extends DSTask {
 
 	public void index() throws IOException {
 		while (true) {
-			println("\n==================     일반회원 페이지     ==================");
-			println("1.배달음식검색 2.로그아웃");
+			print("\r\n==================     일반회원 페이지     ==================\r\n");
+			print("1.배달음식검색 2.로그아웃 : ");			
 			int choose = nextInt(1, 3);
 
 			if (choose == 1) {
@@ -94,14 +94,14 @@ public class CustomerView extends DSTask {
 		}		
 
 		// 메뉴 판매하는 가맹점 출력
-		println("\r\n번호 가맹점명 가맹점위치");
+		print("\r\n번호 | 가맹점명 | 가맹점위치\r\n");
 		int i;
 		for (i = 0; i < shopList.size(); i++) {
-			printf("%d. %s %s\r\n", i + 1, shopList.get(i).getEname(), shopList.get(i).getEspot());
+			printf("%d. | %s | %s\r\n", i + 1, shopList.get(i).getEname(), shopList.get(i).getEspot());
 		}
 		printf("%d. 뒤로가기\r\n", ++i);
 
-		print("\r\n번호 선택: ");
+		print("\r\n번호 선택 : ");
 		int choose = nextInt(1, i);
 		if (choose == i) { // 뒤로가기 선택했으면
 			return null;
@@ -116,19 +116,19 @@ public class CustomerView extends DSTask {
 		if (shopMenuList.size() == 0) {
 			// 사실 이 로직은 탈 수 없다. 위에서 가맹점 검색시 menu 테이블과 join 하여 확인하였기 때문이다.
 			// 다만 혹시 모르기 때문에 넣은 코드이다.
-			println("메뉴가 없습니다.");
+			print("메뉴가 없습니다.\r\n");
 			return null;
 		}		
 
 		// 해당 가맹점 메뉴 출력
-		println("\r\n번호 메뉴명 메뉴가격");
+		print("\r\n번호 | 메뉴명 | 메뉴가격\r\n");
 		int i;
 		for (i = 0; i < shopMenuList.size(); i++) {
-			printf("%d. %s %s\r\n", i + 1, shopMenuList.get(i).getMename(), shopMenuList.get(i).getMeprice());
+			printf("%d. | %s | %s\r\n", i + 1, shopMenuList.get(i).getMename(), shopMenuList.get(i).getMeprice());
 		}
 		printf("%d. 첫화면가기\r\n", ++i);
 
-		print("\r\n번호 선택: ");
+		print("\r\n번호 선택 : ");
 		int choose = nextInt(1, i);
 		if (choose == i) { // 첫화면가기 선택했으면
 			return null;
@@ -140,10 +140,10 @@ public class CustomerView extends DSTask {
 
 	private boolean orderMenu(ShopMenuDto shopMenuDto) throws IOException {
 		if (!CustomerController.getInstance().orderMenu(shopMenuDto, getLoginMno())) {
-			println("** 주문 실패 **");
+			print("** 주문 실패 **\r\n");
 			return false;
 		}
-		println("\r\n주문 완료되었습니다.");
+		print("\r\n주문 완료되었습니다.\r\n");
 		return true;
 	}
 }

@@ -74,7 +74,7 @@ insert into entry (ename, espot, etype, mno ) value("BHC치킨", "부평남부�
 insert into entry (ename, espot, etype, mno ) value("맥도날드", "신림점", 1, 3);
 insert into entry (ename, espot, etype, mno ) value("버거킹", "신림역점", 1, 3);
 insert into entry (ename, espot, etype, mno ) value("버거킹", "서울대입구역점", 1, 3);
-insert into entry (ename, espot, etype, mno ) value("버거킹", "신림미림여고입구점", 1, 3);
+insert into entry (ename, espot, etype, mno ) value("버거킹", "신림미림여고입구점", 0, 3);
 insert into entry (ename, espot, etype, mno ) value("BHC치킨", "신림신원점", 1, 3);
 insert into entry (ename, espot, etype, mno ) value("BHC치킨", "봉천중앙점", 1, 3);
 
