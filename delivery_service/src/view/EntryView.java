@@ -57,8 +57,9 @@ public class EntryView extends DSTask{
 	} // f end
 	
 //	2. 입점목록 리스트
-	public void entryList() throws IOException {
+	public ArrayList<EntryDto> entryList() throws IOException {
 		ArrayList<EntryDto> result = EntryController.getInstance().enrtyList();
+		ArrayList<EntryDto> arr = new ArrayList<>();
 		
 		print("\r\n==================     지점선택     ==================\r\n");
 		print("지점번호     상호명     지점명     입점상태\r\n" );
@@ -72,16 +73,18 @@ public class EntryView extends DSTask{
 				print(entryDto.getEname() + "     ");
 				print(entryDto.getEspot() + "     ");
 				print(eType + "     \r\n");
+				arr.add(entryDto);
 			}
 		} // for end
-		
+		return arr;
 	} // f end
 	
 //	3. 메뉴 등록 페이지
 	public void menuIndex() throws IOException {
-			entryList();
+			ArrayList<EntryDto> arr = entryList();
 			print("\r\n지점번호 선택 : "); 
-			int eno = nextInt();
+//			입력 유효성검사
+			int eno = nextInt(1,arr.size());
 			while( true ) {
 				print("\r\n==================     메뉴 페이지     ==================\r\n");
 				print("\r\n1.메뉴등록 2.메뉴수정 3.메뉴삭제 4.뒤로가기 ");
@@ -130,7 +133,7 @@ public class EntryView extends DSTask{
 	public int meno( int eno ) throws IOException{
 		ArrayList<Integer> arr = menuList(eno);
 		print("메뉴번호 선택 : "); 
-		int mIndex = nextInt();
+		int mIndex = nextInt(1 , arr.size());
 		int result = arr.get(mIndex-1);
 		return result;
 	} // f end
@@ -143,7 +146,7 @@ public class EntryView extends DSTask{
 		ArrayList<EntryDto> result = EntryController.getInstance().cList();
 		for( int i = 0 ; i < result.size() ; i++ ) {
 			EntryDto entryDto = result.get(i);
-				print(entryDto.getCno() + "     \r\n" );
+				print(entryDto.getCno() + "     " );
 				print(entryDto.getCname() + "     \r\n" );
 		} // for end
 		
@@ -175,7 +178,7 @@ public class EntryView extends DSTask{
 		
 		print("\r\n정말 수정하시겠습니까?\r\n");
 		print("1. 예 2. 아니요 ");
-		int choose = nextInt();
+		int choose = nextInt(1,2);
 		if( choose == 2 ) { return; }
 		boolean result = EntryController.getInstance().update(meno , entryDto);
 		if( result ) { print("메뉴수정이 완료되었습니다.\r\n"); } 
@@ -189,7 +192,7 @@ public class EntryView extends DSTask{
 		int meno = meno( eno );
 		print("\r\n정말 삭제하시겠습니까?\r\n");
 		print("1. 예 2. 아니요 ");
-		int choose = nextInt();
+		int choose = nextInt(1,2);
 		if( choose == 2 ) { return; }
 		boolean result = EntryController.getInstance().delete(meno);
 		if( result ) { print("메뉴삭제가 완료되었습니다.\r\n"); } 
