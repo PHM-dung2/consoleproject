@@ -37,8 +37,8 @@ public class EntryView extends DSTask{
 //	1. 입점 신청
 	public void entryJoin() throws IOException {
 		print("\r\n┌─────────────────────────── 입점신청 ──────────────────────────┐\r\n");
-		print("상호명 : ");			String ename = next();
-		print("지점명 : ");			String espot = next();
+		print("\r\n상호명 : ");			String ename = next();
+		print("지점명 : ");				String espot = next();
 		
 		print("도로명주소 검색 : ");
 		RoadAddressDto roadAddress = choiceRoadAddress(next());
@@ -89,12 +89,36 @@ public class EntryView extends DSTask{
 		return arr;
 	} // f end
 	
-//	3. 메뉴 등록 페이지
+//	3. 메뉴 관리 페이지
 	public void menuIndex() throws IOException {
 			ArrayList<EntryDto> arr = entryList();
 			print("\r\n지점번호 선택 : "); 
-//			입력 유효성검사
-			int eno = nextInt(1,arr.size());
+			int eno = nextInt();
+			
+//			배열 중 eno에 일치하는 index 찾기 
+			int aIndex = -1;
+			for( int i = 0 ; i < arr.size() ; i++ ) {
+				EntryDto entryDto = arr.get(i);
+				if( entryDto.getEno() == eno ) {
+					aIndex = i;
+				}
+			} // for end
+			
+//			입력 유효성 검사
+			if( aIndex == -1 ) {
+				print("\r\n잘못된 번호입니다.\r\n");
+				return;
+			}
+			if( arr.get(aIndex).getEno() != eno ) {
+				print("\r\n잘못된 번호입니다.\r\n");
+				return;
+			}
+//			승인 여부 검사
+			if( arr.get(aIndex).getEtype() == 0 ){
+				print("\r\n입점 승인 후에 메뉴 관리가 가능합니다.\r\n");
+				return;
+			}
+			
 			while( true ) {
 				print("\r\n┌────────────────────────── 메뉴 페이지 ────────────────────────┐\r\n");
 				print("\r\n1.메뉴등록 2.메뉴목록 3.메뉴수정 4.메뉴삭제 5.뒤로가기 : ");
