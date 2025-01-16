@@ -27,7 +27,7 @@ public class MemberJoinView extends DSTask {
 
 		// TODO: 입력값 유효성 확인
 		print("\r\n┌───────────────────────── 회원가입신청 ────────────────────────┐\r\n");
-		print("/r/nID : ");
+		print("\r\nID : ");
 		String id = next();
 		while (memberJoinController.checkID(id)) {
 			println("/r/n중복 ID 입니다.");
@@ -88,7 +88,7 @@ public class MemberJoinView extends DSTask {
 			print(String.format("지번 주소: %s\r\n\r\n", roadAddressList.get(i).getJibunAddress()));
 		}
 
-		print(": ");
+		print(" : ");
 		int choose = nextInt(1, roadAddressList.size());
 
 		// 선택한 도로명 주소 DTO 리턴
