@@ -38,8 +38,8 @@ public class CustomerView extends DSTask {
 
 	public void index() throws IOException {
 		while (true) {
-			print("\r\n==================     일반회원 페이지     ==================\r\n");
-			print("1.배달음식검색 2.로그아웃 : ");			
+			print("\r\n┌──────────────────────── 일반회원 페이지 ──────────────────────┐\r\n");
+			print("\r\n1.배달음식검색 2.로그아웃 : ");			
 			int choose = nextInt(1, 3);
 
 			if (choose == 1) {
@@ -70,16 +70,18 @@ public class CustomerView extends DSTask {
 		if (orderMenu(shopMenuDto)) {
 			String franId = CustomerController.getInstance().selectMid(shopMenuDto.getEno());			
 			if (franId != null) {
+				
 				MemberCommunicateController.getInstance().printf(franId,
-						"--------------------------------------------------\r\n" +
-						"| 주문 들어왔습니다!!\r\n" +
-						"| 주문자: %s\r\n" +
-						"| 주문점: %s\r\n" +
-						"| 주문메뉴: %s\r\n" +
-						"| 주문가격: %d\r\n" +
-						"--------------------------------------------------\r\n"
-						, getLoginId(), shopMenuDto.getEname(), shopMenuDto.getMename(),
-						shopMenuDto.getMeprice());
+						"\r\n┌──────────────────────────────────────────────────┐\r\n" +
+						"│ 주문 들어왔습니다!!                              │\r\n" +
+						"│ 주문자: %s" + "│\r\n" +
+						"│ 주문점: %s" + "│\r\n" +
+						"│ 주문메뉴: %s" + "│\r\n" +
+						"│ 주문가격: %s" + "│\r\n" +
+						"└──────────────────────────────────────────────────┘\r\n"
+						, a.convert(getLoginId(), 41) , a.convert(shopMenuDto.getEname(), 41) , 
+						a.convert(shopMenuDto.getMename(), 39), a.convert(shopMenuDto.getMeprice()+"", 39));
+				
 			}
 		}
 	}
@@ -94,11 +96,22 @@ public class CustomerView extends DSTask {
 		}		
 
 		// 메뉴 판매하는 가맹점 출력
-		print("\r\n번호 | 가맹점명 | 가맹점위치\r\n");
-		int i;
+		print("\r\n┌─────┬────────────────────┬────────────────────┐\r\n");
+		print("│" + a.convert("번호" , 5) + "│" + a.convert("지점명" , 20) +
+				"│" + a.convert("지점위치" , 20) + "│\r\n" );
+		int i;	int count = 0;
 		for (i = 0; i < shopList.size(); i++) {
-			printf("%d. | %s | %s\r\n", i + 1, shopList.get(i).getEname(), shopList.get(i).getEspot());
+			count++;
+			print("├─────┼────────────────────┼────────────────────┤\r\n");
+			print("│" + a.convert( (i+1)+"" , 5 ) ); 
+			print("│" + a.convert( shopList.get(i).getEname() , 20 ) );
+			print("│" + a.convert( shopList.get(i).getEspot() , 20 ) +  "│\r\n");
 		}
+		
+		if( shopList.size() == count ) {
+			print("└─────┴────────────────────┴────────────────────┘\r\n");
+		} // if end
+		
 		printf("%d. 뒤로가기\r\n", ++i);
 
 		print("\r\n번호 선택 : ");
@@ -121,13 +134,25 @@ public class CustomerView extends DSTask {
 		}		
 
 		// 해당 가맹점 메뉴 출력
-		print("\r\n번호 | 메뉴명 | 메뉴가격\r\n");
-		int i;
+		print("\r\n┌─────┬────────────────────┬────────────────────┐\r\n");
+		print("│" + a.convert("번호" , 5) + "│" + a.convert("메뉴명" , 20) +
+				"│" + a.convert("메뉴가격" , 20) + "│\r\n" );
+		
+		int i;	int count = 0;
 		for (i = 0; i < shopMenuList.size(); i++) {
-			printf("%d. | %s | %s\r\n", i + 1, shopMenuList.get(i).getMename(), shopMenuList.get(i).getMeprice());
+			count++;
+			print("├─────┼────────────────────┼────────────────────┤\r\n");
+			print("│" + a.convert( (i+1)+"" , 5 ) ); 
+			print("│" + a.convert( shopMenuList.get(i).getMename() , 20 ) );
+			print("│" + a.convert( shopMenuList.get(i).getMeprice()+"" , 20 ) +  "│\r\n");
 		}
-		printf("%d. 첫화면가기\r\n", ++i);
+		
+		if( shopMenuList.size() == count ) {
+			print("└─────┴────────────────────┴────────────────────┘\r\n");
+		} // if end
 
+		printf("%d. 첫화면가기\r\n", ++i);
+		
 		print("\r\n번호 선택 : ");
 		int choose = nextInt(1, i);
 		if (choose == i) { // 첫화면가기 선택했으면
