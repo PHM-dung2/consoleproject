@@ -46,7 +46,7 @@ public class DSTask implements Runnable {
 
 			choose = Integer.parseInt(line);
 		} catch (NumberFormatException e) {
-			println("올바른 값을 다시 입력해주세요.");
+			print("\r\n올바른 값을 다시 입력해주세요.\r\n");
 		}
 
 		return choose;
@@ -67,7 +67,7 @@ public class DSTask implements Runnable {
 				throw new NumberFormatException();
 			}
 		} catch (NumberFormatException e) {
-			println("올바른 값을 다시 입력해주세요.");
+			print("\r\n올바른 값을 다시 입력해주세요.\r\n");
 		}
 
 		return choose;

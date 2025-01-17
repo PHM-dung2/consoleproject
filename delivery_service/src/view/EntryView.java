@@ -218,16 +218,16 @@ public class EntryView extends DSTask{
 		ArrayList<RoadAddressDto> roadAddressList = RoadAddressController.getInstance().getRoadAddress(keyword);
 		
 		if (roadAddressList.size() == 0) {
-			print("도로명 주소가 없습니다. 검색어를 다시 입력해주세요 : ");
+			print("\r\n도로명 주소가 없습니다. 검색어를 다시 입력해주세요 : ");
 			return null;
 		}
 
-		print("----- 검색된 주소 확인후 맞는 주소 번호 선택해주세요.\r\n");
+		print("\r\n----- 검색된 주소 확인후 맞는 주소 번호 선택해주세요.\r\n");
 		for (int i = 0; i < roadAddressList.size(); i++) {
 			print(String.format("(%d) 주소\r\n", i + 1));
 			print(String.format("우편번호: %s\r\n", roadAddressList.get(i).getZipCode()));
 			print(String.format("도로명 주소: %s\r\n", roadAddressList.get(i).getRoadAddress()));
-			print(String.format("지번 주소: %s\r\n", roadAddressList.get(i).getJibunAddress()));
+			print(String.format("지번 주소: %s\r\n\r\n", roadAddressList.get(i).getJibunAddress()));
 		}		
 
 		print(": ");
