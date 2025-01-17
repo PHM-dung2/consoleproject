@@ -41,6 +41,7 @@ public class AdminView extends DSTask {
 					new ManageView(clientSocket, reader, writer).entry( 1 );
 					break;
 				default:
+					logout(getLoginId());
 					return;
 			} //s end
 		}
