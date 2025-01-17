@@ -12,11 +12,11 @@ create table member (
     constraint primary key(mno)
 );
 -- 로그인 샘플
-insert into member (mid, mname, mphone, mtype) values ('admin', '유재석', '010-1111-1111', 1);
-insert into member (mid, mname, mphone, mtype) values ('fran', '강호동', '010-2222-2222', 2);
-insert into member (mid, mname, mphone, mtype) values ('fran1', '신동엽', '010-3333-3333', 2);
-insert into member (mid, mname, mphone, mtype) values ('guest', '딘딘', '010-4444-4444', 3);
-insert into member (mid, mname, mphone, mtype) values ('guest1', '조현영', '010-5555-5555', 3);
+insert into member (mid, mname, mphone, mtype) values ('yuu', '유재석', '010-1111-1111', 1);
+insert into member (mid, mname, mphone, mtype) values ('kang', '강호동', '010-2222-2222', 2);
+insert into member (mid, mname, mphone, mtype) values ('shin', '신동엽', '010-3333-3333', 2);
+insert into member (mid, mname, mphone, mtype) values ('dindin', '딘딘', '010-4444-4444', 3);
+insert into member (mid, mname, mphone, mtype) values ('cho', '조현영', '010-5555-5555', 3);
 
 # 2. 회원비밀번호 암호화 기능
 create table memberpassword (
