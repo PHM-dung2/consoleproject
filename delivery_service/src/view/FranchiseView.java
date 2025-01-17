@@ -116,8 +116,8 @@ public class FranchiseView extends DSTask {
 		// 별점주기
 		OrderCompleteDto dto = orderCompleteList.get(choose - 1); // 선택한 주문 정보
 
-		printf("\r\n'%s' 회원 별점주기 or 기피신청\r\n", dto.getOrderId());
-		print("/r/n1. 별점주기 2. 기피신청 3. 처음으로 : ");
+		printf("\r\n'%s' 회원 별점주기 or 기피신청\r\n\r\n", dto.getOrderId());
+		print("1. 별점주기 2. 기피신청 3. 처음으로 : ");
 		switch (nextInt(1, 3)) {
 		case 1:
 			// 별점주기
