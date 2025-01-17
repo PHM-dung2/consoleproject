@@ -31,19 +31,28 @@ public class ManageView extends DSTask{
 		
 //		유효성 검사
 		if( result.size() == 0 ) { 
-			print("승인 대기중인 지점이 없습니다.\r\n");
+			
+			print("\r\n승인 대기중인 지점이 없습니다.\r\n");
 		} // if end
 		
+		print("│" + a.convert("지점번호" , 10) + "│" + a.convert("상호명" , 20) +
+				"│" + a.convert("지점명" , 20) + "│" + a.convert("입점상태" , 10) + "│\r\n" );
 		
-		print("지점번호     상호명     지점명     입점상태\r\n" );
+		int count = 0;
 		for( int i = 0 ; i < result.size() ; i++ ) {
-			EntryDto entryDto = result.get(i);
+			EntryDto entryDto = result.get(i);	count++;
 			if( entryDto.getEtype() == type ) {
-				print(entryDto.getEno() + "     "); 
-				print(entryDto.getEname() + "     ");
-				print(entryDto.getEspot() + "     ");
-				print(eType + "     \r\n");
+				print("├──────────┼────────────────────┼────────────────────┼──────────┤\r\n");
+				print("│" + a.convert( entryDto.getEno()+"" , 10 ) ); 
+				print("│" + a.convert( entryDto.getEname() , 20 ) );
+				print("│" + a.convert( entryDto.getEspot() , 20 ) );
+				print("│" + a.convert( eType+"" , 10 ) +  "│\r\n");
 			}
+			
+			if( result.size() == count ) {
+				print("└──────────┴────────────────────┴────────────────────┴──────────┘\r\n");
+			} // if end
+			
 		} // for end
 	} // f end
 	
@@ -51,9 +60,9 @@ public class ManageView extends DSTask{
 	public void entry( int type ) throws IOException {
 		while(true) {
 			if( type == 0 ) {
-				print("\r\n==================     입점신청 목록     ==================\r\n");
+				print("\r\n┌──────────┬───────────── 입점신청 목록 ─────────────┬──────────┐\r\n");
 			}else if( type == 1) {
-				print("\r\n==================     입점 목록     ==================\r\n");
+				print("\r\n┌──────────┬──────────────── 입점목록 ───────────────┬──────────┐\r\n");
 			}
 			entryList( type );
 			
@@ -112,8 +121,8 @@ public class ManageView extends DSTask{
 		switch(choose) {
 			case 1:
 				boolean result = ManageController.getInstance().entryApproval(eIndex);
-				if( result ) { print("입점 승인이 완료되었습니다.\r\n"); }
-				else { print("입점 승인 실패\r\n"); }
+				if( result ) { print("\r\n입점 승인이 완료되었습니다.\r\n"); }
+				else { print("\r\n입점 승인 실패\r\n"); }
 				break;
 		} // s end
 	} // f end
@@ -129,7 +138,7 @@ public class ManageView extends DSTask{
 	
 //	6. 입점 정보 수정
 	public void update( int eIndex ) throws IOException {
-		print("\r\n==================     입점 정보 수정     ==================\r\n");
+		print("\r\n┌──────────────────────── 임점 정보 수정 ───────────────────────┐\r\n");
 		print("상호명 : ");			String ename = next();
 		print("지점명 : ");			String espot = next();
 		print("상태 변경을 하시겠습니까?\r\n");	
@@ -148,21 +157,21 @@ public class ManageView extends DSTask{
 		entryDto.setEno(eIndex);
 		
 		boolean result = ManageController.getInstance().update(entryDto);
-		if(result) { print("입점 정보 수정이 완료되었습니다.\r\n"); }
-		else { print("입점 정보 수정 실패\r\n"); }
+		if(result) { print("\r\n입점 정보 수정이 완료되었습니다.\r\n"); }
+		else { print("\r\n입점 정보 수정 실패\r\n"); }
 	} // f end
 	
 //	7. 입정 정보 삭제
 	public void delete( int eIndex ) throws IOException {
-		print("\r\n==================     입점 정보 삭제     ==================\r\n");
+		print("\r\n┌──────────────────────── 임점 정보 삭제 ───────────────────────┐\r\n");
 		print("\r\n입점 정보를 삭제하시겠습니까?\r\n");
 		print("1.예 2.아니오 : ");
 		int choose = nextInt(1,2);
 		switch(choose) {
 			case 1:
 				boolean result = ManageController.getInstance().delete(eIndex);
-				if( result ) { print("입점 정보가 삭제되었습니다.\r\n"); }
-				else { print("입점 정보 삭제 실패\r\n"); }
+				if( result ) { print("\r\n입점 정보가 삭제되었습니다.\r\n"); }
+				else { print("\r\n입점 정보 삭제 실패\r\n"); }
 				break;
 		} // s end
 		return;
@@ -171,7 +180,7 @@ public class ManageView extends DSTask{
 //	8. 유효성검사
 	public boolean check( int eIndex , int type ) throws IOException {
 		if(	!ManageDao.getInstance().check( eIndex , type ) ) {
-			print("존재하지 않는 번호입니다.\r\n");
+			print("\r\n존재하지 않는 번호입니다.\r\n");
 			return true;
 		}
 		return false;

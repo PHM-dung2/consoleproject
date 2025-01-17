@@ -39,8 +39,8 @@ public class FranchiseView extends DSTask {
 	public void index() throws IOException {
 		// TODO: 가맹여부 포함한 환영메시지 구현
 		while (true) {
-			print("\r\n==================     입점회원 페이지     ==================\r\n");
-			print("1.입점신청 2.메뉴등록 3.주문콜대기 4.주문완료목록 5.로그아웃 : ");
+			print("\r\n┌──────────────────────── 입점회원 페이지 ──────────────────────┐\r\n");
+			print("\r\n1.입점신청 2.메뉴관리 3.주문콜대기 4.주문완료목록 5.로그아웃 : ");
 			int choose = nextInt(1, 5);
 			switch (choose) {
 			case 1:
@@ -80,20 +80,32 @@ public class FranchiseView extends DSTask {
 			print("\r\n주문완료 목록이 없습니다.\r\n");
 			return;
 		}
-
-		print("\r\n------------------      주문완료목록      ------------------\r\n");
-		print("번호 | 주문자 | 주문일 | 주문점 | 주문메뉴 | 주문가격\r\n");
-		int i;
+		
+		print("\r\n┌─────┬──────────┬────────────────────┬───── 주문 완료 목록 ─────────┬────────────────────┬──────────┐\r\n");
+		print("│" + a.convert("번호" , 5) + "│" + a.convert("주문ID" , 10) +
+				"│" + a.convert("주문일" , 20) + "│" + a.convert("지점명" , 30) + 
+				"│" + a.convert("주문메뉴" , 20) + "│" + a.convert("주문가격" , 10) + "│\r\n" );
+		int i;	int count = 0;
 		for (i = 0; i < orderCompleteList.size(); i++) {
 			// 날짜포맷변경
 			String orderDate = orderCompleteList.get(i).getOrderDate()
 					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
-			printf("%d. | %s | %s | %s | %s | %d\r\n", i + 1, orderCompleteList.get(i).getOrderId(), orderDate,
-					orderCompleteList.get(i).getOrderEntryName(), orderCompleteList.get(i).getOrderMenuName(),
-					orderCompleteList.get(i).getOrderMenuPrice());
+			
+			count++;
+			print("├─────┼──────────┼────────────────────┼──────────────────────────────┼────────────────────┼──────────┤\r\n");
+			print("│" + a.convert( (i+1)+"" , 5 ) ); 
+			print("│" + a.convert( orderCompleteList.get(i).getOrderId() , 10 ) );
+			print("│" + a.convert( orderDate , 20 ) );
+			print("│" + a.convert( orderCompleteList.get(i).getOrderEntryName() , 30 ) );
+			print("│" + a.convert( orderCompleteList.get(i).getOrderMenuName() , 20 ) );
+			print("│" + a.convert( orderCompleteList.get(i).getOrderMenuPrice()+"" , 10 ) +  "│\r\n");
 		}
-		printf("%d. 뒤로가기\r\n", ++i);
+		
+		if( orderCompleteList.size() == count ) {
+			print("└─────┴──────────┴────────────────────┴──────────────────────────────┴────────────────────┴──────────┘\r\n");
+		} // if end
+		
+		printf("\r\n%d. 뒤로가기\r\n", ++i);
 
 		print("\r\n번호 선택: ");
 		int choose = nextInt(1, i);
@@ -105,8 +117,7 @@ public class FranchiseView extends DSTask {
 		OrderCompleteDto dto = orderCompleteList.get(choose - 1); // 선택한 주문 정보
 
 		printf("\r\n'%s' 회원 별점주기 or 기피신청\r\n", dto.getOrderId());
-		print("1. 별점주기 2. 기피신청 3. 처음으로\r\n");
-		print(": ");
+		print("/r/n1. 별점주기 2. 기피신청 3. 처음으로 : ");
 		switch (nextInt(1, 3)) {
 		case 1:
 			// 별점주기
