@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import model.dto.DodgeDto;
@@ -275,14 +274,6 @@ public class Dao {
 				return false;
 			}
 
-			// private String orderId; // 주문자 아이디
-//			private LocalDateTime orderDate; // 주문날짜
-//			private String orderMenuName; // 주문메뉴명
-//			private int orderMenuPrice; // 주문메뉴가격
-//			private int orderMno; // 주문자 회원번호 (기피신청/별점기능 구현시 사용)
-//			private int orderEno; // 주문 가게번호 (기피신청기능 구현시 사용)
-//			public String orderEntryName; // 주문 가게명			
-			
 			// 트랜잭션 수동 커밋
 			conn.commit();
 		} catch (SQLException e) {
