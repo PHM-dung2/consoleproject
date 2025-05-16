@@ -1,0 +1,6 @@
+# pack-refs with: peeled fully-peeled sorted 
+c84e43295ab89b3c9b78dd606db0e844a1da43fb refs/heads/devcube2
+9f8cc42c91e25424ddc4a2a492bfcb93a2d52bfd refs/heads/magnoria
+4382fbef212c53ab3edfb84ccf87468aceda3fb3 refs/heads/main
+53c0bf2068debb2839fc6120e873b10c3ce07518 refs/heads/parkheeman
+9e2797e760620201050a876169ba434e5f9970fe refs/heads/test
